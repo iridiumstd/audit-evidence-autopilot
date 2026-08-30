@@ -1,0 +1,381 @@
+# params/cacau.yml
+# Parametros da commodity. Trocar de commodity = trocar este arquivo,
+# sem tocar em codigo nenhum.
+#
+# Fonte: TAXONOMIA.md secoes 2, 3 e 4. Os nomes canonicos sao fixos - sao o
+# contrato entre a Trilha A (que grava documento.tipo) e a Trilha B (que
+# procura por tipo). Palavras-chave e validade_dias sao PROPOSTA A VALIDAR
+# (pendencias T-01 e T-02 da TAXONOMIA.md), nao parecer juridico.
+
+commodity: cacau
+regiao_padrao: transamazonica
+municipios_recorte: [Medicilandia, Altamira, Uruara, Brasil Novo]
+uf_recorte: PA
+
+# --------------------------------------------------------------------------
+# Checagem 06 - coerencia de volume. Ver pendencia P-01 do ADR.md.
+# --------------------------------------------------------------------------
+produtividade_kg_ha:
+  PA: 900                     # a confirmar
+  BA: 270                     # a confirmar
+  limiar_excecao: 1.5         # acima de 150% do esperado -> excecao
+  limiar_bloqueio: 3.0        # acima de 300% do esperado -> bloqueio
+
+# --------------------------------------------------------------------------
+# Regra R39 - soma das notas do produtor contra area x produtividade maxima
+# regional. DESLIGADA de proposito.
+#
+# Regra de ouro no 8 do contrato.md: nenhum numero inventado vira parametro.
+# A taxonomia registra que a produtividade MAXIMA regional nao foi levantada
+# em fonte citavel, entao o parametro fica VAZIO (null) e a regra fica com
+# ativa: false. Inventar um teto que a banca possa contestar custa mais caro
+# que deixar a regra desligada.
+#
+# Para ligar: levantar a fonte (CEPLAC/IBGE PAM por municipio do recorte),
+# preencher produtividade_maxima_kg_ha e so entao virar ativa: true.
+#
+# ATENCAO: isto NAO substitui produtividade_kg_ha acima, que e a produtividade
+# ESPERADA usada pela checagem 06 e continua valendo como esta.
+# --------------------------------------------------------------------------
+r39_produtividade_maxima:
+  ativa: false                          # regra desligada enquanto o parametro estiver vazio
+  produtividade_maxima_kg_ha:
+    PA: null                            # nao levantado - ver regra de ouro no 8
+    BA: null                            # nao levantado - ver regra de ouro no 8
+  fonte: null                           # preencher junto com o numero
+  observacao: "Parametro nao levantado. R39 permanece desligada (correcoes-spec_1.md secao 04)."
+
+# --------------------------------------------------------------------------
+# Checagem 02 - embargo do Ibama
+# --------------------------------------------------------------------------
+embargo:
+  distancia_excecao_m: 500    # limitrofe: intersecao nao, mas perto demais
+
+# --------------------------------------------------------------------------
+# Checagem 01 - desmate pos-2020 (perna A)
+# --------------------------------------------------------------------------
+desmatamento:
+  data_corte: "2020-12-31"
+
+# --------------------------------------------------------------------------
+# Confianca da ingestao
+# --------------------------------------------------------------------------
+confianca:
+  limiar_ilegivel: 0.4
+
+# --------------------------------------------------------------------------
+# Tipos de documento - nome canonico, palavras-chave, campos, validade
+# categoria = categoria EUDR da perna B
+# validade_dias: null = documento sem validade
+# --------------------------------------------------------------------------
+tipos:
+
+  # --- Categoria 1 - direitos de uso da terra ---
+  matricula_imovel:
+    nome: "Matricula do imovel"
+    categoria: 1
+    palavras_chave: ["matricula", "cartorio", "registro de imoveis", "livro n"]
+    campos: [numero_matricula, cartorio, municipio, proprietario, area_ha]
+    validade_dias: null
+    regras: [R4]
+  ccir:
+    nome: "CCIR (INCRA)"
+    categoria: 1
+    palavras_chave: ["CCIR", "certificado de cadastro de imovel rural", "INCRA"]
+    campos: [codigo_imovel, titular, area_total_ha, municipio]
+    validade_dias: 365         # exercicio anual - a confirmar
+    regras: [R2]
+  itr:
+    nome: "ITR / recibo da DITR"
+    categoria: 1
+    palavras_chave: ["ITR", "imposto territorial rural", "DITR", "NIRF"]
+    campos: [nirf, exercicio, titular, area_ha]
+    validade_dias: 365         # a confirmar
+    regras: []
+  sigef:
+    nome: "Certificacao SIGEF"
+    categoria: 1
+    palavras_chave: ["SIGEF", "georreferenciamento", "memorial descritivo"]
+    campos: [codigo_parcela, area_ha, titular]
+    validade_dias: null
+    regras: [R2]
+  contrato_arrendamento:
+    nome: "Arrendamento, parceria ou comodato"
+    categoria: 1
+    palavras_chave: ["arrendamento", "parceria agricola", "comodato", "arrendatario"]
+    campos: [arrendador, arrendatario, vigencia_inicio, vigencia_fim, area_ha]
+    validade_dias: 730         # vigencia tipica do contrato - a confirmar
+    regras: [R5]
+  titulo_assentamento:
+    nome: "Titulo, CDRU ou CCU"
+    categoria: 1
+    palavras_chave: ["CDRU", "CCU", "assentamento", "titulo de dominio", "lote n"]
+    campos: [numero_lote, projeto_assentamento, beneficiario]
+    validade_dias: null
+    regras: []
+  declaracao_posse:
+    nome: "Declaracao de posse"
+    categoria: 1
+    palavras_chave: ["declaracao de posse", "posseiro", "ocupacao mansa e pacifica"]
+    campos: [declarante, area_ha, municipio, testemunhas]
+    validade_dias: 365         # a confirmar
+    regras: []
+
+  # --- Categoria 2 - protecao ambiental ---
+  car_recibo:
+    nome: "Recibo de inscricao no CAR"
+    categoria: 2
+    palavras_chave: ["CAR", "cadastro ambiental rural", "recibo de inscricao", "PA-"]
+    campos: [numero_car, cpf_titular, municipio, area_ha, data_emissao]
+    validade_dias: null
+    regras: [R1, R2, R4]
+  car_demonstrativo:
+    nome: "Demonstrativo do CAR"
+    categoria: 2
+    palavras_chave: ["demonstrativo", "situacao do cadastro", "SICAR"]
+    campos: [numero_car, situacao, area_app_ha, reserva_legal_ha]
+    validade_dias: 365         # a confirmar
+    regras: [R2]
+  licenca_ambiental:
+    nome: "Licenca ambiental estadual"
+    categoria: 2
+    palavras_chave: ["licenca de operacao", "SEMAS", "LO n", "LP n", "LI n"]
+    campos: [numero, orgao, data_validade, empreendimento]
+    validade_dias: 1095
+    regras: [R3]
+  outorga_agua:
+    nome: "Outorga de uso de agua"
+    categoria: 2
+    palavras_chave: ["outorga", "recurso hidrico", "captacao"]
+    campos: [numero, data_validade, vazao]
+    validade_dias: 1825
+    regras: [R3]
+  asv:
+    nome: "Autorizacao de supressao de vegetacao"
+    categoria: 2
+    palavras_chave: ["ASV", "supressao de vegetacao", "autorizacao de desmate"]
+    campos: [numero, area_autorizada_ha, data_validade]
+    validade_dias: 730
+    regras: [R3]
+  adesao_pra:
+    nome: "Adesao ao PRA"
+    categoria: 2
+    palavras_chave: ["PRA", "programa de regularizacao ambiental", "termo de compromisso"]
+    campos: [numero, data_adesao, situacao]
+    validade_dias: null        # a confirmar
+    regras: []
+  auto_infracao:
+    nome: "Auto de infracao / termo de embargo"
+    categoria: 2
+    palavras_chave: ["auto de infracao", "embargo", "Ibama", "termo de embargo"]
+    campos: [numero_termo, data, area_embargada_ha]
+    validade_dias: null
+    regras: []
+
+  # --- Categoria 3 - regulacao florestal (anexo indexado, nao automatizado) ---
+  dof:
+    nome: "DOF / SINAFLOR"
+    categoria: 3
+    palavras_chave: ["DOF", "documento de origem florestal", "SINAFLOR"]
+    campos: [numero, produto, origem, destino, data_validade]
+    validade_dias: 30
+    regras: []
+  pmfs:
+    nome: "PMFS e autorizacao"
+    categoria: 3
+    palavras_chave: ["PMFS", "plano de manejo florestal sustentavel"]
+    campos: [numero, area_ha, data_validade]
+    validade_dias: 365
+    regras: []
+  manejo_cabruca:
+    nome: "Autorizacao de manejo de cabruca"
+    categoria: 3
+    palavras_chave: ["cabruca", "manejo", "cacau cabruca"]
+    campos: [numero, area_ha, data_validade]
+    validade_dias: 730
+    regras: []
+
+  # --- Categorias 4 e 7 - direitos de terceiros e consentimento previo ---
+  certidao_acoes_reais:
+    nome: "Certidao de acoes reais e possessorias"
+    categoria: 4
+    palavras_chave: ["acoes reais", "possessorias", "certidao", "distribuidor"]
+    campos: [numero, comarca, resultado, data_emissao]
+    validade_dias: 90          # a confirmar
+    regras: [R3]
+  protocolo_consulta:
+    nome: "Protocolo de consulta da comunidade"
+    categoria: 7
+    palavras_chave: ["protocolo de consulta", "comunidade", "consulta previa"]
+    campos: [comunidade, data]
+    validade_dias: null
+    regras: []
+  ata_consulta_previa:
+    nome: "Ata de consulta previa"
+    categoria: 7
+    palavras_chave: ["ata", "consulta livre previa e informada", "FPIC"]
+    campos: [data, participantes, deliberacao]
+    validade_dias: null
+    regras: []
+  acordo_reparticao:
+    nome: "Acordo de reparticao de beneficios"
+    categoria: 7
+    palavras_chave: ["reparticao de beneficios", "acordo"]
+    campos: [partes, vigencia_inicio, vigencia_fim]
+    validade_dias: 730
+    regras: []
+
+  # --- Categoria 5 - direitos trabalhistas ---
+  cndt:
+    nome: "Certidao negativa de debitos trabalhistas"
+    categoria: 5
+    palavras_chave: ["CNDT", "debitos trabalhistas", "TST"]
+    campos: [numero, data_emissao, data_validade, resultado]
+    validade_dias: 180         # a confirmar
+    regras: [R3]
+  crf_fgts:
+    nome: "CRF do FGTS"
+    categoria: 5
+    palavras_chave: ["CRF", "FGTS", "regularidade", "Caixa"]
+    campos: [numero, data_validade, resultado]
+    validade_dias: 30          # a confirmar
+    regras: [R3]
+  registro_empregados:
+    nome: "Registro de empregados / eSocial"
+    categoria: 5
+    palavras_chave: ["eSocial", "registro de empregados", "CTPS"]
+    campos: [empregador, quantidade]
+    validade_dias: 365         # a confirmar
+    regras: []
+  contrato_trabalho:
+    nome: "Contrato de trabalho ou de safrista"
+    categoria: 5
+    palavras_chave: ["contrato de trabalho", "safrista", "safra"]
+    campos: [empregado, vigencia_inicio, vigencia_fim]
+    validade_dias: 365
+    regras: []
+  nr31:
+    nome: "Conformidade com a NR-31"
+    categoria: 5
+    palavras_chave: ["NR-31", "seguranca rural", "SESMT"]
+    campos: [data, responsavel]
+    validade_dias: 365         # a confirmar
+    regras: []
+  decl_trabalho_infantil:
+    nome: "Declaracao de ausencia de trabalho infantil"
+    categoria: 5
+    palavras_chave: ["trabalho infantil", "declaracao", "menor de idade"]
+    campos: [declarante, data]
+    validade_dias: 365         # a confirmar
+    regras: []
+
+  # --- Categoria 6 - direitos humanos ---
+  politica_direitos_humanos:
+    nome: "Politica de direitos humanos do fornecedor"
+    categoria: 6
+    palavras_chave: ["politica", "direitos humanos", "codigo de conduta"]
+    campos: [emissor, data]
+    validade_dias: null        # a confirmar
+    regras: []
+  consulta_acp:
+    nome: "Consulta a acoes civis publicas"
+    categoria: 6
+    palavras_chave: ["acao civil publica", "ACP", "MPF"]
+    campos: [numero, resultado, data]
+    validade_dias: 90          # a confirmar
+    regras: []
+
+  # --- Categoria 8 - tributario, comercial e aduaneiro ---
+  nota_fiscal_produtor:
+    nome: "Nota fiscal de produtor rural"
+    categoria: 8
+    palavras_chave: ["nota fiscal", "produtor rural", "NFP-e", "natureza da operacao"]
+    campos: [numero, serie, cpf_emitente, data_emissao, quantidade_kg, valor]
+    validade_dias: null
+    multiplo_esperado: true    # uma por entrega: nao dispara R7 sozinho
+    regras: [R1, R7]
+  inscricao_estadual:
+    nome: "Inscricao estadual / situacao cadastral"
+    categoria: 8
+    palavras_chave: ["inscricao estadual", "SEFAZ", "situacao cadastral"]
+    campos: [numero, situacao, titular]
+    validade_dias: 365         # a confirmar
+    regras: []
+  cnd_federal:
+    nome: "CND federal"
+    categoria: 8
+    palavras_chave: ["certidao negativa", "debitos federais", "Receita Federal"]
+    campos: [numero, data_validade, resultado]
+    validade_dias: 180         # a confirmar
+    regras: [R3]
+  cnd_estadual:
+    nome: "CND estadual"
+    categoria: 8
+    palavras_chave: ["certidao negativa", "SEFAZ", "debitos estaduais"]
+    campos: [numero, data_validade, resultado]
+    validade_dias: 90          # a confirmar
+    regras: [R3]
+  cnd_municipal:
+    nome: "CND municipal"
+    categoria: 8
+    palavras_chave: ["certidao negativa", "prefeitura", "tributos municipais"]
+    campos: [numero, data_validade, resultado]
+    validade_dias: 90          # a confirmar
+    regras: [R3]
+  funrural_senar:
+    nome: "FUNRURAL e SENAR"
+    categoria: 8
+    palavras_chave: ["FUNRURAL", "SENAR", "contribuicao"]
+    campos: [competencia, valor]
+    validade_dias: 365         # a confirmar
+    regras: []
+  radar_siscomex:
+    nome: "Habilitacao RADAR/Siscomex"
+    categoria: 8
+    palavras_chave: ["RADAR", "Siscomex", "habilitacao", "modalidade"]
+    campos: [numero, modalidade, situacao]
+    validade_dias: 365         # a confirmar
+    regras: []
+  due_embarque:
+    nome: "DU-E e documentos de embarque"
+    categoria: 8
+    palavras_chave: ["DU-E", "declaracao unica de exportacao", "conhecimento de embarque", "conteiner"]
+    campos: [numero, data, conteiner, destino]
+    validade_dias: null
+    multiplo_esperado: true
+    regras: []
+  consulta_ceis_cnep:
+    nome: "Consulta CEIS e CNEP"
+    categoria: 8
+    palavras_chave: ["CEIS", "CNEP", "portal da transparencia", "inidoneo"]
+    campos: [resultado, data]
+    validade_dias: 90          # a confirmar
+    regras: []
+
+  # --- tipos especiais ---
+  desconhecido:
+    nome: "Tipo nao reconhecido"
+    categoria: null
+    palavras_chave: []
+    campos: []
+    validade_dias: null
+    regras: []
+  nao_documento:
+    nome: "Nao e documento (foto, imagem sem texto util)"
+    categoria: null
+    palavras_chave: []
+    campos: []
+    validade_dias: null
+    regras: []
+
+# --------------------------------------------------------------------------
+# Conjunto minimo - o que torna um produtor apto a entrar num lote.
+# Alimenta a regra R6 da checagem 05 e o mapa de lacunas da ingestao.
+# Pendencia T-03: fechar com a cooperativa.
+# --------------------------------------------------------------------------
+conjunto_minimo:
+  obrigatorios: [car_recibo, car_demonstrativo, ccir, nota_fiscal_produtor]
+  um_de:
+    - [matricula_imovel, titulo_assentamento, declaracao_posse]
+  condicionais:
+    contrato_arrendamento: "quando a area for arrendada"

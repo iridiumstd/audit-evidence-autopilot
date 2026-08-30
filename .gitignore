@@ -1,0 +1,13 @@
+# CSVs brutos do Ibama: 170 MB, baixados por ferramentas/baixar_ibama.py.
+# O recorte da Transamazonica (poucos MB) VAI para o git.
+dados/bases/bruto/
+
+__pycache__/
+*.pyc
+.streamlit/
+
+# artefatos de sessao/ferramentas
+blocos.json
+roteiro.json
+.playwright-mcp/
+dados/vigilancia_estado.json

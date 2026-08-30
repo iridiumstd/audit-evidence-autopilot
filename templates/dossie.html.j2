@@ -1,0 +1,518 @@
+{#- templates/dossie.html.j2 - dossie de conformidade EUDR.
+    Recebe o dicionario montado por dossie.montar_contexto(). O template nao
+    calcula nada: so apresenta o que ja foi fotografado do banco. -#}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<title>Dossie {{ d.lote.codigo }} v{{ d.versao }}</title>
+<style>
+{{ css }}
+</style>
+</head>
+<body>
+
+<div class="folha-cabecalho">
+  Dossie de conformidade EUDR &mdash; lote {{ d.lote.codigo }}
+  <span class="dir">Versao {{ d.versao }} &middot; {{ d.status|upper }}</span>
+</div>
+<div class="folha-rodape">
+  {{ d.lote.codigo }} &middot; v{{ d.versao }} &middot; gerado em {{ d.gerado_em_br }}
+  <span class="dir">{{ d.paginacao_texto }}</span>
+</div>
+
+{% if not d.aprovacao %}<div class="marca-dagua">RASCUNHO</div>{% endif %}
+
+<div class="conteudo">
+
+<div class="capa">
+  <div class="orgao">Regulamento (UE) 2023/1115 &middot; Due diligence de desmatamento zero</div>
+  <h1>Dossie de conformidade</h1>
+  <p class="subtitulo">Documento de diligencia devida por lote de embarque &mdash;
+     {{ d.lote.commodity|capitalize }}, safra {{ d.lote.safra }}</p>
+  <div class="lote-codigo">{{ d.lote.codigo }} &nbsp;&middot;&nbsp; versao {{ d.versao }}
+     &nbsp;&middot;&nbsp; {{ d.status|upper }}</div>
+</div>
+
+{# ===================== 1 - IDENTIFICACAO DO LOTE ====================== #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">1</span>Identificacao do lote</h2>
+  <table class="campos">
+    <tbody>
+      <tr><td class="rotulo">Codigo do lote</td><td class="mono">{{ d.lote.codigo }}</td></tr>
+      <tr><td class="rotulo">Identificador interno</td><td class="mono">{{ d.lote.id }}</td></tr>
+      <tr><td class="rotulo">Commodity</td><td>{{ d.lote.commodity }}</td></tr>
+      <tr><td class="rotulo">Safra</td><td class="mono">{{ d.lote.safra }}</td></tr>
+      <tr><td class="rotulo">Quantidade</td><td class="mono">{{ d.lote.quantidade_kg_fmt }} kg</td></tr>
+      <tr><td class="rotulo">Comprador</td><td>{{ d.lote.comprador }}</td></tr>
+      <tr><td class="rotulo">Embarque previsto</td><td class="mono">{{ d.lote.data_embarque_br }}</td></tr>
+      <tr><td class="rotulo">Status do lote</td>
+          <td><span class="pastilha s-{{ d.lote.status }}">{{ d.lote.status }}</span></td></tr>
+      <tr><td class="rotulo">Produtores</td><td class="mono">{{ d.total_produtores }}</td></tr>
+      <tr><td class="rotulo">Talhoes</td><td class="mono">{{ d.total_talhoes }}</td></tr>
+      <tr><td class="rotulo">Area total</td><td class="mono">{{ d.area_total_fmt }} ha</td></tr>
+      <tr><td class="rotulo">Versao do dossie</td><td class="mono">{{ d.versao }} ({{ d.status }})</td></tr>
+      <tr><td class="rotulo">Gerado em</td><td class="mono">{{ d.gerado_em }}</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">O status do lote e um valor tecnico de controle interno:
+     <span class="mono">bloqueado</span> significa que o lote esta impedido de
+     compor embarque ate a resolucao das ocorrencias listadas no bloco 2. Este
+     sistema marca, ordena e informa &mdash; quem decide sobre a carga e a
+     responsavel pela declaracao de diligencia devida.</p>
+  <p class="nota">Este dossie fotografa o estado das verificacoes na data de geracao.
+     Nenhum resultado e recalculado no momento da emissao: cada laudo do bloco 5
+     traz a data em que a consulta a base externa foi efetivamente executada.</p>
+</section>
+
+{# ===================== 2 - SUMARIO DE CONFORMIDADE ==================== #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">2</span>Sumario de conformidade</h2>
+  <div class="pernas">
+    {% for p in d.pernas %}
+    <div class="perna">
+      <div class="rotulo">Perna {{ p.letra }} &middot; {{ p.nome }}</div>
+      <div class="veredito s-{{ p.semaforo }}">{{ p.semaforo|upper }}</div>
+      <table>
+        <tbody>
+          <tr><td>Talhoes conformes</td><td class="num r-conforme">{{ p.conformes }}</td></tr>
+          <tr><td>Talhoes em excecao</td><td class="num r-excecao">{{ p.excecoes }}</td></tr>
+          <tr><td>Talhoes impedidos ate resolucao</td><td class="num r-bloqueio">{{ p.bloqueios }}</td></tr>
+          <tr><td>Talhoes sem verificacao</td><td class="num">{{ p.sem_dado }}</td></tr>
+          <tr><td>Total de talhoes</td><td class="num">{{ p.total }}</td></tr>
+        </tbody>
+      </table>
+      <p class="nota" style="margin-top:2mm">{{ p.checagens_texto }}</p>
+    </div>
+    {% endfor %}
+  </div>
+
+  {# --- as duas provas nao se compensam (correcoes-spec_1.md secao 06) --- #}
+  {% if d.desmatamento_impede %}
+  <div class="aviso-forte">
+    <strong>As duas provas nao se compensam.</strong>
+    {{ d.nota_nao_compensacao }}
+    Ha impedimento registrado na perna de desmatamento neste lote: nenhuma das
+    oito categorias de legalidade abaixo, ainda que integralmente fechada,
+    supre essa falha.
+  </div>
+  {% else %}
+  <p class="nota">{{ d.nota_nao_compensacao }}</p>
+  {% endif %}
+
+  {# --- severidade B/F: a decisao apresentada a responsavel -------------- #}
+  <h3>Severidade das ocorrencias</h3>
+  <table class="compacta">
+    <thead><tr><th style="width:26mm">Severidade</th><th class="num" style="width:20mm">Ocorrencias</th>
+               <th>O que significa</th></tr></thead>
+    <tbody>
+      <tr><td><span class="pastilha sev-b">B &mdash; impede</span></td>
+          <td class="num r-bloqueio">{{ d.sev_b }}</td>
+          <td>Nao embarca: o talhao fica impedido de compor embarque ate a
+              resolucao. Quem decide e a responsavel &mdash; o sistema marca,
+              ordena e informa.</td></tr>
+      <tr><td><span class="pastilha sev-f">F &mdash; revisar</span></td>
+          <td class="num r-excecao">{{ d.sev_f }}</td>
+          <td>Atencao: leitura obrigatoria antes de assinar. Nao impede por si
+              so o embarque.</td></tr>
+      <tr><td><span class="pastilha r-neutro">nao informada</span></td>
+          <td class="num">{{ d.sev_sem_classificacao }}</td>
+          <td>Ocorrencia registrada sem severidade atribuida pela verificacao.
+              Nao se presume B nem F.</td></tr>
+    </tbody>
+  </table>
+  <p class="nota">{{ d.sev_legenda }}</p>
+
+  {% if d.talhoes_criticos %}
+  <h3>Talhoes impedidos de compor embarque ate resolucao</h3>
+  <table class="compacta">
+    <thead><tr><th>Talhao</th><th>Produtor</th><th>Perna</th><th>Checagem</th>
+               <th>Resultado</th><th>Severidade</th><th>Motivo</th></tr></thead>
+    <tbody>
+    {% for c in d.talhoes_criticos %}
+      <tr>
+        <td class="mono">{{ c.talhao_nome }}</td>
+        <td>{{ c.produtor_nome }}</td>
+        <td class="mono">{{ c.perna }}</td>
+        <td class="mono">{{ c.codigo }} {{ c.checagem_nome }}</td>
+        <td><span class="pastilha r-{{ c.resultado }}">{{ c.resultado }}</span></td>
+        <td><span class="pastilha {{ c.severidade_classe }}">{{ c.severidade_rotulo }}</span></td>
+        <td>{{ c.motivo }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="faixa">Nenhum talhao deste lote apresenta resultado de impedimento
+     ou de excecao nas verificacoes registradas ate {{ d.gerado_em_br }}.</p>
+  {% endif %}
+
+  {# ======= 2.1 - CONFORMIDADE DE LEGALIDADE PELAS OITO CATEGORIAS ======= #}
+  <h3>Conformidade de legalidade &mdash; as oito categorias (a) a (h)</h3>
+  <p class="nota">A montagem percorre as oito categorias de legalidade do
+     Art. 2(40) do Regulamento, e nao a lista de documentos entregues. Cada
+     categoria fecha por <strong>documento entregue</strong> ou por
+     <strong>checagem gerada</strong>, e a ficha declara qual das duas sustentou
+     a prova. As categorias
+     {% for l in d.categorias_resumo.so_por_checagem %}({{ l }}){% if not loop.last %}, {% endif %}{% endfor %}
+     e parte da (d) nao tem documento positivo emitido para o produtor: nao ha
+     certidao a pedir nem orgao a procurar, e a ausencia de papel nessas
+     categorias nao e lacuna documental.
+     <strong>{{ d.frase_duas_naturezas }}</strong></p>
+
+  <table class="compacta">
+    <thead><tr><th class="num" style="width:16mm">Fechadas</th>
+               <th class="num" style="width:16mm">Atencao</th>
+               <th class="num" style="width:20mm">Impedimento</th>
+               <th class="num" style="width:24mm">Nao avaliadas</th>
+               <th>Leitura</th></tr></thead>
+    <tbody><tr>
+      <td class="num r-conforme">{{ d.categorias_resumo.fechadas }}</td>
+      <td class="num r-excecao">{{ d.categorias_resumo.atencao }}</td>
+      <td class="num r-bloqueio">{{ d.categorias_resumo.impedidas }}</td>
+      <td class="num">{{ d.categorias_resumo.nao_avaliadas }}</td>
+      <td>De oito categorias, {{ d.categorias_resumo.fechadas }} estao com prova
+          reunida na data desta geracao. Categoria nao avaliada nao e categoria
+          reprovada: e consulta ou documento ainda por chegar.</td>
+    </tr></tbody>
+  </table>
+
+  {% for c in d.categorias %}
+  <div class="categoria">
+    <div class="cabeca">
+      <span class="cod">({{ c.letra }})</span>{{ c.nome }}
+      &nbsp;<span class="pastilha {{ c.classe }}">{{ c.rotulo }}</span>
+      {% if c.so_checagem %}<span class="pastilha r-neutro">so por checagem</span>{% endif %}
+      {% if c.tem_b %}<span class="pastilha sev-b">B &mdash; impede</span>{% endif %}
+      {% if c.tem_f %}<span class="pastilha sev-f">F &mdash; revisar</span>{% endif %}
+    </div>
+    <div class="meta">
+      {{ c.artigo }} &middot; natureza da prova: {{ c.natureza }} &middot;
+      documentos com status ok: {{ c.documentos_ok }} &middot;
+      checagens aplicaveis: {{ c.checagens }} &middot;
+      ultima consulta: {{ c.data_ultima_checagem_br }}
+    </div>
+    <div class="texto">{{ c.texto }}</div>
+    {% if c.origem %}
+    <table class="compacta">
+      <thead><tr><th style="width:24mm">Origem da prova</th><th>O que sustenta a categoria</th>
+                 <th style="width:26mm">Data</th><th style="width:22mm">Resultado</th></tr></thead>
+      <tbody>
+      {% for o in c.origem %}
+        <tr>
+          <td><span class="pastilha origem-{{ o.natureza }}">{{ o.natureza }}</span></td>
+          <td>{{ o.titulo }}<br><span class="mono">{{ o.detalhe }}</span>
+              {% if o.hash_sha256 %}<br><span class="hash">{{ o.hash_sha256 }}</span>{% endif %}</td>
+          <td class="mono">{{ o.data_br }}</td>
+          <td><span class="pastilha r-{{ o.resultado }}">{{ o.resultado }}</span>
+              {# a severidade so pesa quando ha o que decidir: em conforme, nao ha #}
+              {% if o.severidade and o.resultado != 'conforme' %}<br><span class="pastilha {{ 'sev-b' if o.severidade == 'B' else 'sev-f' }}">{{ o.severidade }}</span>{% endif %}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="faixa">Sem origem de prova registrada para esta categoria ate
+       {{ d.gerado_em_br }}. Estado: nao avaliado.</p>
+    {% endif %}
+  </div>
+  {% endfor %}
+
+  {# ================= 2.2 - APTIDAO EM CINCO CAMADAS ==================== #}
+  <h3>Aptidao dos produtores do lote &mdash; cinco camadas</h3>
+  <p class="nota">Aptidao nao e checklist: cada camada aceita alternativas em
+     ordem de forca probatoria. A camada 2 e a critica &mdash; a lei local nao
+     exige titulo formal para produzir e comercializar, e o arranjo real e posse
+     mais cadastro fiscal em nome proprio. Uma camada fechada com forca
+     <span class="pastilha forca-fraca">fraca</span> e conforme; e o que pede
+     leitura antes da assinatura.</p>
+
+  {% if not d.aptidao.avaliado %}
+  <p class="faixa">A avaliacao de aptidao ainda nao foi executada para os
+     {{ d.aptidao.total_produtores }} produtor(es) deste lote. Todas as camadas
+     constam como <strong>nao avaliado</strong>. Nao avaliado nao e reprovado.</p>
+  <table class="compacta">
+    <thead><tr><th>Produtor</th><th style="width:34mm">CPF</th><th style="width:40mm">Municipio</th>
+               <th style="width:30mm">Camadas</th></tr></thead>
+    <tbody>
+    {% for p in d.aptidao.produtores %}
+      <tr><td>{{ p.nome }}</td><td class="mono">{{ p.cpf }}</td>
+          <td>{{ p.municipio }}</td>
+          <td><span class="pastilha r-neutro">nao avaliado</span></td></tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="nota">{{ d.aptidao.total_produtores }} produtor(es) no lote;
+     {{ d.aptidao.sem_avaliacao }} ainda sem avaliacao registrada;
+     <strong>{{ d.aptidao.camadas_fracas }} camada(s) fechada(s) com forca
+     fraca</strong> &mdash; e o que a responsavel le antes de assinar.</p>
+  {% endif %}
+
+  {% for p in d.aptidao.produtores if d.aptidao.avaliado %}
+  <div class="aptidao-produtor{% if p.fracas %} tem-fraca{% endif %}">
+    <div class="cabeca">
+      {{ p.nome }} <span class="mono">CPF {{ p.cpf }}</span> &middot; {{ p.municipio }}
+      &nbsp;<span class="pastilha {{ 'r-conforme' if p.satisfeitas == 5 else 'r-neutro' }}">{{ p.satisfeitas }}/5 camadas satisfeitas</span>
+      {% if p.fracas %}<span class="pastilha forca-fraca">{{ p.fracas }} camada(s) em forca fraca</span>{% endif %}
+    </div>
+    <table class="compacta">
+      <thead><tr><th style="width:8mm">#</th><th style="width:40mm">Camada</th>
+                 <th style="width:24mm">Estado</th><th style="width:20mm">Forca</th>
+                 <th>Fechada por</th><th style="width:26mm">Avaliada em</th></tr></thead>
+      <tbody>
+      {% for c in p.camadas %}
+        <tr{% if c.fraca %} class="linha-fraca"{% endif %}>
+          <td class="num">{{ c.numero }}</td>
+          <td>{{ c.nome }}<br><span class="mono">{{ c.artigo }}</span></td>
+          <td><span class="pastilha {{ c.classe }}">{{ c.estado }}</span></td>
+          <td>{% if c.fraca %}<span class="pastilha forca-fraca">{{ c.forca }}</span>{% else %}{{ c.forca }}{% endif %}</td>
+          <td>{{ c.via }}</td>
+          <td class="mono">{{ c.avaliado_em_br }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% endfor %}
+
+  {# ============ 2.3 - EXCECOES PELO VOCABULARIO FIXO ================== #}
+  <h3>Excecoes abertas aguardando decisao humana ({{ d.excecoes.total_abertas }})</h3>
+  <p class="nota">{{ d.excecoes.nota_contagem }} Nem toda ausencia de documento e
+     lacuna: o estado e do documento, nunca da pessoa.</p>
+  {% if d.excecoes.grupos %}
+    {% for g in d.excecoes.grupos %}
+    <div class="grupo-excecao">
+      <div class="cabeca">
+        <span class="pastilha {{ g.classe }}">{{ g.tipo }}</span>
+        {{ g.titulo }} &mdash; {{ g.total }}
+        {% if g.conta_como_lacuna %}<span class="pastilha r-excecao">conta como lacuna</span>
+        {% else %}<span class="pastilha r-neutro">nao conta como lacuna</span>{% endif %}
+      </div>
+      <div class="meta">{{ g.explicacao }}</div>
+      <table class="compacta">
+        <thead><tr><th style="width:26mm">Talhao</th><th>O que foi encontrado</th>
+                   <th style="width:22mm">Status</th></tr></thead>
+        <tbody>
+        {% for i in g.itens %}
+          <tr><td class="mono">{{ i.talhao_nome }}</td>
+              <td>{{ i.descricao }}</td>
+              <td><span class="pastilha r-excecao">{{ i.status }}</span></td></tr>
+        {% endfor %}
+        </tbody>
+      </table>
+    </div>
+    {% endfor %}
+  {% else %}
+  <p class="faixa">Nenhuma excecao aberta registrada para este lote ate
+     {{ d.gerado_em_br }}.</p>
+  {% endif %}
+</section>
+
+{# ===================== 3 - CADEIA DE CUSTODIA ========================= #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">3</span>Cadeia de custodia</h2>
+  <p class="nota">Um elo por linha, do produtor ao contentor de embarque, com o
+     documento que sustenta cada passagem de titularidade ou de volume.</p>
+  <table class="compacta">
+    <thead><tr><th style="width:26mm">Elo</th><th>Origem</th><th>Destino</th>
+               <th class="num">Volume (kg)</th><th>Documento de suporte</th></tr></thead>
+    <tbody>
+    {% for e in d.cadeia %}
+      <tr>
+        <td class="mono">{{ e.elo }}</td>
+        <td>{{ e.origem }}</td>
+        <td>{{ e.destino }}</td>
+        <td class="num">{{ e.volume }}</td>
+        <td>{{ e.documento }}{% if e.documento_hash %}<br><span class="hash">{{ e.documento_hash }}</span>{% endif %}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+{# ===================== 4 - GEOLOCALIZACAO ============================= #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">4</span>Geolocalizacao dos talhoes</h2>
+  <p class="nota">Coordenadas em EPSG:4326 (WGS 84), grau decimal. Poligonos sao
+     apresentados pelo centroide e pelo numero de vertices; a geometria integral
+     esta preservada em WKT no banco de origem.</p>
+  <table class="compacta">
+    <thead><tr><th>Talhao</th><th>Produtor</th><th>Municipio</th><th>Tipo</th>
+               <th class="num">Area (ha)</th><th class="num">Latitude</th>
+               <th class="num">Longitude</th><th class="num">Vertices</th>
+               <th>CAR</th></tr></thead>
+    <tbody>
+    {% for g in d.geolocalizacao %}
+      <tr>
+        <td class="mono">{{ g.nome }}</td>
+        <td>{{ g.produtor }}</td>
+        <td>{{ g.municipio }}</td>
+        <td class="mono">{{ g.tipo_geom }}</td>
+        <td class="num">{{ g.area_ha }}</td>
+        <td class="num">{{ g.lat }}</td>
+        <td class="num">{{ g.lon }}</td>
+        <td class="num">{{ g.vertices }}</td>
+        <td class="mono">{{ g.car_numero }}<br>{{ g.car_situacao }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+{# ===================== 5 - LAUDO POR CHECAGEM ========================= #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">5</span>Laudo por checagem</h2>
+  {% for l in d.laudos %}
+  <div class="laudo">
+    <div class="cabeca">
+      <span class="cod">{{ l.codigo }}</span>{{ l.nome }}
+      &nbsp;<span class="pastilha r-{{ l.resultado }}">{{ l.resultado }}</span>
+    </div>
+    <div class="meta">
+      perna {{ l.perna }} &middot; categoria {{ l.categoria }} &middot;
+      base consultada: {{ l.fonte }} &middot;
+      data da consulta: {{ l.data_execucao_br }} &middot;
+      talhoes avaliados: {{ l.total }}
+      (conforme {{ l.conformes }} / excecao {{ l.excecoes }} / impedimento {{ l.bloqueios }})
+      &middot; severidade: {{ l.bloqueiam }} em B (impede) / {{ l.flags }} em F (revisar)
+    </div>
+    <div class="texto">{{ l.conclusao }}</div>
+    {% if l.ocorrencias %}
+    <table class="compacta">
+      <thead><tr><th style="width:22mm">Talhao</th><th style="width:14mm">Regra</th>
+                 <th style="width:20mm">Resultado</th><th style="width:22mm">Severidade</th>
+                 <th style="width:24mm">Data</th><th>Laudo</th></tr></thead>
+      <tbody>
+      {% for o in l.ocorrencias %}
+        <tr><td class="mono">{{ o.talhao_nome }}</td>
+            <td class="mono">{{ o.codigo_regra }}</td>
+            <td><span class="pastilha r-{{ o.resultado }}">{{ o.resultado }}</span></td>
+            {# regra conforme nao impede nada: a severidade fica em tom neutro #}
+            <td><span class="pastilha {{ o.severidade_classe if o.resultado != 'conforme' else 'r-neutro' }}">{{ o.severidade_rotulo }}</span></td>
+            <td class="mono">{{ o.data_br }}</td>
+            <td>{{ o.texto }}{% if o.evidencia %}<br><span class="mono">evidencia: {{ o.evidencia }}</span>{% endif %}</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+  {% endfor %}
+</section>
+
+{% if not d.aprovacao %}<div class="marca-repetida">RASCUNHO</div>{% endif %}
+
+{# ===================== 6 - ANEXOS INDEXADOS =========================== #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">6</span>Anexos indexados</h2>
+  <p class="nota">{{ d.anexos|length }} documento(s) associados aos produtores deste lote.
+     O hash SHA-256 identifica de forma univoca o arquivo arquivado e permite
+     verificar, a qualquer momento, que o anexo nao foi alterado apos a coleta.</p>
+  {% if d.anexos %}
+  <table class="compacta">
+    <thead><tr><th style="width:6mm">#</th><th>Tipo</th><th>Produtor</th>
+               <th>Arquivo de origem</th><th>Emissao</th><th>Validade</th>
+               <th>Status</th><th class="num">Conf.</th><th>SHA-256</th></tr></thead>
+    <tbody>
+    {% for a in d.anexos %}
+      <tr>
+        <td class="num">{{ loop.index }}</td>
+        <td class="mono">{{ a.tipo }}</td>
+        <td>{{ a.produtor }}</td>
+        <td class="mono">{{ a.arquivo_origem }}</td>
+        <td class="mono">{{ a.data_emissao }}</td>
+        <td class="mono">{{ a.data_validade }}</td>
+        <td><span class="pastilha {{ a.classe }}">{{ a.status }}</span></td>
+        <td class="num">{{ a.confianca }}</td>
+        <td class="hash">{{ a.hash_sha256 }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  {% else %}
+  <p class="faixa">Nenhum documento indexado para os produtores deste lote ate
+     {{ d.gerado_em_br }}. A ausencia de anexos e, por si so, uma lacuna de
+     diligencia devida e deve ser sanada antes da aprovacao.</p>
+  {% endif %}
+</section>
+
+{# ===================== 7 - TRILHA DE AUDITORIA ======================== #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">7</span>Trilha de auditoria</h2>
+
+  <h3>Alteracoes em relacao a versao anterior</h3>
+  {% if d.versao_anterior %}
+    <p>Comparacao com a versao {{ d.versao_anterior }}, gerada em {{ d.gerado_em_anterior_br }}.</p>
+  {% endif %}
+  <div class="faixa">
+    {% if d.diff_itens %}
+      <ul class="diff">
+      {% for item in d.diff_itens %}<li>{{ item }}</li>{% endfor %}
+      </ul>
+    {% else %}
+      {{ d.diff }}
+    {% endif %}
+  </div>
+
+  <h3>Registro de acoes ({{ d.eventos|length }} das {{ d.eventos_total }} relacionadas a este lote)</h3>
+  <table class="compacta">
+    <thead><tr><th style="width:34mm">Data e hora</th><th style="width:18mm">Ator</th>
+               <th style="width:38mm">Acao</th><th style="width:22mm">Entidade</th>
+               <th>Detalhe</th></tr></thead>
+    <tbody>
+    {% for ev in d.eventos %}
+      <tr>
+        <td class="mono">{{ ev.timestamp_br }}</td>
+        <td><span class="ator-{{ ev.ator }}">{{ ev.ator }}</span></td>
+        <td class="mono">{{ ev.acao }}</td>
+        <td class="mono">{{ ev.entidade }}</td>
+        <td>{{ ev.detalhe }}</td>
+      </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  <p class="nota">Acoes de ator <span class="ator-sistema">sistema</span> foram
+     executadas de forma autonoma pelo Evidence Autopilot; acoes de ator
+     <span class="ator-humano">humano</span> registram intervencao de operador
+     identificado. Total apurado: {{ d.eventos_sistema }} do sistema e
+     {{ d.eventos_humano }} humanas.</p>
+</section>
+
+{# ===================== 8 - SELO DE APROVACAO ========================== #}
+<section class="bloco">
+  <h2 class="titulo-bloco"><span class="n">8</span>Selo de aprovacao</h2>
+  {% if d.aprovacao %}
+  <div class="selo aprovado">
+    <p>O responsavel abaixo identificado declara ter examinado este dossie na
+       integra e aprova a emissao da declaracao de diligencia devida para o lote
+       <span class="mono">{{ d.lote.codigo }}</span>, versao {{ d.versao }}.</p>
+    <div class="linha-assinatura"></div>
+    <div class="nome">{{ d.aprovacao.nome }}</div>
+    <div class="cargo">{{ d.aprovacao.cargo }}</div>
+    <div class="carimbo">
+      Carimbo temporal: {{ d.aprovacao.em }}<br>
+      Documento: {{ d.lote.codigo }} v{{ d.versao }} &middot; status {{ d.status }}
+    </div>
+  </div>
+  {% else %}
+  <div class="selo rascunho">
+    <p class="aviso">Documento sem aprovacao &mdash; RASCUNHO</p>
+    <p>Este dossie ainda nao foi aprovado por responsavel identificado. Nao
+       constitui declaracao de diligencia devida e nao deve ser apresentado a
+       autoridade competente nem a comprador.</p>
+    <div class="linha-assinatura"></div>
+    <div class="cargo">Nome e cargo do responsavel &mdash; a preencher na aprovacao</div>
+    <div class="carimbo">Carimbo temporal: pendente</div>
+  </div>
+  {% endif %}
+</section>
+
+<div class="fim">
+  Fim do documento &middot; {{ d.lote.codigo }} &middot; versao {{ d.versao }} &middot;
+  {{ d.status }} &middot; gerado em {{ d.gerado_em }} &middot;
+  identificador do dossie {{ d.dossie_id }}
+</div>
+
+</div><!-- /conteudo -->
+</body>
+</html>

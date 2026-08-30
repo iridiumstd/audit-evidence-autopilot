@@ -1,0 +1,347 @@
+/* estilo.css - folha de estilo do dossie EUDR.
+   Documento oficial: sobrio, denso, serifada no texto corrido e
+   monoespacada em numeros, hashes e identificadores.
+   Sem cor decorativa: cor so aparece onde carrega significado (semaforo). */
+
+/* As margens da pagina impressa sao definidas pelo Playwright, que tambem
+   desenha o cabecalho e o rodape reais com o contador de paginas. Manter
+   margem tambem aqui faria a area util encolher duas vezes. */
+@page { size: A4; margin: 0; }
+
+:root {
+    --tinta: #11140f;
+    --tinta-fraca: #5a5f55;
+    --regua: #b9bdb2;
+    --regua-forte: #3d423a;
+    --fundo-faixa: #f1f0eb;
+    --verde: #1f6b3a;
+    --ambar: #8a6100;
+    --vermelho: #9c1c14;
+}
+
+* { box-sizing: border-box; }
+
+html { font-size: 10.5pt; }
+
+body {
+    margin: 0;
+    color: var(--tinta);
+    background: #ffffff;
+    font-family: "Source Serif Pro", "Georgia", "Times New Roman", serif;
+    line-height: 1.42;
+    text-align: left;
+}
+
+/* --- numeros, hashes, codigos: sempre monoespacado ------------------- */
+.mono, code, td.num, .hash, .id {
+    font-family: "Consolas", "DejaVu Sans Mono", "Courier New", monospace;
+    font-size: 0.88em;
+    letter-spacing: -0.1px;
+}
+.hash { word-break: break-all; }
+td.num { text-align: right; white-space: nowrap; }
+
+/* --- cabecalho e rodape ---------------------------------------------
+   Na tela (o HTML e o entregavel primario) aparecem no topo e no pe do
+   documento. Na impressao sao ocultados: o PDF recebe do Playwright um
+   cabecalho e um rodape reais, repetidos em todas as paginas e com o
+   contador "pagina N de M". */
+.folha-cabecalho, .folha-rodape {
+    left: 0; right: 0;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.6pt;
+    letter-spacing: 0.4px;
+    color: var(--tinta-fraca);
+    text-transform: uppercase;
+}
+.folha-cabecalho {
+    border-bottom: 0.5pt solid var(--regua);
+    padding-bottom: 2mm; margin-bottom: 6mm;
+}
+.folha-rodape {
+    border-top: 0.5pt solid var(--regua);
+    padding-top: 2mm; margin-top: 8mm;
+}
+@media print {
+    .folha-cabecalho, .folha-rodape { display: none; }
+}
+.folha-cabecalho .dir, .folha-rodape .dir { float: right; }
+
+/* Paginacao: o contador de paginas real e desenhado pelo Playwright no
+   template de rodape do PDF. No HTML fica a marca textual equivalente. */
+
+/* --- capa ------------------------------------------------------------ */
+.capa {
+    border-top: 2.5pt solid var(--regua-forte);
+    padding-top: 6mm;
+    margin-bottom: 9mm;
+}
+.capa .orgao {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 8pt; letter-spacing: 1.6px; text-transform: uppercase;
+    color: var(--tinta-fraca);
+}
+.capa h1 {
+    font-size: 20pt; font-weight: 600; margin: 3mm 0 1mm 0;
+    letter-spacing: -0.2px;
+}
+.capa .subtitulo { font-size: 11pt; color: var(--tinta-fraca); margin: 0; }
+.capa .lote-codigo {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 15pt; margin-top: 5mm; letter-spacing: 0.5px;
+}
+
+/* --- blocos ---------------------------------------------------------- */
+section.bloco { margin: 0 0 8mm 0; page-break-inside: auto; }
+
+h2.titulo-bloco {
+    font-size: 11.5pt;
+    font-weight: 700;
+    margin: 0 0 2.5mm 0;
+    padding-bottom: 1.2mm;
+    border-bottom: 1.2pt solid var(--regua-forte);
+    page-break-after: avoid;
+}
+h2.titulo-bloco .n {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9.5pt;
+    color: var(--tinta-fraca);
+    margin-right: 3mm;
+}
+h3 {
+    font-size: 9.6pt; margin: 4mm 0 1.5mm 0; font-weight: 700;
+    page-break-after: avoid;
+}
+p { margin: 0 0 2mm 0; }
+p.nota { font-size: 8.6pt; color: var(--tinta-fraca); font-style: italic; }
+
+/* --- tabelas --------------------------------------------------------- */
+table {
+    width: 100%; border-collapse: collapse; margin: 1.5mm 0 3mm 0;
+    font-size: 8.9pt;
+}
+thead { display: table-header-group; }
+th {
+    text-align: left; font-size: 7.6pt; text-transform: uppercase;
+    letter-spacing: 0.5px; color: var(--tinta-fraca);
+    border-bottom: 0.8pt solid var(--regua-forte);
+    padding: 1.2mm 2mm 1.2mm 0; vertical-align: bottom; font-weight: 700;
+}
+td {
+    padding: 1.2mm 2mm 1.2mm 0; vertical-align: top;
+    border-bottom: 0.4pt solid var(--regua);
+}
+tr { page-break-inside: avoid; }
+table.compacta td, table.compacta th { font-size: 8.3pt; }
+
+/* tabela de identificacao: rotulo / valor */
+table.campos td.rotulo {
+    width: 42mm; color: var(--tinta-fraca);
+    font-size: 8pt; text-transform: uppercase; letter-spacing: 0.4px;
+    font-family: "Consolas", "Courier New", monospace;
+}
+
+/* --- semaforo -------------------------------------------------------- */
+.pernas { display: flex; gap: 6mm; }
+.perna {
+    flex: 1; border: 0.8pt solid var(--regua-forte); padding: 3mm 3.5mm;
+}
+.perna .rotulo {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.6pt; text-transform: uppercase; letter-spacing: 1px;
+    color: var(--tinta-fraca);
+}
+.perna .veredito {
+    font-size: 14pt; font-weight: 700; margin: 1.5mm 0 2mm 0;
+    letter-spacing: -0.2px;
+}
+.perna table { margin: 0; }
+.perna table td { border-bottom: 0.4pt dotted var(--regua); font-size: 8.4pt; }
+
+.s-verde, .r-conforme { color: var(--verde); }
+.s-atencao, .r-excecao { color: var(--ambar); }
+.s-bloqueado, .r-bloqueio { color: var(--vermelho); }
+
+.pastilha {
+    display: inline-block; padding: 0.3mm 1.6mm; border: 0.6pt solid currentColor;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.6px;
+    white-space: nowrap;
+}
+
+/* Estado neutro: nao avaliado nao e reprovado, e nao pode parecer erro. */
+.r-neutro { color: var(--tinta-fraca); }
+.r-None, .r- { color: var(--tinta-fraca); }
+
+/* --- severidade B/F ---------------------------------------------------
+   B impede o embarque, F pede leitura antes da assinatura. Sao decisoes
+   diferentes e por isso precisam de peso visual diferente: B fica solida. */
+.sev-b {
+    color: #ffffff; background: var(--vermelho);
+    border-color: var(--vermelho); font-weight: 700;
+}
+.sev-f { color: var(--ambar); border-color: var(--ambar); }
+
+/* --- origem da prova: documento entregue x checagem gerada ------------ */
+.origem-documento { color: var(--regua-forte); }
+.origem-checagem {
+    color: var(--regua-forte); background: var(--fundo-faixa);
+    font-weight: 700;
+}
+
+/* --- ficha por categoria de legalidade (a)-(h) ----------------------- */
+.categoria {
+    border-left: 1.6pt solid var(--regua-forte);
+    padding: 0 0 0 3.5mm; margin: 0 0 4mm 0;
+    page-break-inside: avoid;
+}
+.categoria .cabeca { font-size: 9.4pt; font-weight: 700; margin-bottom: 1mm; }
+.categoria .cabeca .cod {
+    font-family: "Consolas", "Courier New", monospace; margin-right: 2mm;
+}
+.categoria .meta {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.6pt; color: var(--tinta-fraca); margin-bottom: 1.5mm;
+}
+.categoria .texto { font-size: 8.9pt; margin-bottom: 1.5mm; }
+
+/* --- aptidao em cinco camadas ---------------------------------------- */
+.aptidao-produtor {
+    border-left: 1.6pt solid var(--regua);
+    padding: 0 0 0 3.5mm; margin: 0 0 4mm 0;
+    page-break-inside: avoid;
+}
+/* Forca fraca fecha a camada, mas e o que precisa ser lido antes de assinar. */
+.aptidao-produtor.tem-fraca { border-left-color: var(--ambar); }
+.aptidao-produtor .cabeca { font-size: 9.2pt; font-weight: 700; margin-bottom: 1mm; }
+.forca-fraca {
+    color: #ffffff; background: var(--ambar);
+    border-color: var(--ambar); font-weight: 700;
+}
+tr.linha-fraca td { background: #fbf3e0; }
+
+/* --- excecoes agrupadas pelo vocabulario fixo ------------------------ */
+.grupo-excecao { margin: 0 0 4mm 0; page-break-inside: avoid; }
+.grupo-excecao .cabeca { font-size: 9.2pt; font-weight: 700; margin-bottom: 1mm; }
+.grupo-excecao .meta {
+    font-size: 8.4pt; color: var(--tinta-fraca); margin-bottom: 1.5mm;
+}
+
+/* --- aviso forte: as duas provas nao se compensam -------------------- */
+.aviso-forte {
+    border: 1.2pt solid var(--vermelho);
+    border-left-width: 3pt;
+    padding: 3mm 4mm; margin: 3mm 0;
+    font-size: 9pt;
+    page-break-inside: avoid;
+}
+.aviso-forte strong { color: var(--vermelho); }
+
+/* --- laudo por checagem ---------------------------------------------- */
+.laudo {
+    border-left: 1.6pt solid var(--regua-forte);
+    padding: 0 0 0 3.5mm; margin: 0 0 4mm 0;
+    page-break-inside: avoid;
+}
+.laudo .cabeca {
+    font-size: 9.4pt; font-weight: 700; margin-bottom: 1mm;
+}
+.laudo .cabeca .cod {
+    font-family: "Consolas", "Courier New", monospace; margin-right: 2mm;
+}
+.laudo .meta {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.6pt; color: var(--tinta-fraca); margin-bottom: 1.5mm;
+}
+.laudo .texto { font-size: 8.9pt; }
+
+/* --- trilha de auditoria --------------------------------------------- */
+.ator-sistema, .ator-humano {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.4pt; text-transform: uppercase; letter-spacing: 0.6px;
+}
+.ator-humano { font-weight: 700; }
+.ator-sistema { color: var(--tinta-fraca); }
+
+ul.diff { margin: 1mm 0 0 0; padding-left: 5mm; font-size: 8.9pt; }
+ul.diff li { margin-bottom: 1mm; }
+
+.faixa {
+    background: var(--fundo-faixa);
+    border-left: 1.6pt solid var(--regua-forte);
+    padding: 2.5mm 3.5mm; margin: 2mm 0;
+    font-size: 8.9pt;
+}
+
+/* --- selo de aprovacao ----------------------------------------------- */
+.selo {
+    border: 1.2pt solid var(--regua-forte); padding: 5mm 6mm;
+    page-break-inside: avoid;
+}
+.selo.aprovado { border-width: 2pt; }
+.selo .linha-assinatura {
+    border-bottom: 0.8pt solid var(--tinta);
+    height: 11mm; width: 78mm; margin-bottom: 1.5mm;
+}
+.selo .nome { font-size: 11pt; font-weight: 700; }
+.selo .cargo { font-size: 9pt; color: var(--tinta-fraca); }
+.selo .carimbo {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 8pt; margin-top: 3mm; color: var(--tinta-fraca);
+}
+.selo.rascunho .aviso {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9pt; font-weight: 700; color: var(--vermelho);
+    text-transform: uppercase; letter-spacing: 1px;
+}
+
+/* --- marca de agua RASCUNHO ------------------------------------------ */
+.marca-dagua {
+    position: fixed;
+    top: 45%; left: 0; right: 0;
+    text-align: center;
+    z-index: 10;              /* fica ACIMA do texto, como carimbo */
+    pointer-events: none;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 78pt; font-weight: 700; letter-spacing: 14px;
+    color: rgba(156, 28, 20, 0.16);
+    transform: rotate(-24deg);
+    text-transform: uppercase;
+}
+.conteudo { position: relative; z-index: 1; }
+/* Na tela a folha e branca e opaca; a marca de agua precisa vir por cima. */
+
+/* Repeticao da marca ao longo do documento, para que toda pagina do PDF
+   saia carimbada e nao apenas a primeira. */
+.marca-repetida {
+    text-align: center;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 42pt; font-weight: 700; letter-spacing: 10px;
+    color: rgba(156, 28, 20, 0.10);
+    transform: rotate(-24deg);
+    margin: 12mm 0;
+    text-transform: uppercase;
+}
+
+.fim {
+    margin-top: 8mm; border-top: 1.2pt solid var(--regua-forte);
+    padding-top: 2mm;
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 7.6pt; color: var(--tinta-fraca); text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+
+/* --- HTML como entregavel primario ------------------------------------
+   Fora da impressao o documento ganha uma folha branca centrada sobre um
+   fundo neutro, para ser lido na tela com a mesma medida de linha do PDF. */
+@media screen {
+    body { background: #d9d8d2; padding: 12mm 0; }
+    .folha-cabecalho, .folha-rodape, .conteudo {
+        max-width: 198mm; margin-left: auto; margin-right: auto;
+        background: #fff;
+    }
+    .conteudo { padding: 8mm 14mm 14mm 14mm; }
+    .folha-cabecalho { padding: 6mm 14mm 2mm 14mm; margin-bottom: 0; }
+    .folha-rodape { padding: 2mm 14mm 6mm 14mm; margin-top: 0; }
+}

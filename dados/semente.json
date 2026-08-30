@@ -1,0 +1,163 @@
+{
+  "semente": 20260830,
+  "gerado_em": "2026-08-30T05:25:55",
+  "contagens": {
+    "produtores": 60,
+    "talhoes": 118,
+    "lotes": 3,
+    "lote_talhao": 138,
+    "arquivos_entrada": 482,
+    "embargos_ibama_recorte": 3162
+  },
+  "produtor_nos_tres_lotes": {
+    "id": "c866b8f7e681",
+    "nome": "Maria Alves",
+    "slug": "maria-alves",
+    "cpf": "089.485.037-74",
+    "municipio": "Uruara",
+    "talhoes": [
+      {
+        "id": "58180d70b8c1",
+        "nome": "Talhao MARIA-AL-01",
+        "area_ha": 5.28,
+        "tipo_geom": "poligono",
+        "geom_wkt": "POLYGON ((-52.640184763234494 -5.45687854230751, -52.63812060130616 -5.45687854230751, -52.63812060130616 -5.45481438037918, -52.640184763234494 -5.45481438037918, -52.640184763234494 -5.45687854230751))"
+      },
+      {
+        "id": "9f80a540d022",
+        "nome": "Talhao MARIA-AL-02",
+        "area_ha": 9.68,
+        "tipo_geom": "poligono",
+        "geom_wkt": "POLYGON ((-54.10229680006355 4.075740851573475, -54.09950191160036 4.075740851573475, -54.09950191160036 4.078535740036663, -54.10229680006355 4.078535740036663, -54.10229680006355 4.075740851573475))"
+      },
+      {
+        "id": "a4d60b51b7c3",
+        "nome": "Talhao MARIA-AL-03",
+        "area_ha": 6.12,
+        "tipo_geom": "ponto",
+        "geom_wkt": "POINT (-54.12347725316296 -14.097647189802517)"
+      }
+    ]
+  },
+  "lotes": [
+    {
+      "codigo": "CAC-2026-114",
+      "id": "6b4f3566adc5",
+      "quantidade_kg": 208879.8,
+      "comprador": "Barry Callebaut Belgium NV",
+      "produtores": 23,
+      "talhoes": 50
+    },
+    {
+      "codigo": "CAC-2026-115",
+      "id": "9d1a7adfbacc",
+      "quantidade_kg": 130073.5,
+      "comprador": "Chocolats Halba / Coop Suisse",
+      "produtores": 18,
+      "talhoes": 29
+    },
+    {
+      "codigo": "CAC-2026-117",
+      "id": "11cfe4e1044f",
+      "quantidade_kg": 226540.4,
+      "comprador": "Cemoi Chocolatier SAS",
+      "produtores": 29,
+      "talhoes": 59
+    }
+  ],
+  "talhoes_sobre_embargo": [
+    {
+      "talhao_id": "603da048f468",
+      "talhao": "Talhao FRANCISC-01",
+      "produtor": "Francisco Moraes",
+      "slug": "francisco-moraes",
+      "num_tad_embargo": "1HNVE7DK",
+      "area_ha": 3.07
+    },
+    {
+      "talhao_id": "e19401394671",
+      "talhao": "Talhao NILSON-A-01",
+      "produtor": "Nilson Alves Nascimento",
+      "slug": "nilson-alves-nascimento",
+      "num_tad_embargo": "338633",
+      "area_ha": 4.0
+    },
+    {
+      "talhao_id": "56e2a232932d",
+      "talhao": "Talhao CLEUZA-R-01",
+      "produtor": "Cleuza Rocha",
+      "slug": "cleuza-rocha",
+      "num_tad_embargo": "25602",
+      "area_ha": 4.0
+    },
+    {
+      "talhao_id": "801c5d41d76f",
+      "talhao": "Talhao FRANCISC-01",
+      "produtor": "Francisco Gomes",
+      "slug": "francisco-gomes",
+      "num_tad_embargo": "633579",
+      "area_ha": 4.0
+    }
+  ],
+  "talhoes_limitrofes_500m": [
+    {
+      "talhao_id": "64cc055fd4ea",
+      "talhao": "Talhao TEREZINH-01",
+      "produtor": "Terezinha Ribeiro",
+      "slug": "terezinha-ribeiro",
+      "num_tad_embargo": "37200",
+      "area_ha": 3.0
+    },
+    {
+      "talhao_id": "8c484dec45a8",
+      "talhao": "Talhao SEBASTIA-01",
+      "produtor": "Sebastiao Souza",
+      "slug": "sebastiao-souza",
+      "num_tad_embargo": "338557",
+      "area_ha": 3.0
+    },
+    {
+      "talhao_id": "1fff501bc71c",
+      "talhao": "Talhao DOMINGOS-01",
+      "produtor": "Domingos Oliveira",
+      "slug": "domingos-oliveira",
+      "num_tad_embargo": "03QFJJW3",
+      "area_ha": 3.0
+    }
+  ],
+  "talhoes_conflito_fora_dos_lotes": true,
+  "armadilhas_documentais": {
+    "nao_documento": {
+      "produtor": "Elizete Nascimento Pereira",
+      "slug": "elizete-nascimento-pereira",
+      "arquivo": "IMG_4471.jpg"
+    },
+    "cpf_divergente": {
+      "produtor": "Pedro Ferreira",
+      "slug": "pedro-ferreira",
+      "tipo": "car_recibo",
+      "cpf_do_documento": "496.052.251-82",
+      "cpf_do_produtor": "961.459.939-10",
+      "cpf_pertence_a": "Manoel Teixeira"
+    },
+    "ilegivel": {
+      "produtor": "Terezinha Ribeiro",
+      "slug": "terezinha-ribeiro",
+      "arquivo": "doc scan (3).pdf"
+    },
+    "vencido": {
+      "produtor": "Marinalva Pereira",
+      "slug": "marinalva-pereira",
+      "tipo": "cnd_estadual"
+    },
+    "duplicado": {
+      "produtor": "Marlene Cardoso",
+      "slug": "marlene-cardoso",
+      "tipo": "car_recibo",
+      "arquivos": [
+        "Sem titulo 153.pdf",
+        "Copia de doc56.pdf"
+      ]
+    }
+  }
+}
