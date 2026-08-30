@@ -123,11 +123,30 @@ SEVERIDADE_CHECAGEM = {
 _cache = {}
 
 
+def validar_params(dados: dict) -> dict:
+    """Falha alto e claro quando o cacau.yml perde uma chave essencial.
+
+    Sem `conjunto_minimo` as regras R48 e R12 avaliariam uma lista vazia e
+    devolveriam CONFORME sem ter checado nada - conforme silencioso, que este
+    sistema nunca pode produzir (mesmo principio do ADR-012 para as bases).
+    """
+    if not isinstance(dados, dict):
+        raise ValueError("params/cacau.yml nao carregou como mapa YAML valido")
+    minimo = dados.get("conjunto_minimo")
+    if not isinstance(minimo, dict) or not minimo.get("obrigatorios"):
+        raise ValueError(
+            "params/cacau.yml invalido: falta a chave 'conjunto_minimo' com a "
+            "lista 'obrigatorios'. Sem ela as regras de conjunto minimo "
+            "documental (R48/R12) nao podem ser avaliadas e nenhum resultado "
+            "'conforme' seria confiavel. Restaure a chave em params/cacau.yml.")
+    return dados
+
+
 def carregar_params() -> dict:
     """Le params/cacau.yml uma vez por processo."""
     if "params" not in _cache:
         with open(PARAMS, encoding="utf-8") as f:
-            _cache["params"] = yaml.safe_load(f)
+            _cache["params"] = validar_params(yaml.safe_load(f))
     return _cache["params"]
 
 
@@ -422,19 +441,26 @@ def garantir_camada_protegidas() -> Path:
     poligonos = _grade_de_poligonos(talhoes, quantidade=4,
                                     sementinha=SEMENTE + 2,
                                     lado_graus=0.0060, deslocamento=0.0020)
+    # `categoria_area` e o atributo que permite separar R18 de R19: sem ele
+    # nao da para saber se a TI e homologada (B) ou apenas declarada (F), nem
+    # se a UC e de protecao integral (B) ou de uso sustentavel (F). O ciclo
+    # alterna as categorias justamente para exercitar os dois lados da regra.
     tipos = [
-        ("terra_indigena", "TI SEMEADA %s", "FUNAI (nao consultada - semeado)"),
+        ("terra_indigena", "TI SEMEADA %s", "FUNAI (nao consultada - semeado)",
+         ["homologada", "declarada"]),
         ("territorio_quilombola", "Quilombo SEMEADO %s",
-         "INCRA (nao consultado - semeado)"),
+         "INCRA (nao consultado - semeado)", ["titulado", "em_processo"]),
         ("unidade_conservacao", "UC SEMEADA %s",
-         "CNUC/MMA (nao consultado - semeado)"),
+         "CNUC/MMA (nao consultado - semeado)",
+         ["protecao_integral", "uso_sustentavel"]),
     ]
     linhas = []
     for i, poly in enumerate(poligonos, start=1):
-        tipo, molde, orgao = tipos[i % len(tipos)]
+        tipo, molde, orgao, categorias = tipos[i % len(tipos)]
         linhas.append({
             "id_area": "PROT-SEMEADO-%03d" % i,
             "tipo_area": tipo,
+            "categoria_area": categorias[(i // len(tipos)) % len(categorias)],
             "nome_area": molde % chr(64 + i),
             "orgao": orgao,
             "categoria_eudr": "4 e 7",
@@ -522,9 +548,58 @@ def carregar_embargos_metrico():
     return _cache["embargos_m"]
 
 
+def carregar_embargos_por_cpf() -> dict:
+    """Indice CPF/CNPJ (so digitos) -> termos de embargo do recorte inteiro.
+
+    O cruzamento da checagem 02 e "por poligono E POR CPF" (contrato v2,
+    linha 02). Este indice cobre TODOS os termos do recorte, nao apenas os
+    que caem perto do talhao: o embargo em nome do produtor pode estar em
+    outra area, e e exatamente esse o caso que a interseccao geometrica nao
+    enxerga (posseiro, herdeiro, meeiro - CPF divergente).
+    """
+    if "embargos_por_cpf" not in _cache:
+        carregar_embargos_metrico()          # popula tambem `embargos_bruto`
+        bruto = _cache["embargos_bruto"]
+        indice = {}
+        for _, linha in bruto.iterrows():
+            chave = _digitos(linha.get("CPF_CNPJ_EMBARGADO"))
+            if not chave:
+                continue
+            indice.setdefault(chave, []).append({
+                "num_tad": str(linha.get("NUM_TAD") or "sem numero"),
+                "embargado": str(linha.get("NOME_EMBARGADO") or ""),
+                "cpf_cnpj_embargado": chave,
+                "municipio": str(linha.get("MUNICIPIO") or ""),
+                "uf": str(linha.get("UF") or ""),
+                "data_embargo": str(linha.get("DAT_EMBARGO") or ""),
+                "area_embargada": str(linha.get("QTD_AREA_EMBARGADA") or ""),
+                "fonte_camada": str(linha.get("fonte_camada") or ""),
+            })
+        _cache["embargos_por_cpf"] = indice
+    return _cache["embargos_por_cpf"]
+
+
+def _casas_decimais_minimas(wkt_texto: str):
+    """Menor numero de casas decimais entre as coordenadas de um WKT.
+
+    Serve a checagem 01: o Art. 2(28) exige o ponto com SEIS casas decimais.
+    Coordenada com menos casas nao identifica a parcela com a precisao que o
+    Regulamento pede - e defeito de dado, nao de geometria, e por isso e
+    apenas DETECTADO aqui (nenhuma geometria e alterada).
+    """
+    if not wkt_texto:
+        return None
+    numeros = re.findall(r"-?\d+(?:\.\d+)?", str(wkt_texto))
+    if not numeros:
+        return None
+    casas = [len(n.split(".")[1]) if "." in n else 0 for n in numeros]
+    return min(casas) if casas else None
+
+
 def limpar_cache_geo():
     """A vigilancia injeta poligono novo em disco; isso descarta o cache."""
-    for chave in ("embargos_m", "embargos_bruto", "alertas", "protegidas",
+    for chave in ("embargos_m", "embargos_bruto", "embargos_por_cpf",
+                  "alertas", "protegidas",
                   "talhoes_gdf", "talhoes_fora_gdf", "lista_suja"):
         _cache.pop(chave, None)
 
@@ -548,6 +623,16 @@ def checagem_01(talhao_id: str) -> dict:
     if alvo is None:
         return _sem_geometria("01", perna, categoria, talhao_id, base)
 
+    # --- precisao da coordenada: Art. 2(28) exige SEIS casas decimais -------
+    # Talhao entregue como ponto com coordenada truncada nao identifica a
+    # parcela com a precisao que o Regulamento pede. So DETECTAMOS: nenhuma
+    # geometria e alterada aqui (contrato v2, checagem 01 / camada 1).
+    casas_exigidas = 6
+    casas = _casas_decimais_minimas(talhao.get("geom_wkt"))
+    ponto = (talhao.get("tipo_geom") or "").strip().lower() == "ponto"
+    precisao_insuficiente = bool(
+        ponto and casas is not None and casas < casas_exigidas)
+
     alertas = carregar_alertas()
     tocados = gpd.sjoin(alertas, alvo, how="inner", predicate="intersects")
     data_corte = _data(corte)
@@ -556,6 +641,41 @@ def checagem_01(talhao_id: str) -> dict:
         deteccao = _data(linha.get("data_deteccao"))
         if deteccao and data_corte and deteccao > data_corte:
             posteriores.append(linha)
+
+    if not posteriores and precisao_insuficiente:
+        # Sem desmate posterior ao corte, mas a coordenada do ponto nao tem as
+        # seis casas decimais do Art. 2(28): excecao F (flag para revisao),
+        # nunca bloqueio - o defeito e de PRECISAO do dado, nao de legalidade.
+        return {
+            "resultado": "excecao", "perna": perna, "categoria": categoria,
+            "severidade": "F", "fonte": base,
+            "texto": montar_laudo(
+                comparado="a coordenada declarada do talhao %s, entregue como "
+                          "ponto, contra a precisao de %d casas decimais que "
+                          "o Art. 2(28) do Regulamento (UE) 2023/1115 exige "
+                          "da geolocalizacao da parcela; e contra os alertas "
+                          "de supressao posteriores a %s"
+                          % (talhao["nome"], casas_exigidas, corte),
+                base=base + "; e o texto do Art. 2(28) quanto a precisao",
+                resultado="nenhum alerta posterior ao corte intersecta o "
+                          "talhao, mas a coordenada tem apenas %d casa(s) "
+                          "decimal(is) - abaixo das %d exigidas"
+                          % (casas, casas_exigidas),
+                conclusao="falta precisao na coordenada do talhao: com menos "
+                          "de %d casas decimais o ponto nao localiza a "
+                          "parcela como o Art. 2(28) pede, e a checagem "
+                          "geoespacial fica sem base confiavel - EXCECAO "
+                          "para recoleta da coordenada (o dado nao foi "
+                          "alterado)." % casas_exigidas),
+            "evidencia": {"alertas_intersectados": int(len(tocados)),
+                          "alertas_pos_corte": 0,
+                          "motivo_excecao": "precisao_coordenada",
+                          "casas_decimais": casas,
+                          "casas_decimais_exigidas": casas_exigidas,
+                          "tipo_geom": talhao.get("tipo_geom"),
+                          "data_corte": corte,
+                          "fonte_camada": "SEMEADO"},
+        }
 
     if not posteriores:
         anteriores = len(tocados)
@@ -612,7 +732,12 @@ def checagem_01(talhao_id: str) -> dict:
                       "usada aqui e semeada)."),
         "evidencia": {"alertas_pos_corte": ids, "datas_deteccao": datas,
                       "area_intersecao_ha": round(area_m2 / 10000.0, 4),
-                      "data_corte": corte, "fonte_camada": "SEMEADO"},
+                      "data_corte": corte, "fonte_camada": "SEMEADO",
+                      # o bloqueio por desmate e mais grave e prevalece, mas a
+                      # falta de precisao fica registrada na evidencia
+                      "precisao_insuficiente": precisao_insuficiente,
+                      "casas_decimais": casas,
+                      "casas_decimais_exigidas": casas_exigidas},
     }
 
 
@@ -628,14 +753,77 @@ def checagem_02(talhao_id: str) -> dict:
     perna, categoria = "B", CATEGORIA_CHECAGEM["02"]
     params = carregar_params()
     limite_m = float(params["embargo"]["distancia_excecao_m"])
+    # A LDI-PA (Lista de Areas Embargadas da SEMAS-PA) NAO foi consultada: a
+    # base ainda esta 'a descobrir' no ARD.md. Isso vai declarado no laudo,
+    # como a checagem 03 declara que o SICAR nao foi consultado online -
+    # nenhuma base semeada e inventada no lugar dela (ADR-012).
+    RESSALVA_LDI = ("; a LDI-PA (Lista de Areas Embargadas da SEMAS-PA) NAO "
+                    "foi consultada nesta execucao - a fonte ainda esta 'a "
+                    "descobrir' no ARD.md, entao o cruzamento estadual "
+                    "continua pendente e o resultado abaixo cobre apenas o "
+                    "embargo federal do Ibama")
     base = ("Termos de embargo do Ibama (ARD R-01, "
             "dados abertos SIFISC/termo_embargo, recorte da Transamazonica, "
-            "base atualizada em %s)" % data_base_r01())
+            "base atualizada em %s)%s" % (data_base_r01(), RESSALVA_LDI))
 
     talhao = db.buscar_talhao(talhao_id)
     alvo = _gdf_talhao(talhao)
     if alvo is None:
         return _sem_geometria("02", perna, categoria, talhao_id, base)
+
+    # --- cruzamento POR CPF, no recorte inteiro (contrato v2, linha 02) -----
+    # Embargo em nome do produtor pode estar em OUTRA area: posseiro, herdeiro
+    # e meeiro aparecem com CPF divergente do titular do poligono. Por isso o
+    # indice cobre todos os termos do recorte, e nao so a vizinhanca.
+    produtor = db.buscar_produtor(talhao.get("produtor_id")) or {}
+    cpf_produtor = _digitos(produtor.get("cpf"))
+    termos_mesmo_cpf = (carregar_embargos_por_cpf().get(cpf_produtor, [])
+                        if cpf_produtor else [])
+
+    def _excecao_por_cpf(embargos_avaliados, distancia_minima):
+        """Match por CPF SEM interseccao geometrica: excecao de severidade F.
+
+        Nao e bloqueio: o embargo esta em nome do produtor, mas em OUTRA
+        area - nada prova, por si, que o talhao deste lote esteja embargado.
+        E flag para revisao humana (quem decide e sempre o humano,
+        invariante 5), e a microcopia fala do embargo, nunca da pessoa.
+        """
+        tads = ", ".join(t["num_tad"] for t in termos_mesmo_cpf)
+        locais = ", ".join(sorted({("%s/%s" % (t["municipio"], t["uf"])).strip("/")
+                                   for t in termos_mesmo_cpf if t["municipio"]}))
+        return {
+            "resultado": "excecao", "perna": perna, "categoria": categoria,
+            "severidade": "F", "fonte": base,
+            "texto": montar_laudo(
+                comparado="o CPF do produtor do talhao %s (%s) contra o campo "
+                          "CPF_CNPJ_EMBARGADO de TODOS os termos de embargo do "
+                          "recorte, e nao apenas dos que tocam o poligono - o "
+                          "cruzamento da checagem 02 e por poligono E por CPF"
+                          % (talhao["nome"], cpf_produtor),
+                base=base,
+                resultado="nenhum termo de embargo intersecta o talhao, mas "
+                          "%d termo(s) (TAD %s) estao registrados sob o mesmo "
+                          "CPF%s"
+                          % (len(termos_mesmo_cpf), tads,
+                             " - em %s" % locais if locais else ""),
+                conclusao="ha embargo em nome do produtor sobre OUTRA area: o "
+                          "talhao deste lote nao esta sob o poligono "
+                          "embargado, entao nao ha bloqueio, mas o vinculo "
+                          "por CPF (posseiro, herdeiro ou meeiro aparecem com "
+                          "CPF divergente) precisa ser conferido antes do "
+                          "embarque - EXCECAO de severidade F para revisao "
+                          "humana."),
+            "evidencia": {
+                "embargos_avaliados": int(embargos_avaliados),
+                "distancia_minima_m": distancia_minima,
+                "area_intersecao_ha": 0.0,
+                "motivo_excecao": "match_por_cpf_sem_intersecao",
+                "cpf_produtor": cpf_produtor,
+                "termos_mesmo_cpf": termos_mesmo_cpf,
+                "num_tad": [t["num_tad"] for t in termos_mesmo_cpf],
+                "ldi_pa_consultada": False,
+                "data_atualizacao_base": data_base_r01()},
+        }
 
     embargos_m = carregar_embargos_metrico()
     alvo_m = alvo.to_crs(CRS_METRICO)
@@ -647,6 +835,8 @@ def checagem_02(talhao_id: str) -> dict:
         geom_m.buffer(limite_m * 2))]
 
     if vizinhanca.empty:
+        if termos_mesmo_cpf:
+            return _excecao_por_cpf(0, None)
         return {
             "resultado": "conforme", "perna": perna, "categoria": categoria,
             "fonte": base,
@@ -665,6 +855,9 @@ def checagem_02(talhao_id: str) -> dict:
             "evidencia": {"embargos_avaliados": 0,
                           "distancia_minima_m": None,
                           "limite_proximidade_m": limite_m,
+                          "cpf_produtor": cpf_produtor,
+                          "termos_mesmo_cpf": [],
+                          "ldi_pa_consultada": False,
                           "data_atualizacao_base": data_base_r01()},
         }
 
@@ -721,6 +914,11 @@ def checagem_02(talhao_id: str) -> dict:
                 "area_intersecao_ha": round(area_ha, 4),
                 "percentual_do_talhao": round(pct, 2),
                 "termos": detalhes,
+                # o cruzamento por CPF corre sempre, mesmo quando ha
+                # interseccao: diz se o embargo esta ou nao no nome do produtor
+                "cpf_produtor": cpf_produtor,
+                "termos_mesmo_cpf": termos_mesmo_cpf,
+                "ldi_pa_consultada": False,
                 "data_atualizacao_base": data_base_r01(),
                 "crs_medicao": CRS_METRICO,
             },
@@ -769,10 +967,16 @@ def checagem_02(talhao_id: str) -> dict:
                 "distancia_minima_m": round(minima, 1),
                 "limite_proximidade_m": limite_m,
                 "termos": detalhes,
+                "cpf_produtor": cpf_produtor,
+                "termos_mesmo_cpf": termos_mesmo_cpf,
+                "ldi_pa_consultada": False,
                 "data_atualizacao_base": data_base_r01(),
                 "crs_medicao": CRS_METRICO,
             },
         }
+
+    if termos_mesmo_cpf:
+        return _excecao_por_cpf(int(len(vizinhanca)), round(minima, 1))
 
     return {
         "resultado": "conforme", "perna": perna, "categoria": categoria,
@@ -791,6 +995,9 @@ def checagem_02(talhao_id: str) -> dict:
         "evidencia": {"embargos_avaliados": int(len(vizinhanca)),
                       "distancia_minima_m": round(minima, 1),
                       "limite_proximidade_m": limite_m,
+                      "cpf_produtor": cpf_produtor,
+                      "termos_mesmo_cpf": [],
+                      "ldi_pa_consultada": False,
                       "data_atualizacao_base": data_base_r01()},
     }
 
@@ -970,6 +1177,27 @@ def checagem_03(talhao_id: str) -> dict:
 # ===========================================================================
 # Checagem 04 - Sobreposicao de direitos (perna B, categorias 4 e 7)
 # ===========================================================================
+# Rebaixamento por categoria da area, direto do contrato v2 (tabela das nove
+# regras B). Categoria nao informada nao rebaixa: na duvida, fica em B e o
+# humano decide - nenhuma severidade e afrouxada por falta de dado.
+CATEGORIAS_AREA_F = {
+    # R18 - TI: so homologada ou regularizada e B; o resto e flag
+    "terra_indigena": ("delimitada", "declarada", "em_estudo",
+                       "identificada"),
+    # R19 - UC: protecao integral e B; uso sustentavel e flag
+    "unidade_conservacao": ("uso_sustentavel",),
+    # quilombo: titulo constituido e B; processo em curso e flag
+    "territorio_quilombola": ("em_processo", "em_estudo"),
+}
+
+
+def _severidade_area_protegida(tipo_area: str, categoria_area: str) -> str:
+    """'B' ou 'F' conforme a categoria da area sobreposta (contrato v2)."""
+    tipo = (tipo_area or "").strip().lower()
+    categoria = (categoria_area or "").strip().lower()
+    return "F" if categoria in CATEGORIAS_AREA_F.get(tipo, ()) else "B"
+
+
 def checagem_04(talhao_id: str) -> dict:
     """Interseccao com terra indigena, territorio quilombola ou UC.
 
@@ -1020,25 +1248,30 @@ def checagem_04(talhao_id: str) -> dict:
             area = float(recorte.intersection(geom_m).area)
         except Exception:
             area = 0.0
+        categoria_area = str(linha.get("categoria_area") or "").strip().lower()
         detalhes.append({
             "id_area": str(linha.get("id_area")),
             "tipo_area": str(linha.get("tipo_area")),
+            "categoria_area": categoria_area or "nao_informada",
             "nome_area": str(linha.get("nome_area")),
             "orgao": str(linha.get("orgao")),
             "area_intersecao_ha": round(area / 10000.0, 4),
+            "severidade_regra": _severidade_area_protegida(
+                str(linha.get("tipo_area")), categoria_area),
             "fonte_camada": "SEMEADO",
         })
     tipos = sorted({d["tipo_area"] for d in detalhes})
-    # TI e quilombo sao direito territorial de terceiro: bloqueio.
-    # UC admite uso regulado conforme a categoria: excecao para analise.
-    grave = any(t in ("terra_indigena", "territorio_quilombola")
-                for t in tipos)
+    # O rebaixamento e POR AREA, com a categoria de cada uma (contrato v2):
+    #   R18 - TI homologada/regularizada = B; delimitada/declarada = F
+    #   R19 - UC de protecao integral    = B; uso sustentavel      = F
+    # Quilombo titulado e direito territorial constituido = B.
+    grave = any(d["severidade_regra"] == "B" for d in detalhes)
     resultado = "bloqueio" if grave else "excecao"
-    # R18 (TI homologada/regularizada) e R19 (UC de protecao integral) sao B;
-    # UC de uso sustentavel e TI apenas delimitada/declarada ficam em F.
     severidade = "B" if grave else "F"
     area_total = sum(d["area_intersecao_ha"] for d in detalhes)
-    nomes = ", ".join("%s (%s)" % (d["nome_area"], d["tipo_area"])
+    nomes = ", ".join("%s (%s, categoria %s, severidade %s)"
+                      % (d["nome_area"], d["tipo_area"], d["categoria_area"],
+                         d["severidade_regra"])
                       for d in detalhes)
     return {
         "resultado": resultado, "perna": perna, "categoria": categoria,
@@ -1053,13 +1286,19 @@ def checagem_04(talhao_id: str) -> dict:
             resultado="o talhao sobrepoe %d area(s) de direito de terceiros - "
                       "%s - somando %.4f ha de area comum"
                       % (len(detalhes), nomes, area_total),
-            conclusao=("plantio dentro de territorio de terceiros: talhao "
-                       "BLOQUEADO ate manifestacao do orgao competente e "
-                       "consulta livre, previa e informada (FPIC)."
+            conclusao=("plantio dentro de area cuja categoria ja constitui "
+                       "direito de terceiro ou protecao integral (R18 de TI "
+                       "homologada/regularizada, R19 de UC de protecao "
+                       "integral ou quilombo titulado): talhao BLOQUEADO ate "
+                       "manifestacao do orgao competente e consulta livre, "
+                       "previa e informada (FPIC)."
                        if grave else
-                       "sobreposicao com unidade de conservacao exige "
-                       "verificar a categoria da UC e a autorizacao de uso - "
-                       "EXCECAO para analise humana.")),
+                       "a sobreposicao e com area de categoria que admite uso "
+                       "regulado (TI apenas delimitada/declarada, UC de uso "
+                       "sustentavel ou quilombo em processo): rebaixa para "
+                       "severidade F e exige conferir plano de manejo, CDRU "
+                       "ou autorizacao de uso - EXCECAO para analise "
+                       "humana.")),
         "evidencia": {"areas": detalhes, "tipos": tipos,
                       "area_intersecao_total_ha": round(area_total, 4),
                       "fonte_camada": "SEMEADO"},
@@ -1629,21 +1868,110 @@ def regra_r13_talhao_dentro_do_car(ctx: dict) -> dict:
 
 
 def regra_r16_embargo(ctx: dict) -> dict:
-    """R16 - Poligono intersecta area embargada (Ibama ou LDI-PA)."""
-    return _delegada(ctx, "02", "R16", "interseccao com area embargada")
+    """R16 - Poligono intersecta area embargada (Ibama ou LDI-PA).
+
+    Quando a checagem 02 acha embargo pelo CPF do produtor SEM interseccao
+    geometrica, o achado continua sendo registrado - mas com severidade F:
+    a R16 e sobre o poligono, e o embargo em nome do produtor sobre outra
+    area nao bloqueia a aptidao deste talhao, sinaliza revisao.
+    """
+    fonte = ctx["delegadas"].get("02") or {}
+    evidencia = fonte.get("evidencia", {})
+    saida = _delegada(ctx, "02", "R16", "interseccao com area embargada")
+    if evidencia.get("motivo_excecao") == "match_por_cpf_sem_intersecao":
+        saida["severidade"] = "F"
+        saida["evidencia"]["rebaixada_para_f"] = (
+            "embargo encontrado pelo CPF do produtor, em outra area, sem "
+            "interseccao com o poligono do talhao")
+    return saida
 
 
 def regra_r17_desmate(ctx: dict) -> dict:
-    """R17 - Poligono intersecta desmatamento validado pos-31/12/2020."""
+    """R17 - Poligono intersecta desmatamento validado pos-31/12/2020.
+
+    A checagem 01 tambem detecta coordenada de ponto com menos de seis casas
+    decimais (Art. 2(28)). Esse achado NAO e desmatamento: se a excecao da 01
+    vier so por precisao, a R17 sai conforme e o defeito de precisao continua
+    aparecendo na propria checagem 01, sem virar achado de desmate.
+    """
+    fonte = ctx["delegadas"].get("01") or {}
+    evidencia = fonte.get("evidencia", {})
+    if (fonte.get("resultado") == "excecao"
+            and evidencia.get("motivo_excecao") == "precisao_coordenada"):
+        return _ok(
+            "R17 conforme: a checagem 01 nao encontrou alerta de supressao "
+            "posterior a 31/12/2020 no talhao %s. A excecao registrada na 01 "
+            "e de PRECISAO da coordenada (Art. 2(28)), nao de desmatamento."
+            % ctx["talhao"]["nome"],
+            {"delegada_a": "01", "resultado_da_checagem": "excecao",
+             "motivo_da_excecao": "precisao_coordenada",
+             "evidencia_da_checagem": evidencia})
     return _delegada(ctx, "01", "R17",
                      "interseccao com desmatamento pos-31/12/2020")
 
 
-def regra_r18_r19_sobreposicao(ctx: dict) -> dict:
-    """R18/R19 - Interseccao com terra indigena ou UC de protecao integral."""
-    return _delegada(ctx, "04", "R18/R19",
-                     "interseccao com terra indigena, territorio quilombola "
-                     "ou unidade de conservacao")
+def _sobreposicao_por_tipo(ctx: dict, codigo_regra: str, tipo_area: str,
+                           titulo: str, artigo: str) -> dict:
+    """Base comum de R18 e R19: le a evidencia da checagem 04 e filtra por
+    tipo de area, aplicando o rebaixamento proprio de cada regra.
+
+    R18 e R19 eram um codigo composto 'R18/R19' e agora sao linhas de
+    checagem distintas: a TI e a UC tem regras de rebaixamento diferentes
+    (TI delimitada/declarada = F, homologada/regularizada = B; UC de uso
+    sustentavel = F, de protecao integral = B) e um codigo unico nao
+    conseguia carregar duas severidades.
+    """
+    fonte = ctx["delegadas"].get("04")
+    if not fonte:
+        return _ok("%s nao avaliada: a checagem 04 nao rodou nesta execucao, "
+                   "entao nao ha resultado geoespacial a registrar."
+                   % codigo_regra, {"delegada_a": "04"})
+    areas = [a for a in fonte.get("evidencia", {}).get("areas", [])
+             if a.get("tipo_area") == tipo_area]
+    if not areas:
+        return _ok("%s conforme: o poligono do talhao %s nao intersecta "
+                   "nenhuma %s na camada consultada pela checagem 04."
+                   % (codigo_regra, ctx["talhao"]["nome"], titulo),
+                   {"delegada_a": "04", "tipo_area": tipo_area, "areas": []})
+    severidade = "B" if any(a.get("severidade_regra") == "B" for a in areas) \
+        else "F"
+    descricao = "; ".join(
+        "%s (categoria %s, severidade %s, %.4f ha de area comum)"
+        % (a.get("nome_area"), a.get("categoria_area"),
+           a.get("severidade_regra"), a.get("area_intersecao_ha") or 0.0)
+        for a in areas)
+    texto = ("%s - o poligono do talhao %s sobrepoe %d %s: %s. %s. "
+             "Severidade %s pela categoria da area; resultado registrado a "
+             "partir da checagem 04, sem reprocessamento geometrico."
+             % (codigo_regra, ctx["talhao"]["nome"], len(areas), titulo,
+                descricao, artigo, severidade))
+    return {"resultado": "excecao", "texto": texto, "severidade": severidade,
+            "evidencia": {"delegada_a": "04", "tipo_area": tipo_area,
+                          "areas": areas, "severidade_calculada": severidade}}
+
+
+def regra_r18_terra_indigena(ctx: dict) -> dict:
+    """R18 - Interseccao com Terra Indigena.
+
+    Homologada ou regularizada = B; delimitada ou declarada = F.
+    """
+    return _sobreposicao_por_tipo(
+        ctx, "R18", "terra_indigena", "terra(s) indigena(s)",
+        "TI homologada ou regularizada bloqueia a aptidao (B); apenas "
+        "delimitada ou declarada rebaixa para flag (F)")
+
+
+def regra_r19_unidade_conservacao(ctx: dict) -> dict:
+    """R19 - Interseccao com Unidade de Conservacao.
+
+    Protecao integral = B; uso sustentavel = F (conferir plano de manejo
+    ou CDRU).
+    """
+    return _sobreposicao_por_tipo(
+        ctx, "R19", "unidade_conservacao", "unidade(s) de conservacao",
+        "UC de protecao integral bloqueia a aptidao (B); UC de uso "
+        "sustentavel rebaixa para flag (F) e exige conferir o plano de "
+        "manejo ou a CDRU")
 
 
 def regra_r08_lista_suja(ctx: dict) -> dict:
@@ -1747,7 +2075,8 @@ def regra_r39_volume_vs_produtividade_maxima(ctx: dict) -> dict:
 #   R13 (talhao dentro do CAR)      -> delegada a checagem 03
 #   R16 (embargo)                   -> delegada a checagem 02
 #   R17 (desmate pos-2020)          -> delegada a checagem 01
-#   R18/R19 (TI, quilombo, UC)      -> delegada a checagem 04
+#   R18 (terra indigena)            -> delegada a checagem 04, filtrada por tipo
+#   R19 (unidade de conservacao)    -> delegada a checagem 04, filtrada por tipo
 #   R08 (Lista Suja do MTE)         -> delegada a checagem 07
 #   R14 (poligono > 4 ha como ponto)-> regra fina, calculada aqui
 #   R39 (volume vs produtividade)   -> DESLIGADA, nao roda e nao inventa numero
@@ -1770,7 +2099,10 @@ REGRAS_05 = [
     ("R13", "B", regra_r13_talhao_dentro_do_car),
     ("R29", "B", regra_14_car_situacao),
     ("R08", "B", regra_r08_lista_suja),
-    ("R18/R19", "B", regra_r18_r19_sobreposicao),
+    # R18 e R19 sao linhas SEPARADAS: cada uma tem rebaixamento proprio e a
+    # severidade abaixo e so o padrao - a regra devolve a sua.
+    ("R18", "B", regra_r18_terra_indigena),
+    ("R19", "B", regra_r19_unidade_conservacao),
     ("R01", "B", regra_01_cpf_car_vs_nota),
     ("R14", "B", regra_r14_poligono_como_ponto),
     # --- as F, herdadas da numeracao v1 e recodificadas ---
@@ -1793,7 +2125,7 @@ REGRAS_05 = [
 # Categoria EUDR de cada regra, para gravar em `checagem.categoria`.
 CATEGORIA_REGRA = {
     "R01": "a", "R08": "e", "R09": "a", "R11": "a", "R12": "a",
-    "R13": "a", "R14": "A", "R16": "b", "R17": "A", "R18/R19": "d",
+    "R13": "a", "R14": "A", "R16": "b", "R17": "A", "R18": "d", "R19": "b",
     "R21": "a", "R22": "a", "R29": "b", "R31": "h", "R32": "h",
     "R33": "a", "R39": "h", "R45": "h", "R46": "h", "R47": "a",
     "R48": "a",
@@ -1807,7 +2139,7 @@ def checagem_05(talhao_id: str, delegadas: dict = None) -> dict:
     produtor. Cada excecao diz qual documento conflita com qual.
 
     `delegadas` traz o resultado das checagens geoespaciais ja executadas
-    neste talhao, para que R13, R16, R17, R18/R19 e R08 registrem o achado
+    neste talhao, para que R13, R16, R17, R18, R19 e R08 registrem o achado
     sem reprocessar geometria.
 
     O resultado agregado nunca e `bloqueio`: severidade B aqui significa
@@ -1833,12 +2165,15 @@ def checagem_05(talhao_id: str, delegadas: dict = None) -> dict:
             saida = {"resultado": "excecao",
                      "texto": "%s nao pode ser avaliada: erro interno (%s)."
                               % (nome, erro), "evidencia": {"erro": str(erro)}}
-        saida["severidade"] = severidade
+        # A severidade da tupla e o PADRAO da regra; a regra pode devolver a
+        # sua propria quando o rebaixamento depende do dado (R18 e R19).
+        severidade_efetiva = saida.get("severidade") or severidade
+        saida["severidade"] = severidade_efetiva
         saida["categoria"] = CATEGORIA_REGRA.get(nome, "a")
         resultados[nome] = saida
         if saida["resultado"] != "conforme":
             disparadas.append(nome)
-            if severidade == "B":
+            if severidade_efetiva == "B":
                 disparadas_b.append(nome)
 
     if total_docs == 0:
@@ -2157,7 +2492,7 @@ PIOR = {"conforme": 0, "excecao": 1, "bloqueio": 2}
 # Orquestracao
 # ===========================================================================
 # Ordem de execucao: a 05 vem por ultimo porque suas regras geometricas
-# (R13, R16, R17, R18/R19) e a R08 delegam o resultado das demais.
+# (R13, R16, R17, R18, R19) e a R08 delegam o resultado das demais.
 ORDEM_EXECUCAO = ["01", "02", "03", "04", "06", "07", "05"]
 
 # Documentos cuja AUSENCIA e a situacao regular da cacauicultura familiar.
@@ -2605,6 +2940,87 @@ def _ultimas_checagens_por_talhao_detalhado() -> dict:
     return mapa
 
 
+# ---------------------------------------------------------------------------
+# SEVERIDADE B BLOQUEIA A APTIDAO ATE RESOLVER (correcoes-spec_1.md secao 04)
+# ---------------------------------------------------------------------------
+# Ate aqui as regras B documentais da checagem 05 nao tinham efeito nenhum na
+# tabela `aptidao`: um produtor com R01 disparada podia sair com as cinco
+# camadas satisfeitas. Este mapa e a ligacao que faltava - cada regra B derruba
+# a camada cuja PROVA ela contradiz, e o detalhe da camada diz qual regra
+# bloqueou.
+#
+# O principio do contrato continua intacto: B bloqueia a APTIDAO, nunca o
+# LOTE. Quem derruba lote para 'bloqueado' sao e continuam sendo as checagens
+# 01, 02 e 04 (ver `recalcular_status_lotes` e CODIGOS_AGREGADOS).
+#
+# | Regra | Camada | Por que essa camada                                     |
+# |-------|--------|---------------------------------------------------------|
+# | R13   |   1    | talhao fora do perimetro do CAR: a parcela geolocalizada |
+# |       |        | nao esta provada                                         |
+# | R14   |   1    | talhao > 4 ha entregue como ponto: falta o poligono do   |
+# |       |        | Art. 2(28)                                               |
+# | R29   |   1    | CAR Cancelado: a camada 1 exige CAR nao-cancelado        |
+# | R01   |  4/2   | CPF do emitente da NF != CPF do titular do CAR. Se ha    |
+# |       |        | nota, o documento em conflito e a NF -> camada 4; se nao |
+# |       |        | ha nota nenhuma, o conflito e de titularidade -> camada 2|
+# | R16   |   5    | embargo: checagem negativa na data do dossie             |
+# | R17   |   5    | desmate pos-2020: checagem negativa                      |
+# | R18   |   5    | terra indigena: checagem negativa                        |
+# | R19   |   5    | unidade de conservacao: checagem negativa                |
+# | R08   |   5    | Lista Suja do MTE: checagem negativa                     |
+REGRA_B_CAMADA = {
+    "R13": 1, "R14": 1, "R29": 1,
+    "R01": 4,                      # ou 2, ver _camada_da_regra_b
+    "R16": 5, "R17": 5, "R18": 5, "R19": 5, "R08": 5,
+}
+
+# Documentos que fazem a R01 recair sobre a camada 4 (transacao). Sem nenhum
+# deles, a divergencia de CPF e de titularidade e recai sobre a camada 2.
+DOCS_TRANSACAO = ("nota_fiscal_produtor", "contranota", "nota_fiscal_entrada")
+
+
+def _camada_da_regra_b(codigo_regra: str, documentos: list) -> int:
+    """Camada que a regra B derruba. So a R01 depende do documento."""
+    if codigo_regra == "R01":
+        presentes = {d.get("tipo") for d in documentos}
+        return 4 if presentes & set(DOCS_TRANSACAO) else 2
+    return REGRA_B_CAMADA.get(codigo_regra)
+
+
+def _regras_b_abertas(talhoes: list, documentos: list) -> dict:
+    """camada -> lista de regras B disparadas nos talhoes do produtor.
+
+    Le a ULTIMA linha de `checagem` de cada par (talhao, regra) - as linhas
+    que `_gravar_regras_05` grava com o codigo oficial da regra - e considera
+    apenas as que ficaram com severidade B e resultado diferente de conforme.
+    """
+    ids = [t["id"] for t in talhoes]
+    codigos = sorted(REGRA_B_CAMADA)
+    if not ids:
+        return {}
+    m_ids = ",".join("?" for _ in ids)
+    m_cod = ",".join("?" for _ in codigos)
+    linhas = db.consultar(
+        "SELECT c.talhao_id, c.codigo, c.resultado, c.severidade, c.texto "
+        "FROM checagem c JOIN (SELECT talhao_id, codigo, MAX(rowid) AS r "
+        "  FROM checagem WHERE codigo IN (%s) AND talhao_id IN (%s) "
+        "  GROUP BY talhao_id, codigo) u "
+        "  ON u.talhao_id = c.talhao_id AND u.codigo = c.codigo "
+        " AND u.r = c.rowid" % (m_cod, m_ids), tuple(codigos) + tuple(ids))
+    nomes = {t["id"]: t["nome"] for t in talhoes}
+    bloqueios = {}
+    for linha in linhas:
+        if linha["resultado"] == "conforme" or linha["severidade"] != "B":
+            continue
+        camada = _camada_da_regra_b(linha["codigo"], documentos)
+        if not camada:
+            continue
+        bloqueios.setdefault(camada, []).append(
+            {"regra": linha["codigo"], "talhao": nomes.get(linha["talhao_id"]),
+             "texto": linha["texto"]})
+    return bloqueios
+
+
 def avaliar_aptidao(produtor_id: str) -> list:
     """Grava uma linha de `aptidao` por camada (1..5) para o produtor.
 
@@ -2619,6 +3035,10 @@ def avaliar_aptidao(produtor_id: str) -> list:
     documentos = db.listar_documentos(produtor_id)
     momento = db.agora()
 
+    # Regras B disparadas nos talhoes deste produtor: bloqueiam a camada
+    # correspondente ate serem resolvidas (correcoes-spec_1.md secao 04).
+    bloqueios = _regras_b_abertas(talhoes, documentos)
+
     gravadas = []
     for camada in sorted(CAMADAS):
         try:
@@ -2627,6 +3047,26 @@ def avaliar_aptidao(produtor_id: str) -> list:
             saida = {"satisfeita": 0, "forca": "fraca",
                      "via_documento_id": None,
                      "detalhe": "avaliacao falhou: %s" % erro}
+        travas = bloqueios.get(camada, [])
+        if travas and saida.get("satisfeita"):
+            # A prova documental existe, mas uma regra de severidade B a
+            # contradiz: a camada nao fecha ate que a regra seja resolvida.
+            # A frase fala da REGRA e do DOCUMENTO, nunca da pessoa.
+            saida["satisfeita"] = 0
+            saida["forca"] = "fraca"
+            saida["detalhe"] = (
+                "%s | BLOQUEADA por regra de severidade B em aberto: %s - "
+                "severidade B bloqueia a aptidao ate resolver (o lote nao e "
+                "barrado por isto)"
+                % (saida.get("detalhe") or "prova documental presente",
+                   "; ".join("%s no talhao %s" % (t["regra"], t["talhao"])
+                             for t in travas)))
+        elif travas:
+            saida["detalhe"] = (
+                "%s | regra(s) B tambem em aberto: %s"
+                % (saida.get("detalhe") or "camada aberta",
+                   "; ".join("%s no talhao %s" % (t["regra"], t["talhao"])
+                             for t in travas)))
         linha = db.inserir_aptidao({
             "produtor_id": produtor_id,
             "camada": camada,
@@ -2766,8 +3206,8 @@ def regras_05_disparadas() -> dict:
             continue
         for regra in dados.get("evidencia", {}).get("regras_disparadas", []):
             contagem[regra] = contagem.get(regra, 0) + 1
-    # Ordena por codigo oficial. 'R18/R19' e um codigo composto: ordena
-    # pelo primeiro numero, que e o que o auditor procura na tabela.
+    # Ordena por codigo oficial. Nao ha mais codigo composto: R18 e R19 sao
+    # linhas separadas desde o rebaixamento por categoria da area.
     def _chave(kv):
         digitos = re.findall(r"\d+", kv[0])
         return int(digitos[0]) if digitos else 999
@@ -2908,4 +3348,9 @@ def main(argv=None) -> int:
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    # erro de configuracao (params/cacau.yml) sai como mensagem, nao traceback
+    try:
+        sys.exit(main())
+    except ValueError as _erro:
+        print("ERRO DE CONFIGURACAO: %s" % _erro)
+        sys.exit(2)

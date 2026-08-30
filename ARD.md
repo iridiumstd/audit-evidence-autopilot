@@ -172,7 +172,7 @@ A checagem 03 precisa de três coisas: CAR **ativo**, geometria compatível com 
 
 **Decisão pendente P-03 do `ADR.md`:** se as camadas reais não estiverem disponíveis no prazo, a checagem 04 usa **camadas semeadas** — e o código precisa deixar explícito qual é qual, e o laudo precisa declarar que a fonte é semeada. Camada semeada apresentada como real é fraude (`ADR-012`).
 
-A checagem 04 é a **primeira a cair** na ordem de corte do PRD. Se a descoberta destes três recursos consumir mais de uma hora, corte antes de comprometer a 02 e a 06.
+A checagem 04 está entre as que **nunca caem** na ordem de corte (`docs/correcoes-spec_1.md` §7.1) — ela é a única prova possível das categorias (f), (g) e parte de (d). Quem cai antes dela, na ordem corrigida, são as regras F da checagem 05 e o refinamento da checagem 03. Se a descoberta destes três recursos consumir mais de uma hora, corte antes de comprometer a 02 e a 06.
 
 ---
 

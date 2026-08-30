@@ -222,6 +222,8 @@ Orquestrador: `verificar_talhao(talhao_id)` roda as sete e grava.
 
 **Sobre a checagem 07:** é nova porque as categorias (e) trabalhista e (f) direitos humanos não têm documento positivo emitido para o produtor — não existe certidão pública de conformidade trabalhista para pessoa física sem empregados. A prova é Lista Suja + CAF + autodeclaração, e a Lista Suja é a parte automatizável: planilha semestral do MTE.
 
+**Nota sobre `checagem.codigo`:** o campo carrega dois vocabulários diferentes, e isso é intencional. Nas linhas gravadas pelo orquestrador de cada checagem (`verificar_talhao`), `codigo` é o código agregado da checagem — `'01'` a `'07'` — um por checagem por talhão. Nas linhas geradas dentro da checagem 05, `codigo` é o código da regra individual — `'R01'` a `'R50'` — uma por regra que rodou. `recalcular_status_lotes` só soma os agregados (`CODIGOS_AGREGADOS`, `'01'..'07'`); os códigos de regra nunca entram nessa soma, para não contar a mesma checagem mais de uma vez.
+
 ### 4.1 Checagem 02 — a que dispara na demo
 
 Capriche na evidência: guarde **o número do termo de embargo** e **a área de interseção**. É a checagem do momento de 3:15.

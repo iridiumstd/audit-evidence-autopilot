@@ -18,6 +18,7 @@ Regras respeitadas:
 import argparse
 import hashlib
 import json
+import os
 import re
 import shutil
 import sys
@@ -194,12 +195,31 @@ def _preparar_terminal() -> None:
 _PARAMS_CACHE = None
 
 
+def validar_params(dados: dict) -> dict:
+    """Falha alto e claro quando o cacau.yml perde uma chave essencial.
+
+    Sem `conjunto_minimo` o mapa de lacunas ficaria vazio e todo produtor
+    sairia 'apto' sem nenhum documento - conforme silencioso, o pior defeito
+    possivel neste sistema. Melhor parar com mensagem explicita.
+    """
+    if not isinstance(dados, dict):
+        raise ValueError("params/cacau.yml nao carregou como mapa YAML valido")
+    minimo = dados.get("conjunto_minimo")
+    if not isinstance(minimo, dict) or not minimo.get("obrigatorios"):
+        raise ValueError(
+            "params/cacau.yml invalido: falta a chave 'conjunto_minimo' com a "
+            "lista 'obrigatorios'. Sem ela o conjunto minimo documental nao "
+            "pode ser avaliado e nenhum produtor pode ser declarado apto. "
+            "Restaure a chave no arquivo params/cacau.yml.")
+    return dados
+
+
 def carregar_params() -> dict:
     """Le params/cacau.yml uma unica vez por processo."""
     global _PARAMS_CACHE
     if _PARAMS_CACHE is None:
         with open(PARAMS, "r", encoding="utf-8") as f:
-            _PARAMS_CACHE = yaml.safe_load(f)
+            _PARAMS_CACHE = validar_params(yaml.safe_load(f))
     return _PARAMS_CACHE
 
 
@@ -805,6 +825,87 @@ def copiar_padronizado(origem: Path, slug: str, codigo: str, titular: str,
     return destino, versao
 
 
+def _chave_ordem_versao(reg: dict) -> tuple:
+    """Chave de ordenacao das versoes dentro de (tipo, titular).
+
+    O contrato v2 define versao pela IDADE do documento, nao pela ordem
+    alfabetica de processamento: o mais antigo e o v01 e o mais novo recebe o
+    maior N. A data usada e a de emissao; quando ela e ilegivel, `data_arquivo`
+    ja devolveu a data de UPLOAD com o sufixo 'u' - o fallback previsto.
+    Empate no mesmo dia cai no nome do arquivo de origem, so para o resultado
+    ser deterministico (mesma entrada, mesma saida) e a idempotencia valer.
+    """
+    data_ref = reg["data_ref"]
+    dia = data_ref[:8]
+    fallback = 1 if data_ref.endswith("u") else 0   # emissao legivel vem antes
+    return (dia, fallback, reg["origem_nome"])
+
+
+def reordenar_versoes_por_data(registros: list, verboso: bool = False) -> int:
+    """Reatribui o vN de cada grupo (codigo, titular) pela data de emissao.
+
+    Roda DEPOIS do laco de arquivos porque a ingestao e por arquivo e so no
+    fim se conhece o grupo inteiro. Renomeia o arquivo padronizado em duas
+    fases (todos os envolvidos para um nome temporario, depois para o nome
+    final) para que uma troca de versoes entre dois arquivos nao apague
+    nenhum deles, e grava a correcao no banco (documento.versao e
+    documento.arquivo_padronizado) sempre via db.py. Nenhum arquivo de versao
+    anterior e removido: o que havia continua na pasta, so com o numero de
+    versao correto.
+
+    Devolve quantos documentos tiveram a versao corrigida.
+    """
+    grupos = {}
+    for reg in registros:
+        grupos.setdefault((reg["codigo"], reg["titular"]), []).append(reg)
+
+    trocas = []
+    for _chave, itens in grupos.items():
+        if len(itens) < 2:
+            continue                      # grupo de um so: v01 ja esta certo
+        ordenados = sorted(itens, key=_chave_ordem_versao)
+        for nova_versao, reg in enumerate(ordenados, 1):
+            if nova_versao != reg["versao"]:
+                trocas.append((reg, nova_versao))
+
+    if not trocas:
+        return 0
+
+    # fase 1: tira todos os envolvidos do caminho, para nao haver colisao
+    temporarios = []
+    for reg, nova_versao in trocas:
+        atual = reg["destino"]
+        temporario = atual.with_name(atual.name + ".reordenando")
+        os.replace(str(atual), str(temporario))
+        temporarios.append((reg, nova_versao, temporario))
+
+    # fase 2: nome final + correcao no banco
+    for reg, nova_versao, temporario in temporarios:
+        final = temporario.parent / nome_padronizado(
+            reg["codigo"], reg["titular"], reg["data_ref"], nova_versao,
+            reg["extensao"])
+        os.replace(str(temporario), str(final))
+        versao_antiga = reg["versao"]
+        reg["versao"] = nova_versao
+        reg["destino"] = final
+        reg["campos"]["versao"] = nova_versao
+        db.atualizar("documento", reg["doc_id"], {
+            "versao": nova_versao,
+            "arquivo_padronizado": str(final.relative_to(RAIZ)),
+            "campos_json": json.dumps(reg["campos"], ensure_ascii=False),
+        })
+        reg["resumo"]["arquivo_padronizado"] = final.name
+        db.registrar_evento(
+            "sistema", "documento_versao_reordenada", "documento",
+            reg["doc_id"],
+            "versao corrigida de v%02d para v%02d pela data de emissao (%s): %s"
+            % (versao_antiga, nova_versao, reg["data_ref"], final.name))
+        if verboso:
+            print("   %sv%02d->v%02d%s %s"
+                  % (C.CINZA, versao_antiga, nova_versao, C.RESET, final.name))
+    return len(temporarios)
+
+
 def validar_pasta_padronizado(raiz: Path = None) -> dict:
     """Confere a pasta inteira contra a RE_NOME_PADRONIZADO do contrato v2.
     Devolve total, validos e a lista dos que nao seguem o padrao."""
@@ -900,6 +1001,7 @@ def processar_produtor(produtor_slug: str, verboso: bool = True) -> dict:
             len(arquivos), "" if len(arquivos) == 1 else "s"))
 
     documentos = []
+    registros = []                # insumo da reordenacao de versao por data
     contador_versao = {}          # (codigo, titular) -> ultima versao usada
     por_status, por_tipo = {}, {}
     tipos_presentes, textos_norm = set(), []
@@ -999,10 +1101,18 @@ def processar_produtor(produtor_slug: str, verboso: bool = True) -> dict:
             tipos_presentes.add(tipo)
         por_status[status] = por_status.get(status, 0) + 1
         por_tipo[tipo] = por_tipo.get(tipo, 0) + 1
-        documentos.append({
+        resumo = {
             "id": linha["id"], "arquivo": arquivo.name, "tipo": tipo,
             "status": status, "confianca": confianca, "hash_sha256": sha,
             "arquivo_padronizado": destino.name, "motivo": motivo,
+        }
+        documentos.append(resumo)
+        # guarda o que a reordenacao por data vai precisar no fim do produtor
+        registros.append({
+            "doc_id": linha["id"], "destino": destino, "codigo": codigo,
+            "titular": titular, "data_ref": data_ref, "versao": versao,
+            "extensao": destino.suffix, "origem_nome": arquivo.name,
+            "campos": campos, "resumo": resumo,
         })
 
         if verboso:
@@ -1010,6 +1120,11 @@ def processar_produtor(produtor_slug: str, verboso: bool = True) -> dict:
             print("   %s%-8s%s %-34.34s -> %-22s conf %.2f  %s%s"
                   % (cor, status.upper(), C.RESET, arquivo.name, tipo,
                      confianca, C.CINZA + destino.name + C.RESET, ""))
+
+    # A versao do nome padronizado e "documento mais novo do mesmo tipo e
+    # titular" (contrato v2), nao a ordem em que os arquivos foram lidos. Como
+    # a ingestao e por arquivo, a correcao acontece aqui, com o grupo completo.
+    reordenadas = reordenar_versoes_por_data(registros, verboso)
 
     lacunas = mapa_lacunas(tipos_presentes, " ".join(textos_norm))
     if verboso:
@@ -1029,6 +1144,7 @@ def processar_produtor(produtor_slug: str, verboso: bool = True) -> dict:
         "por_tipo": por_tipo,
         "documentos": documentos,
         "mapa_lacunas": lacunas,
+        "versoes_reordenadas": reordenadas,
     }
     db.registrar_evento(
         "sistema", "produtor_ingerido", "produtor", produtor["id"],
@@ -1162,7 +1278,16 @@ def main() -> int:
         print(json.dumps(res, ensure_ascii=False, indent=2))
         return 0 if not res["invalidos"] else 1
     if args.produtor:
-        res = processar_produtor(args.produtor, verboso=not args.silencioso)
+        # slug inexistente e erro de uso do operador: mensagem clara, nao traceback
+        try:
+            res = processar_produtor(args.produtor, verboso=not args.silencioso)
+        except ValueError as erro:
+            print("ERRO: %s" % erro)
+            # a dica de slug so cabe quando o erro E de slug
+            if "slug" in str(erro):
+                print("Dica: use o slug exato da pasta em dados/entrada/ "
+                      "(o produtor precisa existir no banco).")
+            return 1
         print(json.dumps({k: v for k, v in res.items() if k != "documentos"},
                          ensure_ascii=False, indent=2))
         return 0
@@ -1174,4 +1299,9 @@ def main() -> int:
 
 
 if __name__ == "__main__":
-    raise SystemExit(main())
+    # erro de configuracao (params/cacau.yml) sai como mensagem, nao traceback
+    try:
+        raise SystemExit(main())
+    except ValueError as _erro:
+        print("ERRO DE CONFIGURACAO: %s" % _erro)
+        raise SystemExit(2)

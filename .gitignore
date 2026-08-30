@@ -4,7 +4,7 @@ dados/bases/bruto/
 
 __pycache__/
 *.pyc
-.streamlit/
+# telemetria desligada via .streamlit/config.toml (versionado)
 
 # artefatos de sessao/ferramentas
 blocos.json

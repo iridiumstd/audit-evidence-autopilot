@@ -6,3 +6,13 @@ requests
 pandas
 openpyxl
 pillow
+pdfplumber
+jinja2
+playwright
+streamlit
+# pytesseract: opcional — só é usado se o OCR estiver habilitado; requer o binário
+# Tesseract instalado à parte no sistema operacional.
+# pytesseract
+# pyarrow NÃO deve ser instalado nesta máquina — a DLL do pyarrow é bloqueada
+# pelo ambiente local (falha de carregamento nativo). Não adicionar como
+# dependência transitiva sem confirmar antes com quem mantém o ambiente.

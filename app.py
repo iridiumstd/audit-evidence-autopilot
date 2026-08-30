@@ -30,6 +30,7 @@ Nao reinstale pyarrow.
 Uso:
     streamlit run app.py
 """
+import inspect
 import sys
 from pathlib import Path
 
@@ -117,6 +118,118 @@ CSS = """
 
 def selo(texto: str, cor: str) -> str:
     return '<span class="selo" style="background:%s">%s</span>' % (cor, texto)
+
+
+# ---------------------------------------------------------------------------
+# Compatibilidade com a versao do streamlit instalada
+# ---------------------------------------------------------------------------
+# Regra desta secao: nunca chamar uma API do streamlit por suposicao. A
+# assinatura realmente instalada e consultada por introspecao antes do uso,
+# porque foi exatamente uma suposicao errada - st.iframe(srcdoc=...,
+# scrolling=...) - que derrubou a visualizacao do dossie na tela 3. Nesta
+# versao a assinatura e:
+#     st.iframe(src, *, width, height, tab_index)
+# ou seja: `srcdoc` e `scrolling` nao existem, e o HTML cru vai em `src`.
+def _parametros(func) -> set:
+    """Nomes dos parametros aceitos por `func`; vazio se nao introspectavel."""
+    try:
+        return set(inspect.signature(func).parameters)
+    except (TypeError, ValueError):
+        return set()
+
+
+def _kwargs_largura_total(func) -> dict:
+    """Como pedir "ocupe a largura toda" na versao instalada.
+
+    O streamlit trocou `use_container_width=True` por `width="stretch"` e
+    deixou o antigo como depreciado. Resolvido por introspecao, para nao
+    depender de numero de versao nem colher aviso de depreciacao na tela.
+    """
+    p = _parametros(func)
+    if "width" in p:
+        return {"width": "stretch"}
+    if "use_container_width" in p:
+        return {"use_container_width": True}
+    return {}
+
+
+def _motor_de_embutir():
+    """(funcao, kwargs_extra, nome) para embutir HTML cru dentro de um iframe.
+
+    O `st.iframe` moderno aceita o proprio HTML em `src` e nao tem `scrolling`.
+    Nas versoes em que `st.iframe` so aceita URL (tem `scrolling`) ou nem
+    existe, o caminho certo e `components.html`, que funciona em qualquer
+    versao e por isso fica como reserva. `components.html` ainda funciona
+    aqui, mas esta depreciado: com client.showErrorDetails no padrao "full"
+    ele imprime uma tarja amarela de depreciacao em cima do dossie.
+    """
+    p = _parametros(getattr(st, "iframe", None))
+    if "src" in p and "scrolling" not in p:
+        return st.iframe, {}, "st.iframe"
+    return components.html, {"scrolling": True}, "components.html"
+
+
+def ao_vivo(func, intervalo) -> None:
+    """Roda `func` como fragmento que se refaz sozinho a cada `intervalo`.
+
+    Fragmento, e nao `st.rerun()` global, de proposito: so o bloco que le o
+    banco volta ao banco, entao o resto da pagina - inclusive o formulario de
+    decisao que a gestora estiver preenchendo - nao e refeito junto. Com
+    `intervalo` None a atualizacao automatica fica desligada e a funcao roda
+    uma vez so, normalmente.
+    """
+    if intervalo:
+        st.fragment(func, run_every=intervalo)()
+    else:
+        func()
+
+
+def caminho_do_banco(relativo):
+    """Caminho absoluto de um campo de caminho do banco, ou None se vazio.
+
+    `RAIZ / ""` devolve a propria RAIZ - um diretorio que existe -, entao um
+    caminho nulo no banco viraria "arquivo presente" e a leitura estouraria
+    num erro de permissao. Por isso o vazio vira None e toda checagem daqui
+    para a frente e `is_file()`, nunca `exists()`.
+    """
+    if not relativo:
+        return None
+    return RAIZ / relativo
+
+
+def ler_bytes(caminho):
+    """(bytes, erro): le o arquivo ou devolve o motivo por que nao deu.
+
+    Quem chama mostra o motivo na tela. Engolir a falha deixava a gestora
+    sem botao e sem explicacao.
+    """
+    try:
+        return caminho.read_bytes(), None
+    except OSError as erro:
+        return None, str(erro)
+
+
+def embutir_dossie(caminho_html, altura: int = 900) -> dict:
+    """Le o HTML do dossie e o embute na pagina.
+
+    Devolve {"modo", "motor", "bytes", "erro"} para que a tela decida a
+    mensagem e para que o caminho feliz possa ser exercitado fora do
+    streamlit. `modo` e "embutido", "ausente" ou "erro_leitura".
+    """
+    if caminho_html is None or not caminho_html.is_file():
+        return {"modo": "ausente", "motor": None, "bytes": 0, "erro": None}
+    try:
+        bruto = caminho_html.read_text(encoding="utf-8", errors="replace")
+    except OSError as erro:
+        # Ultima linha de defesa: o arquivo esta em disco mas a leitura foi
+        # negada (regeracao em curso, permissao, unidade de rede). Nao e o
+        # caminho normal - por isso vira mensagem na tela, nunca silencio.
+        return {"modo": "erro_leitura", "motor": None, "bytes": 0,
+                "erro": str(erro)}
+    embutir, extra, nome = _motor_de_embutir()
+    embutir(bruto, height=altura, **extra)
+    return {"modo": "embutido", "motor": nome, "bytes": len(bruto),
+            "erro": None}
 
 
 # ---------------------------------------------------------------------------
@@ -244,9 +357,17 @@ def resolver_excecao(exc: dict, nome: str, decisao: str,
 # ---------------------------------------------------------------------------
 # Contador de autonomia - o numero que o jurado anota
 # ---------------------------------------------------------------------------
-@st.fragment(run_every="5s")
-def contador_autonomia() -> None:
-    """Relido a cada 5 s direto de `evento`, sem recarregar a tela inteira."""
+def contador_autonomia(intervalo=None) -> None:
+    """Contador de autonomia, lido direto de `evento`.
+
+    O intervalo vem da barra lateral em vez de ficar fixo no codigo,
+    para que a gestora possa parar a atualizacao automatica da pagina
+    inteira num clique so.
+    """
+    ao_vivo(_contador_ao_vivo, intervalo)
+
+
+def _contador_ao_vivo() -> None:
     c = db.contadores()
     st.markdown(
         '<div class="contador">'
@@ -269,14 +390,23 @@ def contador_autonomia() -> None:
 # ---------------------------------------------------------------------------
 # TELA 1 · LOTES
 # ---------------------------------------------------------------------------
-def tela_lotes() -> None:
+def tela_lotes(intervalo=None) -> None:
     st.subheader("1 · Lotes")
     st.markdown(
         '<p class="nota">Um semaforo por perna, lado a lado. As duas provas '
         'nao se compensam: evidencia de legalidade nao apaga falha geometrica, '
         'e nem o contrario. Por isso nunca ha um farol so.</p>',
         unsafe_allow_html=True)
+    ao_vivo(_lotes_ao_vivo, intervalo)
 
+
+def _lotes_ao_vivo() -> None:
+    """Corpo da tela 1, relido do banco a cada ciclo do fragmento.
+
+    Criterio de pronto da trilha: o semaforo de um lote muda sozinho na
+    tela, sem F5. Como aqui nao ha nenhum campo de entrada, o fragmento
+    pode se refazer inteiro sem risco de apagar o que alguem digitava.
+    """
     por_talhao = ultimas_checagens_por_talhao()
     lotes = db.listar_lotes()
     if not lotes:
@@ -342,9 +472,8 @@ def tela_lotes() -> None:
                         "Ele e gerado pela vigilancia quando o status muda, ou "
                         "na tela 3.</span>", unsafe_allow_html=True)
                 for d in dossies:
-                    html = RAIZ / (d.get("caminho_html") or "")
-                    pdf = RAIZ / (d.get("caminho_pdf") or "") \
-                        if d.get("caminho_pdf") else None
+                    html = caminho_do_banco(d.get("caminho_html"))
+                    pdf = caminho_do_banco(d.get("caminho_pdf"))
                     st.markdown(
                         "- **v%d** · %s · gerado em %s · hash `%s`"
                         % (d["versao"], d.get("status") or "-",
@@ -356,12 +485,22 @@ def tela_lotes() -> None:
                            ("  ·  PDF: `%s`" % d["caminho_pdf"])
                            if d.get("caminho_pdf") else
                            "  ·  PDF nao gerado (o HTML e o entregavel)"))
-                    if html.exists():
-                        st.markdown("&nbsp;&nbsp;&nbsp;[abrir HTML](file:///%s)"
-                                    % str(html).replace("\\", "/"))
-                    if pdf and pdf.exists():
-                        st.markdown("&nbsp;&nbsp;&nbsp;[abrir PDF](file:///%s)"
-                                    % str(pdf).replace("\\", "/"))
+                    # Nada de link file:/// aqui: a interface e servida
+                    # por http e o navegador recusa navegar para
+                    # file://. O caminho fica como referencia em texto
+                    # (impresso logo acima) e o download de verdade e na
+                    # tela 3, que trata de uma versao so - ler os
+                    # megabytes de todas as versoes de todos os lotes a
+                    # cada ciclo do fragmento seria caro a toa.
+                    presentes = [r for r, c in (("HTML", html),
+                                                ("PDF", pdf))
+                                 if c and c.is_file()]
+                    st.markdown(
+                        "&nbsp;&nbsp;&nbsp;<span class='nota'>%s · baixe "
+                        "o arquivo na tela 3 · Dossie.</span>"
+                        % ("em disco: " + " e ".join(presentes)
+                           if presentes else "nenhum arquivo em disco"),
+                        unsafe_allow_html=True)
 
 
 # ---------------------------------------------------------------------------
@@ -417,11 +556,11 @@ def cartao_excecao(exc: dict, indice: int) -> None:
                 key="just_%s" % exc["id"],
                 placeholder="por que voce esta decidindo assim")
             b1, b2 = st.columns(2)
+            largura = _kwargs_largura_total(b1.form_submit_button)
             excluir = b1.form_submit_button(
-                "Decidir retirar o talhao do lote", use_container_width=True)
+                "Decidir retirar o talhao do lote", **largura)
             resolver = b2.form_submit_button(
-                "Marcar como resolvida, mantendo o talhao",
-                use_container_width=True)
+                "Marcar como resolvida, mantendo o talhao", **largura)
 
         if excluir or resolver:
             if not nome.strip():
@@ -445,9 +584,20 @@ def cartao_excecao(exc: dict, indice: int) -> None:
             st.rerun()
 
 
-def tela_excecoes() -> None:
+def tela_excecoes(intervalo=None) -> None:
     st.subheader("2 · Fila de excecoes")
+    ao_vivo(_excecoes_ao_vivo, intervalo)
 
+
+def _excecoes_ao_vivo() -> None:
+    """Corpo da tela 2, relido do banco a cada ciclo do fragmento.
+
+    Fica num fragmento - e nao num rerun global - justamente por causa
+    dos formularios de decisao: so este bloco volta ao banco, o resto da
+    pagina nao e refeito junto. Ainda assim a atualizacao automatica
+    pode ser desligada na barra lateral por quem for escrever uma
+    justificativa longa sem pressa.
+    """
     abertas = db.listar_excecoes(status="aberta")
     por_tipo = {}
     for e in abertas:
@@ -543,24 +693,40 @@ def tela_dossie() -> None:
     st.markdown("#### O que mudou em relacao a versao anterior")
     st.text(atual.get("diff") or "sem diff registrado")
 
-    caminho_html = RAIZ / (atual.get("caminho_html") or "")
-    caminho_pdf = (RAIZ / atual["caminho_pdf"]) if atual.get("caminho_pdf") \
-        else None
+    caminho_html = caminho_do_banco(atual.get("caminho_html"))
+    caminho_pdf = caminho_do_banco(atual.get("caminho_pdf"))
     st.markdown("**Arquivos** — HTML `%s`%s"
                 % (atual.get("caminho_html") or "nao gerado",
                    ("  ·  PDF `%s`" % atual["caminho_pdf"])
                    if atual.get("caminho_pdf") else
                    "  ·  PDF nao gerado (o HTML e o entregavel primario)"))
-    if caminho_html.exists():
-        st.markdown("[abrir o HTML fora da interface](file:///%s)"
-                    % str(caminho_html).replace("\\", "/"))
-    if caminho_pdf and caminho_pdf.exists():
-        try:
-            st.download_button("Baixar o PDF", caminho_pdf.read_bytes(),
+    # Sem link file:///: a interface e servida por http e o navegador
+    # bloqueia a navegacao para file://. O caminho continua impresso
+    # acima como referencia e o arquivo sai por download de verdade.
+    if caminho_html and caminho_html.is_file():
+        dados_html, erro_html = ler_bytes(caminho_html)
+        if dados_html is None:
+            st.warning("O HTML esta em disco mas nao pode ser lido agora "
+                       "(%s)." % erro_html)
+        else:
+            st.download_button("Baixar o HTML", dados_html,
+                               file_name=caminho_html.name,
+                               mime="text/html",
+                               key="baixar_html_%s" % atual["id"])
+    if caminho_pdf and caminho_pdf.is_file():
+        # O caminho normal e ler e oferecer o botao. Se a leitura
+        # falhar, a gestora precisa saber por que - engolir o erro
+        # deixava a tela sem botao e sem explicacao nenhuma.
+        dados_pdf, erro_pdf = ler_bytes(caminho_pdf)
+        if dados_pdf is None:
+            st.warning("O PDF esta em disco mas nao pode ser lido agora "
+                       "(%s). O HTML e o entregavel primario."
+                       % erro_pdf)
+        else:
+            st.download_button("Baixar o PDF", dados_pdf,
                                file_name=caminho_pdf.name,
-                               mime="application/pdf")
-        except OSError:
-            pass
+                               mime="application/pdf",
+                               key="baixar_pdf_%s" % atual["id"])
 
     st.divider()
     st.markdown("#### Aprovacao")
@@ -587,20 +753,23 @@ def tela_dossie() -> None:
 
     st.divider()
     st.markdown("#### Visualizacao do dossie")
-    if caminho_html.exists():
-        try:
-            bruto = caminho_html.read_text(encoding="utf-8")
-            # st.iframe substituiu components.html nas versoes novas; a
-            # segunda forma fica como reserva para nao quebrar a demo.
-            if hasattr(st, "iframe"):
-                st.iframe(srcdoc=bruto, height=900, scrolling=True)
-            else:
-                components.html(bruto, height=900, scrolling=True)
-        except Exception as erro:
-            st.warning("Nao foi possivel embutir o HTML (%s). Use o link "
-                       "acima." % erro)
+    embutido = embutir_dossie(caminho_html)
+    if embutido["modo"] == "embutido":
+        st.markdown("<span class='nota'>Dossie embutido acima por "
+                    "<code>%s</code> · %s caracteres de HTML.</span>"
+                    % (embutido["motor"],
+                       "{:,}".format(embutido["bytes"])
+                       .replace(",", ".")),
+                    unsafe_allow_html=True)
+    elif embutido["modo"] == "ausente":
+        st.warning("O arquivo HTML do dossie nao esta em disco (%s). "
+                   "Gere outra versao para recriar o arquivo."
+                   % (atual.get("caminho_html")
+                      or "caminho nao registrado"))
     else:
-        st.warning("O arquivo HTML do dossie nao esta em disco.")
+        st.warning("O HTML do dossie existe mas nao pode ser lido agora "
+                   "(%s). Use o botao de download acima."
+                   % embutido["erro"])
 
 
 # ---------------------------------------------------------------------------
@@ -616,11 +785,25 @@ def main() -> None:
         "<span class='nota'>O sistema marca, ordena e informa. Ele nao "
         "bloqueia, nao cancela e nao barra carga — quem decide e sempre "
         "voce.</span>", unsafe_allow_html=True)
-    contador_autonomia()
-
     tela = st.sidebar.radio(
         "Telas", ["2 · Fila de excecoes", "1 · Lotes", "3 · Dossie"],
         index=0)
+    st.sidebar.markdown("---")
+
+    # Criterio de pronto desta trilha: um lote muda de status na tela
+    # sem ninguem apertar F5. Cada tela le o banco dentro de um
+    # fragmento com `run_every`, entao so o bloco de leitura se refaz -
+    # o formulario de decisao que estiver preenchido continua no lugar.
+    ligado = st.sidebar.toggle(
+        "Atualizacao automatica", value=True,
+        help="As telas voltam ao banco sozinhas, sem recarregar a pagina.")
+    intervalo = st.sidebar.selectbox(
+        "A cada", ["5s", "10s", "30s"], index=0) if ligado else None
+    st.sidebar.markdown(
+        "<span class='nota'>So o bloco que le o banco e refeito, entao o "
+        "que voce estiver digitando num formulario de decisao continua no "
+        "lugar. Desligue se preferir escrever sem nenhuma interrupcao.</span>",
+        unsafe_allow_html=True)
     st.sidebar.markdown("---")
     st.sidebar.markdown(
         "<span class='nota'>A fila de excecoes e a tela principal: e a lista "
@@ -629,12 +812,14 @@ def main() -> None:
     if st.sidebar.button("Atualizar agora"):
         st.rerun()
 
+    contador_autonomia(intervalo)
+
     if tela.startswith("1"):
-        tela_lotes()
+        tela_lotes(intervalo)
     elif tela.startswith("3"):
         tela_dossie()
     else:
-        tela_excecoes()
+        tela_excecoes(intervalo)
 
 
 main()

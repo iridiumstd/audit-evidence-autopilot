@@ -19,6 +19,7 @@ Conflitos plantados de proposito (SPEC.md secao 8):
 Nao implementa ingestao, verificacao, dossie nem interface.
 """
 import json
+import math
 import random
 import shutil
 import unicodedata
@@ -37,6 +38,13 @@ ENTRADA = RAIZ / "dados" / "entrada"
 PADRONIZADO = RAIZ / "dados" / "padronizado"
 
 MUNICIPIOS = ["Medicilandia", "Altamira", "Uruara", "Brasil Novo"]
+
+# Envelope generoso dos quatro municipios do recorte (WGS84). A base bruta do
+# Ibama traz linhas com MUNICIPIO certo mas geometria em outro canto do pais
+# (erro de cadastro na origem); tudo que cai fora deste retangulo e descartado
+# como ancora, senao o talhao semeado nasce a mil quilometros do produtor.
+ENVELOPE_LON = (-55.9, -51.7)
+ENVELOPE_LAT = (-9.9, -2.7)
 COOPERATIVA = "Cooperativa Agroindustrial da Transamazonica - CACAUTRANS"
 UF = "PA"
 
@@ -126,6 +134,51 @@ def graus(metros: float) -> float:
     return metros / 111_320.0
 
 
+def no_envelope(x: float, y: float) -> bool:
+    """Ponto dentro do retangulo dos quatro municipios do recorte."""
+    return (ENVELOPE_LON[0] < x < ENVELOPE_LON[1]
+            and ENVELOPE_LAT[0] < y < ENVELOPE_LAT[1])
+
+
+def ancoras_por_municipio(embargos) -> dict:
+    """Embargos REAIS utilizaveis como ancora, agrupados por municipio.
+
+    Duas filtragens, nesta ordem:
+      1. o centroide tem que cair no envelope do recorte - a base do Ibama tem
+         linhas com MUNICIPIO da Transamazonica e geometria em outro canto do
+         pais (erro de cadastro na origem), e era isso que jogava talhao
+         semeado para fora da regiao;
+      2. o municipio, sem acento, tem que ser um dos quatro do recorte.
+
+    Cada lista sai ordenada por area decrescente (deterministico), para que os
+    conflitos deliberados possam pegar os maiores poligonos e caber dentro.
+    """
+    grupos = {m: [] for m in MUNICIPIOS}
+    for posicao, linha in enumerate(embargos.itertuples(index=False)):
+        municipio = sem_acento(str(getattr(linha, "MUNICIPIO", "") or "")).strip()
+        if municipio not in grupos:
+            continue
+        geom = linha.geometry
+        if geom is None or geom.is_empty:
+            continue
+        centro = geom.centroid
+        if not no_envelope(centro.x, centro.y):
+            continue
+        grupos[municipio].append({
+            "chave": posicao,
+            "geom": geom,
+            "area": geom.area,
+            "tad": str(getattr(linha, "NUM_TAD", "") or "").strip() or "-",
+        })
+    for municipio, itens in grupos.items():
+        itens.sort(key=lambda a: (-a["area"], a["chave"]))
+        if not itens:
+            raise ValueError(
+                "nenhum embargo real utilizavel em %s - sem ancora para "
+                "semear talhao no municipio" % municipio)
+    return grupos
+
+
 # ---------------------------------------------------------------------------
 # Geracao de produtores
 # ---------------------------------------------------------------------------
@@ -162,21 +215,14 @@ def gerar_talhoes(rnd: random.Random, produtores: list, embargos) -> tuple:
     Devolve (talhoes, plantados) onde `plantados` documenta os conflitos
     deliberados para o relatorio final.
     """
-    # Poligonos de embargo reais que servem de alvo. Escolhe os maiores
-    # do recorte, para caber um talhao de ate 10 ha dentro com folga.
-    alvos = embargos.copy()
-    alvos["_area"] = alvos.geometry.area
-    alvos = alvos.sort_values("_area", ascending=False)
-    # amostra deterministica: pega os 200 maiores e sorteia com a semente
-    candidatos = alvos.head(200).reset_index(drop=True)
-    indices = list(range(len(candidatos)))
-    rnd.shuffle(indices)
-    alvos_sobrepor = indices[:4]     # 4 talhoes DENTRO de embargo
-    alvos_limitrofe = indices[4:7]   # 3 talhoes a menos de 500 m da borda
+    # Ancoras: embargos reais, por municipio, ja filtrados pelo envelope do
+    # recorte. Todo talhao - normal ou conflituoso - nasce a poucos km de uma
+    # ancora do MESMO municipio do produtor. Antes o sorteio era uniforme no
+    # total_bounds da camada bruta (que vai de -59 a -47 de longitude e de
+    # -15,8 a +4,4 de latitude, por causa das linhas com geometria errada na
+    # origem), e por isso a maioria dos talhoes caia fora da Transamazonica.
+    ancoras = ancoras_por_municipio(embargos)
 
-    # Regiao geral: envelope dos embargos do recorte, encolhido para evitar
-    # que talhoes "normais" caiam por acidente sobre um embargo.
-    minx, miny, maxx, maxy = embargos.total_bounds
     # Uniao de TODOS os embargos do recorte, nao so dos alvos: e contra ela
     # que se garante que talhao normal fica longe e que talhao limitrofe fica
     # perto sem tocar.
@@ -191,9 +237,17 @@ def gerar_talhoes(rnd: random.Random, produtores: list, embargos) -> tuple:
     rnd.shuffle(escolhidos)
     donos_sobre = escolhidos[:4]
     donos_limite = escolhidos[4:7]
-    mapa_sobre = {p["id"]: alvos_sobrepor[i] for i, p in enumerate(donos_sobre)}
-    mapa_limite = {p["id"]: alvos_limitrofe[i]
-                   for i, p in enumerate(donos_limite)}
+    # cada conflito recebe uma ancora do proprio municipio do produtor, tirada
+    # da faixa dos maiores poligonos - para caber um talhao de ate 4 ha dentro
+    usadas, mapa_sobre, mapa_limite = set(), {}, {}
+    for destino, donos, faixa in ((mapa_sobre, donos_sobre, 40),
+                                  (mapa_limite, donos_limite, 60)):
+        for dono in donos:
+            pool = [a for a in ancoras[dono["municipio"]][:faixa]
+                    if a["chave"] not in usadas]
+            escolhida = pool[rnd.randrange(len(pool))]
+            usadas.add(escolhida["chave"])
+            destino[dono["id"]] = escolhida
 
     for produtor in produtores:
         quantos = rnd.randint(1, 3)
@@ -204,18 +258,16 @@ def gerar_talhoes(rnd: random.Random, produtores: list, embargos) -> tuple:
 
             if n == 1 and produtor["id"] in mapa_sobre:
                 # --- CONFLITO A: talhao dentro de um embargo real ---
-                alvo = candidatos.geometry.iloc[mapa_sobre[produtor["id"]]]
-                termo = str(candidatos["NUM_TAD"].iloc[
-                    mapa_sobre[produtor["id"]]])
+                ancora = mapa_sobre[produtor["id"]]
+                alvo, termo = ancora["geom"], ancora["tad"]
                 centro = ponto_dentro(alvo, rnd)
                 # area menor, para caber dentro do embargo com folga
                 area_ha = round(min(area_ha, 4.0), 2)
                 conflito = ("sobrepostos", termo)
             elif n == 1 and produtor["id"] in mapa_limite:
                 # --- CONFLITO B: a menos de 500 m da borda, sem tocar ---
-                idx = mapa_limite[produtor["id"]]
-                alvo = candidatos.geometry.iloc[idx]
-                termo = str(candidatos["NUM_TAD"].iloc[idx])
+                ancora = mapa_limite[produtor["id"]]
+                alvo, termo = ancora["geom"], ancora["tad"]
                 area_ha = round(min(area_ha, 3.0), 2)
                 fronteira = alvo.boundary
                 cx, cy = alvo.centroid.x, alvo.centroid.y
@@ -246,17 +298,32 @@ def gerar_talhoes(rnd: random.Random, produtores: list, embargos) -> tuple:
                     centro = Point(cx, cy)
                 conflito = ("limitrofes", termo)
             else:
-                # --- talhao normal: fora de qualquer embargo ---
+                # --- talhao normal: perto de uma ancora do municipio do
+                # produtor, mas fora de qualquer embargo ---
+                pool = ancoras[produtor["municipio"]]
                 centro = None
-                for _ in range(200):
-                    tentativa = Point(rnd.uniform(minx, maxx),
-                                      rnd.uniform(miny, maxy))
-                    if not uniao.intersects(tentativa.buffer(graus(600))):
+                # 1a passada exige folga de 600 m para qualquer embargo; a 2a
+                # so exige nao encostar, para nunca ficar sem ponto valido
+                for folga_m in (600.0, 0.0):
+                    for _ in range(300):
+                        base = pool[rnd.randrange(len(pool))]["geom"].centroid
+                        raio = graus(rnd.uniform(900.0, 7000.0))
+                        angulo = rnd.uniform(0.0, 2.0 * math.pi)
+                        x = base.x + raio * math.cos(angulo)
+                        y = base.y + raio * math.sin(angulo)
+                        if not no_envelope(x, y):
+                            continue
+                        tentativa = Point(x, y)
+                        if folga_m:
+                            alcance = tentativa.buffer(graus(folga_m))
+                        else:
+                            alcance = tentativa
+                        if uniao.intersects(alcance):
+                            continue
                         centro = tentativa
                         break
-                if centro is None:
-                    centro = Point(rnd.uniform(minx, maxx),
-                                   rnd.uniform(miny, maxy))
+                    if centro is not None:
+                        break
 
             # mistura ponto e poligono; conflitos sempre poligono, para a
             # checagem 02 poder medir area de intersecao
@@ -357,11 +424,45 @@ def gerar_lotes(rnd: random.Random, produtores: list, talhoes: list,
 
 
 # ---------------------------------------------------------------------------
+# NF-e: chave de acesso de 44 digitos
+# ---------------------------------------------------------------------------
+# Layout (o mesmo que ingestao.decompor_chave_acesso quebra):
+#   cUF(2) AAMM(4) CNPJ/CPF(14) mod(2) serie(3) nNF(9) tpEmis(1) cNF(8) cDV(1)
+# Na NF-e de produtor rural pessoa fisica o CPF entra no campo de 14 posicoes
+# do CNPJ com ZEROS A ESQUERDA, e a serie fica na faixa 920-969.
+CUF_PARA = "15"                      # codigo IBGE da UF do Para
+SERIE_PF_MIN, SERIE_PF_MAX = 920, 969
+
+
+def digito_chave_nfe(base43: str) -> str:
+    """Digito verificador da chave (modulo 11, pesos 2..9 da direita)."""
+    peso, soma = 2, 0
+    for digito in reversed(base43):
+        soma += int(digito) * peso
+        peso = 2 if peso == 9 else peso + 1
+    resto = soma % 11
+    return "0" if resto in (0, 1) else str(11 - resto)
+
+
+def montar_chave_nfe(cpf: str, emissao, modelo: str, serie: int,
+                     numero: int, rnd: random.Random) -> str:
+    """Chave de acesso de 44 digitos, com DV correto, para um emitente PF."""
+    so_digitos = "".join(c for c in cpf if c.isdigit())
+    campo_documento = so_digitos.zfill(14)        # 000 + 11 digitos do CPF
+    base = "%s%s%s%s%03d%09d%d%08d" % (
+        CUF_PARA, emissao.strftime("%y%m"), campo_documento, modelo,
+        serie, numero, 1, rnd.randint(0, 99999999))
+    assert len(base) == 43, len(base)
+    return base + digito_chave_nfe(base)
+
+
+# ---------------------------------------------------------------------------
 # Geracao dos arquivos crus
 # ---------------------------------------------------------------------------
 def texto_documento(tipo: str, produtor: dict, talhao: dict, rnd: random.Random,
                     emissao: date, validade: date = None,
-                    cpf_sobrescrito: str = None) -> str:
+                    cpf_sobrescrito: str = None,
+                    variante_nfe: str = None) -> str:
     """Corpo de texto plausivel para o documento, com as palavras-chave do
     params/cacau.yml presentes, para a Trilha A ter o que casar."""
     cpf = cpf_sobrescrito or produtor["cpf"]
@@ -427,7 +528,33 @@ def texto_documento(tipo: str, produtor: dict, talhao: dict, rnd: random.Random,
         linhas.append("Proprietario: %s" % produtor["nome"])
         linhas.append("Area: %.2f ha" % (talhao["area_ha"] * 1.4))
     elif tipo == "nota_fiscal_produtor":
-        linhas.append("Numero: %06d   Serie: 1" % rnd.randint(1, 999999))
+        # Variantes que existem para o parser de NF-e da Trilha A ter o que
+        # exercitar: chave de 44 digitos com serie de PF, nota modelo 4 de
+        # papel (sem chave, e isso NAO e erro) e CFOP de revenda.
+        numero = rnd.randint(1, 999999)
+        if variante_nfe == "chave_pf":
+            serie = rnd.randint(SERIE_PF_MIN, SERIE_PF_MAX)
+            chave = montar_chave_nfe(cpf, emissao, "55", serie, numero, rnd)
+            linhas.append("Modelo: 55   Serie: %03d   Numero: %06d"
+                          % (serie, numero))
+            linhas.append("Chave de acesso: %s" % chave)
+            linhas.append("Natureza da operacao: venda de producao propria")
+            linhas.append("CFOP: 5101")
+        elif variante_nfe == "modelo_4":
+            # nota de papel, modelo 4: legado, nao tem chave de acesso
+            linhas.append("Modelo: 04   Serie: 001   Numero: %06d" % numero)
+            linhas.append("Nota fiscal de produtor em talao (modelo 4) - "
+                          "documento sem chave de acesso eletronica")
+            linhas.append("CFOP: 5101")
+        elif variante_nfe == "cfop_revenda":
+            chave = montar_chave_nfe(cpf, emissao, "55", 1, numero, rnd)
+            linhas.append("Modelo: 55   Serie: 001   Numero: %06d" % numero)
+            linhas.append("Chave de acesso: %s" % chave)
+            linhas.append("Natureza da operacao: revenda de mercadoria "
+                          "adquirida de terceiros")
+            linhas.append("CFOP: 6102")
+        else:
+            linhas.append("Numero: %06d   Serie: 1" % numero)
         linhas.append("CPF do emitente: %s" % cpf)
         linhas.append("Produto: amendoa de cacau seca")
         linhas.append("Quantidade: %.1f kg" % (talhao["area_ha"] * 900 *
@@ -559,6 +686,13 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
     a_ilegivel, a_vencido, a_cpf, a_dup, a_foto = sorteio[:5]
     armadilhas = {}
 
+    # Produtores que recebem cada variante de NF-e - todos distintos entre si
+    # e das armadilhas documentais. Sem isso o parser de NF-e da Trilha A
+    # nunca sai do caminho trivial (nota sem chave e serie 001).
+    variantes_nfe = {sorteio[5]: "chave_pf", sorteio[6]: "chave_pf",
+                     sorteio[7]: "modelo_4", sorteio[8]: "cfop_revenda"}
+    notas_nfe = []
+
     tipos_comuns = ["car_recibo", "car_demonstrativo", "ccir",
                     "matricula_imovel", "nota_fiscal_produtor", "itr",
                     "cnd_estadual", "cnd_federal", "cndt",
@@ -572,7 +706,17 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
         meus = por_produtor.get(produtor["id"], [])
         if not meus:
             continue
-        quantos = rnd.randint(5, 10)
+        # ALVO de arquivos do produtor: entre 5 e 10, contando TUDO o que sai
+        # na pasta (documentos, copia duplicada, scan ilegivel, foto e
+        # planilha). Antes o randint(5, 10) contava so os documentos e os
+        # extras estouravam o teto - havia produtor com 12 arquivos.
+        alvo_arquivos = rnd.randint(5, 10)
+        tem_planilha = rnd.random() < 0.45
+        extras = (1 if idx == a_dup else 0) \
+            + (1 if idx == a_ilegivel else 0) \
+            + (1 if idx == a_foto else 0) \
+            + (1 if tem_planilha else 0)
+
         # o conjunto minimo aparece na maioria dos produtores, mas nao em todos:
         # o mapa de lacunas da Trilha A precisa ter o que reportar
         escolha = ["car_recibo", "car_demonstrativo", "ccir",
@@ -581,14 +725,31 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
             escolha.remove(rnd.choice(escolha))      # lacuna deliberada
         escolha.append(rnd.choice(
             ["matricula_imovel", "declaracao_posse", "titulo_assentamento"]))
-        while len(escolha) < quantos:
+
+        # tipos que nao podem sumir na hora de cortar para caber no teto:
+        # sem eles a armadilha (ou a variante de NF-e) nao dispara
+        obrigatorios = set()
+        if idx == a_vencido:
+            obrigatorios.add("cnd_estadual")
+        if idx in (a_cpf, a_dup):
+            obrigatorios.add("car_recibo")
+        if idx in variantes_nfe:
+            obrigatorios.add("nota_fiscal_produtor")
+        for tipo_obrigatorio in sorted(obrigatorios):
+            if tipo_obrigatorio not in escolha:
+                escolha.append(tipo_obrigatorio)
+
+        quantos_docs = max(len(obrigatorios), 1, alvo_arquivos - extras)
+        while len(escolha) < quantos_docs:
             escolha.append(rnd.choice(tipos_comuns))
-        # garante que o produtor sorteado para cada armadilha receba o tipo de
-        # documento que a armadilha precisa - senao ela nao dispara
-        if idx == a_vencido and "cnd_estadual" not in escolha:
-            escolha.append("cnd_estadual")
-        if idx in (a_cpf, a_dup) and "car_recibo" not in escolha:
-            escolha.append("car_recibo")
+        while len(escolha) > quantos_docs:
+            # corta sempre um nao-obrigatorio, do fim para o inicio
+            for posicao in range(len(escolha) - 1, -1, -1):
+                if escolha[posicao] not in obrigatorios:
+                    escolha.pop(posicao)
+                    break
+            else:
+                break                    # so sobraram obrigatorios: para aqui
         rnd.shuffle(escolha)
 
         usados = set()
@@ -612,6 +773,12 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
                     "cpf_divergente" not in armadilhas:
                 outro = produtores[(idx + 7) % len(produtores)]
                 cpf_alt = outro["cpf"]
+                # A validade precisa ser FUTURA. decidir_status() (ingestao.py)
+                # segue a ordem do SPEC - ilegivel, vencido, divergente, ok -
+                # entao um documento que tambem estivesse vencido sairia como
+                # "vencido" e a armadilha de CPF divergente nunca apareceria.
+                emissao = date(2026, 7, 1)
+                validade = emissao + timedelta(days=365)
                 armadilhas["cpf_divergente"] = {
                     "produtor": produtor["nome"], "slug": produtor["slug"],
                     "tipo": tipo, "cpf_do_documento": cpf_alt,
@@ -629,8 +796,19 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
                     nome_arquivo.rsplit(".", 1)[1])
             usados.add(nome_arquivo)
 
+            # --- variante de NF-e (uma por produtor sorteado) ---
+            variante = None
+            if tipo == "nota_fiscal_produtor" and idx in variantes_nfe and \
+                    not any(n["slug"] == produtor["slug"] for n in notas_nfe):
+                variante = variantes_nfe[idx]
+
             texto = texto_documento(tipo, produtor, talhao, rnd, emissao,
-                                    validade, cpf_alt)
+                                    validade, cpf_alt, variante)
+            if variante:
+                notas_nfe.append({
+                    "variante": variante, "produtor": produtor["nome"],
+                    "slug": produtor["slug"], "arquivo": nome_arquivo,
+                    "cpf_do_produtor": produtor["cpf"]})
             escrever_pdf(pasta / nome_arquivo, texto)
             conteudos[nome_arquivo] = (tipo, texto)
             total += 1
@@ -663,13 +841,15 @@ def gerar_arquivos(rnd: random.Random, produtores: list, talhoes: list) -> dict:
                 "produtor": produtor["nome"], "slug": produtor["slug"],
                 "arquivo": nome}
 
-        # planilha de entregas em parte dos produtores
-        if rnd.random() < 0.45:
+        # planilha de entregas em parte dos produtores (ja sorteada acima,
+        # porque conta no teto de arquivos)
+        if tem_planilha:
             nome = "planilha final v%d.xlsx" % rnd.randint(1, 3)
             escrever_planilha(pasta / nome, produtor, meus, rnd)
             total += 1
 
-    return {"total_arquivos": total, "armadilhas": armadilhas}
+    return {"total_arquivos": total, "armadilhas": armadilhas,
+            "notas_nfe": notas_nfe}
 
 
 # ---------------------------------------------------------------------------
@@ -745,6 +925,7 @@ def main() -> int:
         "talhoes_limitrofes_500m": plantados["limitrofes"],
         "talhoes_conflito_fora_dos_lotes": True,   # ver docstring de gerar_lotes
         "armadilhas_documentais": arquivos["armadilhas"],
+        "notas_fiscais_variantes": arquivos["notas_nfe"],
     }
     caminho_ficha = RAIZ / "dados" / "semente.json"
     caminho_ficha.write_text(json.dumps(ficha, ensure_ascii=False, indent=2),
@@ -778,6 +959,11 @@ def main() -> int:
     for p in plantados["limitrofes"]:
         print("    %-22s %-28s TAD %s" % (p["talhao"], p["produtor"],
                                           p["num_tad_embargo"]))
+
+    print("\n  NOTAS FISCAIS COM VARIANTE (exercitam o parser de NF-e)")
+    for n in arquivos["notas_nfe"]:
+        print("    %-14s %-28s %s" % (n["variante"], n["produtor"],
+                                      n["arquivo"]))
 
     print("\n  ARMADILHAS DOCUMENTAIS")
     for chave, valor in arquivos["armadilhas"].items():

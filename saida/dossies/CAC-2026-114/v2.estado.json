@@ -1,7 +1,38 @@
 {
- "lote_status": "bloqueado",
+ "lote_status": "atencao",
  "talhoes": {
-  "Talhao CREUZA-C-01": {
+  "Talhao ANTONIO--01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "excecao",
+   "R13": "conforme",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "excecao",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao ANTONIO--02": {
    "01": "conforme",
    "02": "conforme",
    "03": "excecao",
@@ -18,20 +49,21 @@
    "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
-   "R29": "excecao",
+   "R29": "conforme",
    "R31": "excecao",
    "R32": "conforme",
    "R33": "conforme",
    "R39": "conforme",
    "R45": "conforme",
-   "R46": "conforme",
+   "R46": "excecao",
    "R47": "conforme",
-   "R48": "excecao"
+   "R48": "conforme"
   },
-  "Talhao CREUZA-C-02": {
+  "Talhao CREUZA-C-01": {
    "01": "conforme",
    "02": "conforme",
    "03": "conforme",
@@ -42,13 +74,14 @@
    "R01": "conforme",
    "R08": "conforme",
    "R09": "conforme",
-   "R11": "excecao",
-   "R12": "excecao",
+   "R11": "conforme",
+   "R12": "conforme",
    "R13": "conforme",
-   "R14": "excecao",
+   "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -64,81 +97,22 @@
   "Talhao CREUZA-T-01": {
    "01": "conforme",
    "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "excecao",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao CREUZA-T-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "excecao",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao CREUZA-T-03": {
-   "01": "conforme",
-   "02": "conforme",
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
-   "06": "conforme",
+   "06": "excecao",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
    "R09": "conforme",
    "R11": "conforme",
-   "R12": "excecao",
+   "R12": "conforme",
    "R13": "conforme",
    "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -149,41 +123,11 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "excecao"
+   "R48": "conforme"
   },
   "Talhao DOMINGOS-01": {
    "01": "conforme",
    "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "excecao",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao DOMINGOS-02": {
-   "01": "conforme",
-   "02": "conforme",
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
@@ -195,13 +139,14 @@
    "R11": "conforme",
    "R12": "conforme",
    "R13": "conforme",
-   "R14": "excecao",
+   "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
-   "R29": "excecao",
+   "R29": "conforme",
    "R31": "excecao",
    "R32": "conforme",
    "R33": "conforme",
@@ -209,37 +154,7 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao DOMINGOS-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "excecao",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "excecao",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao ELIZETE--01": {
    "01": "conforme",
@@ -247,48 +162,19 @@
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
-   "06": "excecao",
+   "06": "conforme",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
    "R09": "conforme",
    "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao ELIZETE--02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
+   "R12": "conforme",
    "R13": "conforme",
    "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -299,7 +185,7 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao FRANCISC-01": {
    "01": "conforme",
@@ -307,7 +193,7 @@
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
-   "06": "conforme",
+   "06": "excecao",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
@@ -315,10 +201,11 @@
    "R11": "conforme",
    "R12": "excecao",
    "R13": "conforme",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -327,9 +214,9 @@
    "R33": "conforme",
    "R39": "conforme",
    "R45": "conforme",
-   "R46": "excecao",
+   "R46": "conforme",
    "R47": "conforme",
-   "R48": "excecao"
+   "R48": "conforme"
   },
   "Talhao FRANCISC-02": {
    "01": "conforme",
@@ -337,7 +224,7 @@
    "03": "excecao",
    "04": "conforme",
    "05": "excecao",
-   "06": "conforme",
+   "06": "excecao",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
@@ -345,10 +232,11 @@
    "R11": "conforme",
    "R12": "excecao",
    "R13": "excecao",
-   "R14": "excecao",
+   "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -357,11 +245,42 @@
    "R33": "conforme",
    "R39": "conforme",
    "R45": "conforme",
-   "R46": "excecao",
+   "R46": "conforme",
    "R47": "conforme",
-   "R48": "excecao"
+   "R48": "conforme"
   },
   "Talhao FRANCISC-03": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "excecao",
+   "R13": "excecao",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao GENIVALD-01": {
    "01": "conforme",
    "02": "conforme",
    "03": "excecao",
@@ -373,21 +292,22 @@
    "R08": "conforme",
    "R09": "conforme",
    "R11": "conforme",
-   "R12": "excecao",
+   "R12": "conforme",
    "R13": "excecao",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
-   "R29": "conforme",
+   "R29": "excecao",
    "R31": "excecao",
    "R32": "conforme",
    "R33": "conforme",
    "R39": "conforme",
    "R45": "conforme",
-   "R46": "excecao",
+   "R46": "conforme",
    "R47": "conforme",
    "R48": "excecao"
   },
@@ -397,7 +317,38 @@
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
-   "06": "conforme",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "conforme",
+   "R13": "conforme",
+   "R14": "excecao",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "excecao",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao IVANILDE-02": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "excecao",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
@@ -405,10 +356,11 @@
    "R11": "conforme",
    "R12": "excecao",
    "R13": "conforme",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -419,7 +371,38 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "excecao"
+   "R48": "conforme"
+  },
+  "Talhao LUZIA-BA-01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "conforme",
+   "R13": "conforme",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
   },
   "Talhao LUZIA-MA-01": {
    "01": "conforme",
@@ -432,13 +415,14 @@
    "R01": "conforme",
    "R08": "conforme",
    "R09": "conforme",
-   "R11": "conforme",
+   "R11": "excecao",
    "R12": "excecao",
    "R13": "conforme",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -449,9 +433,40 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao LUZIA-MA-02": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "excecao",
+   "R13": "excecao",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "excecao"
+  },
+  "Talhao LUZIA-MA-03": {
    "01": "conforme",
    "02": "conforme",
    "03": "excecao",
@@ -468,7 +483,8 @@
    "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -479,37 +495,7 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MANOEL-B-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao MANOEL-R-01": {
    "01": "conforme",
@@ -517,18 +503,19 @@
    "03": "excecao",
    "04": "conforme",
    "05": "excecao",
-   "06": "excecao",
+   "06": "conforme",
    "07": "conforme",
    "R01": "conforme",
    "R08": "conforme",
    "R09": "conforme",
-   "R11": "excecao",
+   "R11": "conforme",
    "R12": "excecao",
    "R13": "excecao",
-   "R14": "excecao",
+   "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -539,7 +526,7 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao MANOEL-R-02": {
    "01": "conforme",
@@ -555,10 +542,11 @@
    "R11": "conforme",
    "R12": "excecao",
    "R13": "conforme",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -569,69 +557,9 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao MANOEL-R-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MANOEL-T-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "excecao",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MANOEL-T-02": {
    "01": "conforme",
    "02": "conforme",
    "03": "excecao",
@@ -645,10 +573,11 @@
    "R11": "excecao",
    "R12": "excecao",
    "R13": "excecao",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -657,9 +586,9 @@
    "R33": "conforme",
    "R39": "conforme",
    "R45": "conforme",
-   "R46": "excecao",
+   "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao MARIA-AL-01": {
    "01": "conforme",
@@ -673,72 +602,13 @@
    "R08": "conforme",
    "R09": "conforme",
    "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARIA-AL-02": {
-   "01": "conforme",
-   "02": "bloqueio",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "excecao",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "excecao",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARIA-AL-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
+   "R12": "conforme",
    "R13": "conforme",
    "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -749,7 +619,7 @@
    "R45": "conforme",
    "R46": "conforme",
    "R47": "conforme",
-   "R48": "conforme"
+   "R48": "excecao"
   },
   "Talhao MARIA-LI-01": {
    "01": "conforme",
@@ -757,6 +627,254 @@
    "03": "conforme",
    "04": "conforme",
    "05": "excecao",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "conforme",
+   "R13": "conforme",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "excecao"
+  },
+  "Talhao MARIA-RI-01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "excecao",
+   "R13": "conforme",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao MARIA-RI-02": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "excecao",
+   "R13": "excecao",
+   "R14": "excecao",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao MARLENE--02": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "excecao",
+   "R12": "conforme",
+   "R13": "excecao",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao PEDRO-BA-01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "excecao",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "conforme",
+   "R13": "conforme",
+   "R14": "excecao",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "conforme"
+  },
+  "Talhao SEBASTIA-01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "excecao",
+   "R12": "conforme",
+   "R13": "excecao",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "excecao"
+  },
+  "Talhao SEBASTIA-02": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "excecao",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "excecao",
+   "R12": "conforme",
+   "R13": "excecao",
+   "R14": "excecao",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "excecao"
+  },
+  "Talhao SEBASTIA-03": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
+   "06": "conforme",
+   "07": "conforme",
+   "R01": "conforme",
+   "R08": "conforme",
+   "R09": "conforme",
+   "R11": "conforme",
+   "R12": "conforme",
+   "R13": "conforme",
+   "R14": "conforme",
+   "R16": "conforme",
+   "R17": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
+   "R21": "conforme",
+   "R22": "conforme",
+   "R29": "conforme",
+   "R31": "excecao",
+   "R32": "conforme",
+   "R33": "conforme",
+   "R39": "conforme",
+   "R45": "conforme",
+   "R46": "conforme",
+   "R47": "conforme",
+   "R48": "excecao"
+  },
+  "Talhao SUELI-CA-01": {
+   "01": "conforme",
+   "02": "conforme",
+   "03": "conforme",
+   "04": "conforme",
+   "05": "excecao",
    "06": "conforme",
    "07": "conforme",
    "R01": "conforme",
@@ -765,10 +883,11 @@
    "R11": "excecao",
    "R12": "excecao",
    "R13": "conforme",
-   "R14": "conforme",
+   "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -781,7 +900,7 @@
    "R47": "conforme",
    "R48": "conforme"
   },
-  "Talhao MARIA-LI-02": {
+  "Talhao SUELI-CA-02": {
    "01": "conforme",
    "02": "conforme",
    "03": "excecao",
@@ -798,67 +917,8 @@
    "R14": "conforme",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARIA-LI-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARINALV-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "excecao",
@@ -871,217 +931,7 @@
    "R47": "conforme",
    "R48": "conforme"
   },
-  "Talhao MARINALV-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARINALV-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARLENE--01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao MARLENE--02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao MARLENE--03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao NEIDE-FR-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao NEIDE-FR-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao PEDRO-BA-01": {
+  "Talhao ZILDA-LI-01": {
    "01": "conforme",
    "02": "conforme",
    "03": "conforme",
@@ -1095,190 +945,11 @@
    "R11": "conforme",
    "R12": "conforme",
    "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "excecao",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao PEDRO-FE-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "excecao",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "excecao",
-   "R48": "conforme"
-  },
-  "Talhao PEDRO-FE-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "excecao",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "excecao",
-   "R48": "conforme"
-  },
-  "Talhao PEDRO-FE-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "excecao",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "excecao",
-   "R48": "conforme"
-  },
-  "Talhao PEDRO-RI-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao SEBASTIA-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "conforme",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "conforme"
-  },
-  "Talhao SUELI-BA-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
    "R14": "excecao",
    "R16": "conforme",
    "R17": "conforme",
-   "R18/R19": "conforme",
+   "R18": "conforme",
+   "R19": "conforme",
    "R21": "conforme",
    "R22": "conforme",
    "R29": "conforme",
@@ -1288,1261 +959,798 @@
    "R39": "conforme",
    "R45": "conforme",
    "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao SUELI-BA-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao SUELI-BA-03": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "conforme",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "conforme",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "conforme",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao VALDIR-D-01": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "excecao",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "excecao",
-   "R14": "excecao",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "excecao",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "excecao",
-   "R47": "conforme",
-   "R48": "excecao"
-  },
-  "Talhao VALDIR-D-02": {
-   "01": "conforme",
-   "02": "conforme",
-   "03": "conforme",
-   "04": "conforme",
-   "05": "excecao",
-   "06": "excecao",
-   "07": "conforme",
-   "R01": "conforme",
-   "R08": "conforme",
-   "R09": "conforme",
-   "R11": "conforme",
-   "R12": "excecao",
-   "R13": "conforme",
-   "R14": "conforme",
-   "R16": "conforme",
-   "R17": "conforme",
-   "R18/R19": "conforme",
-   "R21": "conforme",
-   "R22": "conforme",
-   "R29": "excecao",
-   "R31": "excecao",
-   "R32": "conforme",
-   "R33": "conforme",
-   "R39": "conforme",
-   "R45": "conforme",
-   "R46": "excecao",
    "R47": "conforme",
    "R48": "excecao"
   }
  },
  "documentos": {
-  "c4cec18db2eb79ff2b20e555dfb273c94e9c4d6e4165cb0c237161be15ff35ba": {
-   "tipo": "nota_fiscal_produtor",
+  "ffc0a8f676a1a19c5b83a130b2361c8a69d6d584a58787d3ed51aaeb8181d873": {
+   "tipo": "car_recibo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\Copia de doc9055.pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\digitalizado (2992).pdf"
   },
-  "daf0785eea52851fe882832d1ceb5f5dd5abdacbf951aab49da1d4dba1d77df8": {
+  "0db48a4daec5942951066b6d08f0c7b24297889599f3f33804f9ca065d7e319e": {
    "tipo": "declaracao_posse",
    "status": "ok",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\Digitalizar06866.pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\doc scan (3368).pdf"
   },
-  "51cc15a73638a7e1288b4b337b8b8b4a7a2fb27917bcaa15c2fc462d90b27789": {
-   "tipo": "car_recibo",
+  "a73777ebe566f998370dad95d6b98ce86fb54ac2fb0f069179b54d9dd8681db5": {
+   "tipo": "matricula_imovel",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\doc scan (2583).pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\IMG_1579.pdf"
   },
-  "472f514603fcc4343d8e104d0fb76753f033144b7b047ca80cc3dc75807ab996": {
-   "tipo": "cnd_estadual",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\doc scan (6).pdf"
-  },
-  "2df7d99d61afe72ec90e89ffb0151c001b377aed7dcd3c2f4aa67903bd28e67f": {
-   "tipo": "itr",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\PDF-3244.pdf"
-  },
-  "4b64b5d8915948fabd321e828746da67f6ffa541b73073631d2db4fae42f5fef": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\PDF-4514.pdf"
-  },
-  "45d31af1c088fbe6db428ae90042725535ba2b880b2d043ccdf9fd940d722902": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\planilha final v871.xlsx"
-  },
-  "b9395f380a79f6ed953ad31a60124e18261e2b6afcc70571b2f27dad0ea18af9": {
-   "tipo": "cndt",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-cardoso\\WhatsApp Image 2026-07-14202 at 09.13.22.pdf"
-  },
-  "8d4385492bcef69b5722e9ed17cc6058441bd3e659b55ab8d78fa755a1d68bb2": {
+  "44f736fbd9062437c575d096199bbd5d47c27d68222a2f767466c63dbc56c1e4": {
    "tipo": "car_demonstrativo",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\doc scan (927).pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\novo doc (7103).pdf"
   },
-  "e00fd924f1ff28c6ca442cb8e417a3fab6b91d59eaf92f53a99b0ac7037c3bba": {
-   "tipo": "titulo_assentamento",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\documento sem titulo.pdf"
-  },
-  "a4662fd36d30f2e63e3e1f3df0585545a7af5a268b335de849d2356237ff6517": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\IMG_8803.pdf"
-  },
-  "b9f957d6fcc421c2d32eab8b245e32bff9354af3a65ad2d7ce497cec3977ac94": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\IMG_9998.pdf"
-  },
-  "cba289fc844367806feebd2279ca4e8ad836a3c4f5f0c67995c9b21c2bd27d7e": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\novo doc (3000).pdf"
-  },
-  "a189e6e20426e96bbcd78b497b5996c1c6c61f510d72600f40bf498192a56bab": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\planilha final v7790.xlsx"
-  },
-  "dbbcd9fa6ed06f738da9222e5620e8b8af1581eda9a3618ec89348063dc4d8a2": {
-   "tipo": "titulo_assentamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\digitalizado (3996).pdf"
-  },
-  "13b9d480bf749c43034cc011665bda151e82a382156ad5357e2373ccdc100cdb": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\PDF-6977.pdf"
-  },
-  "681927ffe63694a61e3314b9df67f1a2114f1f4d0cc094211dee22d52230937f": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\PDF-9057.pdf"
-  },
-  "e2119ce082ea1077c0fbffe346e0a9ffea52f0f21ab2842049080c6ccd2f22ff": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\planilha final v1.xlsx"
-  },
-  "5f0fb4c9db3b36021723746004fa5db517f0870b1f6af0321fb57602f9a36841": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\SKM_C224e2603947.pdf"
-  },
-  "f906ba1e73406927fa654a7ee18f3515bf1ce8f02320971d58230d9121989454": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\domingos-carvalho\\SKM_C224e260591.pdf"
-  },
-  "59091c9c6953d54cc7e9a47c3ae300bc594c3fa0ead200693fe14d3d39900213": {
-   "tipo": "cnd_estadual",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\202605809_112233.pdf"
-  },
-  "535edc4f158b19430484b632c5a96b3fd903e47f52b6d3ddee4f79efa7a55561": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\202607309_112233.pdf"
-  },
-  "73245df15a70e8e2d5da0023e21b952a48c67b5e11b1da34f1ec9612eda6fec7": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\Copia de doc5210.pdf"
-  },
-  "c36cf044886758b6fd5ae7c570d274dce7d2a618c0b72d2a2eae883277168b0d": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\doc scan (8052).pdf"
-  },
-  "a9cdcb58363473b6b4ea7f6294261b47084f990b7765fe727195a59926dd3763": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\foto 1596.pdf"
-  },
-  "87660fa62b479871becf356c166e65b0cb2d7ee578bf9d25d5c16ec2b403d4d9": {
-   "tipo": "licenca_ambiental",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\IMG_2767.pdf"
-  },
-  "12cd6e5841ddcd9d38b6455df5406425be04ca94d109ff00d996df092fd92087": {
-   "tipo": "nao_documento",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\IMG_4471.jpg"
-  },
-  "b4709bbda114e6a6479bc5cb4db02fe3bd90ec40ff8aa8efd380c70d14451d95": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\IMG_5041.pdf"
-  },
-  "63618c413323b8e394a951ae0e608fe9450acb32abeedc3eea80595e08eb8792": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\IMG_7858.pdf"
-  },
-  "996b5662b9043c7e7bb25a390558aa9b5a37f3063a7f517e3da6a9fae26fc3bf": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\novo doc (6186).pdf"
-  },
-  "4b4df20fd59dd784d7c873b44d591cee85578be80b1932aab6856b5acf190805": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\planilha final v2.xlsx"
-  },
-  "f4a6f435aa85f7cb6fa1fcdd4f8e19d03b62991b4316c2955609f5b08768f79b": {
-   "tipo": "cndt",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\WhatsApp Image 2026-07-14682 at 09.13.22.pdf"
-  },
-  "1cd4d40fd85f79921c0906ade12464c884d67561d06a6eade13b777c57a122ed": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\Copia de doc4960.pdf"
-  },
-  "c7354d41222066104fda683e74a1a90a6b9b55b70e0f9d0637b4fe9f565b9281": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\digitalizado (5616).pdf"
-  },
-  "ff06bbb873d6a8c090ab4a8d749b08c6c965f8ab8b88fe47e68db73c31e3daf2": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\Digitalizar09628.pdf"
-  },
-  "d09e646fbf59568095220d5bbc4808d0340fa6f5dfa5bff06670bc55bf138e8b": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\foto 9367.pdf"
-  },
-  "94c28791e231e6372199fb0b70f003b4f968b66ece8b343efb500edfd4636646": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\IMG_9953.pdf"
-  },
-  "ab0b9ad704eb70efb79d0aff80dc72925d7f77429d3134d16c9115fe9a4dd86d": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\PDF-7786.pdf"
-  },
-  "c28868c41ed96709cab2cd60f42f488785b0598c2db6aee078abb36ee21cef16": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\PDF-7968.pdf"
-  },
-  "76ba08ebeeb53f78e47cd642e8ab68c836c66a09d095df29e10c0a69ab0aeec1": {
-   "tipo": "titulo_assentamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\WhatsApp Image 2026-07-12318 at 09.13.22.pdf"
-  },
-  "4c41976a86e5639649d27facde8cefbecc3c52cdb877ed582bd3cfc7865b35f5": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\elizete-pereira-teixeira\\WhatsApp Image 2026-07-14379 at 09.13.22.pdf"
-  },
-  "419584f0bff46fb296ac594da2a8dc38a5d74975422c34bf7d2eee2e93ef01ea": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\202602040_112233.pdf"
-  },
-  "29b1ebacf190b57e43fdbfc9ece0443fa3ef53bef1ab1441d51d93da68aa64fd": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\202608900_112233.pdf"
-  },
-  "c5707428b88dfdeb5e7ec78cfcb18f5414dec0c7f8b6c44279149fc254fe52d0": {
-   "tipo": "contrato_arrendamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\Copia de doc3923.pdf"
-  },
-  "5e7d1ed333f60eb79aaf9ea379edcad47caef61d1bddae59ff508fd0b0bfe8d4": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\digitalizado (4966).pdf"
-  },
-  "c38e3dab6ae9f53ddf7946699a0f3991e968ce96d898dcd4c18816c781b2dec1": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\PDF-4466.pdf"
-  },
-  "b3a50a731c5aa1627a42945183e31c2ba0d09fcce09653171c909ae774d0b0d7": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\planilha final v3.xlsx"
-  },
-  "c276b89d72a46dc3263a05f85edd070be174f30a03caa02c099bf24b799233a3": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\planilha final v8779.xlsx"
-  },
-  "b079f31fe8d8bbdce783084afdd2a1e777e5dffb94070c4326d62f2e5cec9eaa": {
+  "7822eadbff8a247c0fdcfc58227f4c7d1bc22821c092b6a8f2545e2e66bef079": {
    "tipo": "matricula_imovel",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\Sem titulo 6423.pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\PDF-4352.pdf"
   },
-  "a415197a606099a2d4ce04c5f466dbdff56da5924eb3080de63d259b7439b94c": {
-   "tipo": "licenca_ambiental",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\francisco-ferreira\\WhatsApp Image 2026-07-12124 at 09.13.22.pdf"
-  },
-  "f992a87272441db88c22d86afd6aefeb1ba1499a29aca2f6d3b9bff0e53f8f5b": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\arquivo9878.pdf"
-  },
-  "29528f87ed579218c957d57304ff02ce3c92c868b14908b10c06281ef87d6e69": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\Copia de doc5098.pdf"
-  },
-  "2740444a24dd8cce86394362113cd0bc4119f70bfb5642955024652acd6ae0cc": {
-   "tipo": "itr",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\Copia de doc8831.pdf"
-  },
-  "ad9ae4d44087ed76ac2cd5f65250e102a67c0fd933e41a819beaa55c93b4ff6d": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\doc scan (1669).pdf"
-  },
-  "409c043c65e52a0887738de6792b1d54324da940979220997ec000d8629efc47": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\PDF-4852.pdf"
-  },
-  "f2f75e78bf0bcde753892ae5b545b25e631dcd4a61291364cf911e125ce38277": {
-   "tipo": "titulo_assentamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\PDF-8348.pdf"
-  },
-  "0efc7b06d3f8e1f74439df7ebd26c69bd8f7008b972e346599974ece5833e656": {
+  "f148bd92050f08c11a4312d22169101dcdbbe7a8cd8b93f850b9e579df1ca441": {
    "tipo": "desconhecido",
    "status": "ilegivel",
-   "arquivo": "dados\\entrada\\ivanilde-nascimento\\planilha final v1165.xlsx"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\planilha final v1253.xlsx"
   },
-  "289c6398b3f4ee8770ea4d907c8280a767f536c882ade2b70d51acfea8577eb9": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\Digitalizar07287.pdf"
-  },
-  "012ef6563bbc9b84b2dc6109c31681c970c282af1e25df170ea8c8dc1753458d": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\doc scan (1520).pdf"
-  },
-  "11943403f85b4dcc428dcf41a09d2b49d0ce7907b6ce29e36aea6e93d2c9c3f7": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\foto 1416.pdf"
-  },
-  "ef453a39d99c73684b58436f3aa728c68f6c36d67cc8febba8056b7ab0ccb9fd": {
-   "tipo": "matricula_imovel",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\PDF-5075.pdf"
-  },
-  "5ea9831a56540f29780b5b4ddcaedd7bd9bb70e3f393a91369127c1039dcea8a": {
+  "599414609472e5c2c9d2fd7c13d6ba9c4d85f51e492cd502a8502abd1b3a2061": {
    "tipo": "desconhecido",
    "status": "ilegivel",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\planilha final v2.xlsx"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\planilha final v723.xlsx"
   },
-  "d61ddd0e081aba5d9801b54b6b2375fe27fa3cfd019b97eead9d856521b5843d": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\luzia-machado-pereira\\SKM_C224e2602860.pdf"
-  },
-  "5b0b686db351bb65f59cf13ec0385f6c7b2f38257d789e42677a7e35a2703c34": {
+  "6000d1d428eede2de024780245e2de96bc3b974d70ff0041b9b9784e89d6ee36": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\202603127_112233.pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\SKM_C224e2606374.pdf"
   },
-  "7794c905183d7d507239aad249613f8f234b97fa74111caa4b900e709bcb6576": {
-   "tipo": "matricula_imovel",
+  "bc1920dea1baa5d7885f55f3419d4f0cba2527f83affad52a0801fb17a9e358e": {
+   "tipo": "ccir",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\digitalizado (7266).pdf"
+   "arquivo": "dados\\entrada\\antonio-oliveira\\WhatsApp Image 2026-07-14224 at 09.13.22.pdf"
   },
-  "5fc8a2162dad23c2b0b42c144a00292b3e7cbaae55011214be1cf729d75d9315": {
+  "622cc374b3a8c874d04f6fd350fc114b1950c6a93c37fc01111d0c5cc9ddcd6a": {
    "tipo": "licenca_ambiental",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\Digitalizar06329.pdf"
+   "arquivo": "dados\\entrada\\creuza-cardoso\\arquivo8571.pdf"
   },
-  "f3b1619d9d486f5f3d53b16c493af27eb7274fdcc18e5ef1853d1817e2878d11": {
+  "9a342435b24014e8f6393f7a9f5b4c702ed980c686abe6dc01b52b735ff014d4": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\Digitalizar02187.pdf"
+  },
+  "be5c3fb4de7bbef402ff7d7dc1187432ae6d2f1fdd0ee787c900fcf77049042d": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\IMG_2500.pdf"
+  },
+  "4901887460b04256e33f6604e85c8418836cf096c9cf166b9b4771186841924a": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\IMG_4183.pdf"
+  },
+  "6f5ee226a9552eaeeb162981ac076f56a42d73cd86e4ae57dd64d73666b3b149": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\planilha final v8759.xlsx"
+  },
+  "a44c0f087957e16286927358f8861944e2820d9675d7fb12a58ece28891f5d85": {
+   "tipo": "titulo_assentamento",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\WhatsApp Image 2026-07-13867 at 09.13.22.pdf"
+  },
+  "b5aa00b014c18c01a1340cef18abd5ac619e6643acfdd3d4df8594c1a1fb3651": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-cardoso\\WhatsApp Image 2026-07-19104 at 09.13.22.pdf"
+  },
+  "e568f3407910fe72ca58f1fb6fc1a8dffb3882593f4ae740527999b4effe757a": {
    "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\doc scan (1115).pdf"
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\digitalizado (5046).pdf"
   },
-  "10fae0cdf043d5adb8824b2c9524f92cc3c6a0764362092e20370218e63e7a7e": {
+  "052f59ced6a71eb15b90736152893fac4092d67608704050b4560f30516daa8f": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\digitalizado (6834).pdf"
+  },
+  "d7161e4b9ebddd43fae90cd0db329695bb92fc2948d56ce3ce932452618b09fa": {
+   "tipo": "matricula_imovel",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\digitalizado (6996).pdf"
+  },
+  "c571c7a6f644cb3d05428778c12f99c6046a9558c32ccde6ce5bee079968fb30": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\novo doc (2699).pdf"
+  },
+  "9669f34790cbe7b5240c819f14297bd694b4adadc2441affc6036b1a58a67497": {
    "tipo": "cnd_federal",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\IMG_4101.pdf"
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\novo doc (785).pdf"
   },
-  "2a57f90e2a04e5bde357103dc550ec8f188e0bea6f7ad025510dba10b9c93b9f": {
+  "14b2ac7d03caef652a300b983c6626b8818115839a4b32a5b415f200a34c5570": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\planilha final v5838.xlsx"
+  },
+  "035f563a477d3b31cbaf072955ded825c0e44424c06fc24d478db81c166ceb83": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\planilha final v7718.xlsx"
+  },
+  "89f5f8943b3c07730aea5eb1964bb11183821db2b733f98a7e7b99ba881fc1f9": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\SKM_C224e2604914.pdf"
+  },
+  "e23c7d2d1ae32dc7534f9af460bc94022fea7b882e9dfc16f9a978c6b72645ee": {
+   "tipo": "licenca_ambiental",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\WhatsApp Image 2026-07-18439 at 09.13.22.pdf"
+  },
+  "5b06da8f29cbc264833627b3578b1f2f022b493b2c9e10c1ef88d0d794522cbe": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\creuza-teixeira-da-silva\\WhatsApp Image 2026-07-19256 at 09.13.22.pdf"
+  },
+  "ef46e75e9179480c656c9ae98e8334f1f435a26f73f25ee50c7a8282ac01e0cf": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\domingos-carvalho\\foto 8369.pdf"
+  },
+  "37178b3443807340a901ee39a07e609222acfba2a15e37483e39ec387440d236": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\domingos-carvalho\\novo doc (471).pdf"
+  },
+  "859afc6b16eb3f45b21ee08f74801b3914e2150a25f76f3ea93a9fefadc143bb": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\domingos-carvalho\\novo doc (6229).pdf"
+  },
+  "5b1320a60d08b966f7d717ac28f7b4f59be93fe30b5f63c42781cff0685708be": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\domingos-carvalho\\novo doc (7111).pdf"
+  },
+  "217d16e4b58906885b8ebaf884c18e74d42612d5db7d4f3b6f3819b24316aaa7": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\domingos-carvalho\\planilha final v1792.xlsx"
+  },
+  "6614db2a5b57239c588a40fd2b2a93a3ef465d2c236df8a98933292e88980066": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\Copia de doc1633.pdf"
+  },
+  "11721189d84481a1704254027eb85317ed7daa4a42541fb50ed8645745487ed6": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\Copia de doc9607.pdf"
+  },
+  "5625c6f786d6d805b38ef253b8a502b04eb994470ae4759e1d1a7ee90f7babf6": {
+   "tipo": "car_demonstrativo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\Digitalizar09873.pdf"
+  },
+  "1847960fc8918fb3d6f877339b1c4f5dd3d84aa6342f3b8fc283c01023580f4b": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\doc scan (658).pdf"
+  },
+  "fbb16e8e45c648e0e3c5b1bc1f5a702a1049b0d3efcf17c5a557ae57d4d79849": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\planilha final v3352.xlsx"
+  },
+  "03f3493dd261912c223fabb43343432f79a28a26d3b63542f6a1008d34b3f38b": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\SKM_C224e2606671.pdf"
+  },
+  "fb3dba04b2c7b600fc43df1f36e9d4b7e5745aeec1d01301f61b851bbe89c803": {
+   "tipo": "ccir",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\elizete-nascimento-pereira\\SKM_C224e2608365.pdf"
+  },
+  "ebf10f883628dc08b6afafafc5f841d872bb3e349fcafb9d9b2b8b85e7cfb827": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\francisco-moraes\\202608456_112233.pdf"
+  },
+  "e9ad9573b3f0646de9e795cac1730688e753f724a5f922bc753d6de74e380ef1": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\francisco-moraes\\Digitalizar01399.pdf"
+  },
+  "570c9ec150b82e30f848763a0f54ba54ca92a1b4d74d201ac54d9c0c13c8224e": {
+   "tipo": "ccir",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\francisco-moraes\\Digitalizar0385.pdf"
+  },
+  "1eba3405f3d58cd7d32a96e3e7314fa05ce5c79165c84b31c6f8e76acf06d8b3": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\francisco-moraes\\PDF-2048.pdf"
+  },
+  "169154077a04d29b584d79877382e1ee48bf27d534b739adc2b2b5f9cda70b2f": {
+   "tipo": "declaracao_posse",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\francisco-moraes\\PDF-7419.pdf"
+  },
+  "e46634caebfc46132486a30a05eb5c7c825f57fae8aaba018dba9475e325a825": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\francisco-moraes\\planilha final v1.xlsx"
+  },
+  "0459ed35eb626859da05de77ebee9bac9fcae5f6e4c6b6d73f750d6254e7ec07": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\genivaldo-carvalho-moraes\\Copia de doc3023.pdf"
+  },
+  "c3e3a06edb156c3a75bb6a86fad0a4a280d7e47261ff02ba57072595b2f8ec17": {
    "tipo": "declaracao_posse",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\novo doc (4834).pdf"
+   "arquivo": "dados\\entrada\\genivaldo-carvalho-moraes\\doc scan (2250).pdf"
   },
-  "dcf4114453058a4abc87397b1d15aed682168af9c35fb0d32ce265f1f8d26d8b": {
+  "ab361638066342590e626e90413d675294fc54b4d8d95dde627d3d9664356572": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\genivaldo-carvalho-moraes\\doc scan (5885).pdf"
+  },
+  "abd1d1bfd0b7077b8e1c3511ca48396ad58477550bb867045c32dd92256c4c2c": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\genivaldo-carvalho-moraes\\PDF-718.pdf"
+  },
+  "dda98aa48b1c11357972ac3464c6f80db232b68894d652c9dd8c03c8544bbc53": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\genivaldo-carvalho-moraes\\planilha final v2215.xlsx"
+  },
+  "252cf47ad32e11fc9dd0adccf999cdb9a86edb40d3a2dc822ffd97b281d469b5": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\arquivo476.pdf"
+  },
+  "c40ec395112fbe02ece5e338cbe38c374beb1d36ae04786cd1d9769d3aeb2b69": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\Copia de doc1005.pdf"
+  },
+  "b53dd4550f1e59a2a26095d68e7e019356d1b808ca0049abeecb784052412b50": {
+   "tipo": "titulo_assentamento",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\Copia de doc7947.pdf"
+  },
+  "0a03af83cd7e21c5d5b49f722ce69e9833d07a90951928427ed3e78d6d8da5f0": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\doc scan (6007).pdf"
+  },
+  "d18778d8c20a478d220ad0baf25e344ef30500ee3444ec4bbed1f1c11973c74d": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\planilha final v2.xlsx"
+  },
+  "9a3087197123bafb7d3beb5f276ecaee48fbf2f68e8ecf2588db053196e0f1a0": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-barbosa\\Sem titulo 4250.pdf"
+  },
+  "9032734d96a2e1aaceabbed92afcb55b8de6cfb132a8ab924b3b01960c48ba16": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\202601250_112233.pdf"
+  },
+  "18ade07044f3af64ebe83a374151be93d4893812a88e17905b58addafef17e4c": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\202609885_112233.pdf"
+  },
+  "3febb302bc0463de7ad1a0507e64c0dfb03fd9f1b0accfc38ef843365e01b9da": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\Copia de doc886.pdf"
+  },
+  "14f35eff82821a84c6d63e9edd0d7ca1a1fcf3cbdac7522eff1904933115b17c": {
+   "tipo": "matricula_imovel",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\doc scan (3024).pdf"
+  },
+  "fb823db88c831e13df18b26ee0a1505b72f94d0a0a37c96ae765ea09a4bdd8f9": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\documento sem titulo.pdf"
+  },
+  "24a7070ebb6ade549f400820924512ec75d99e654cffbac5695916cb4cb3994f": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\foto 9242.pdf"
+  },
+  "c53520e9a27c70a684720cddd4d24eb54091d892f752c8e6a896171785a21a4e": {
+   "tipo": "car_demonstrativo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\novo doc (8777).pdf"
+  },
+  "980ffdc5a01a3c81eda7bd22de58e9f0d0ff565eebc2aa9690249ab7cfc4c339": {
+   "tipo": "car_demonstrativo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\ivanilde-gomes-teixeira\\WhatsApp Image 2026-07-1777 at 09.13.22.pdf"
+  },
+  "bd6728034a802490e1db779c67ccaf4578254d2c732b650da916671cf5025ef7": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\arquivo8147.pdf"
+  },
+  "b45704230628075171963494680b291bf343becaa3e233d2a1a20729c79bd8d8": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\documento sem titulo.pdf"
+  },
+  "1026a666a6d2a521bdde7656473900c646a1032031046799422effb3aa72b9ca": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\foto 4824.pdf"
+  },
+  "edd1bf08a4a7d473ae1bff3e37fbc97194d27c1ae95be41e32dc00ee05cbca62": {
+   "tipo": "car_demonstrativo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\Sem titulo 1213.pdf"
+  },
+  "c4cf6c2e6ff10b29d2e388ae25b31708eedcec0e076ea6703b63d44be25c4261": {
+   "tipo": "contrato_arrendamento",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\SKM_C224e2609802.pdf"
+  },
+  "e34a77418b583b706bd1dce9c44a0aab6cef3ca962db92335483a03e96d61405": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\WhatsApp Image 2026-07-12162 at 09.13.22.pdf"
+  },
+  "fc1fa8eaece358ae067733c6adeff640752495ee098f56fb13cca8783d509929": {
+   "tipo": "declaracao_posse",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-barbosa\\WhatsApp Image 2026-07-12270 at 09.13.22.pdf"
+  },
+  "29fd10c642916276671487fb12fa64adf3f011159eb3aede6695fb7043e9495a": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-machado-pereira\\Copia de doc4697.pdf"
+  },
+  "083f9c9c2f43f47414372db8800b0c5c05b39ae424455cb750f2197041cf13dc": {
+   "tipo": "ccir",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\luzia-machado-pereira\\digitalizado (9740).pdf"
+  },
+  "9aa572ccaddc7017f713f5dca285f7ca2048feb87a6e4f5f4afc59b55bfe4048": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-machado-pereira\\doc scan (1200).pdf"
+  },
+  "7e82742f08c9a4a83259d7a5cb46300e0aac675a21c45a43aa6daa899f41bd67": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\luzia-machado-pereira\\IMG_6158.pdf"
+  },
+  "69dcde26ffcd306fd255b60a29efe2d07904889b0d9d927581b894386c7ace91": {
+   "tipo": "itr",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\luzia-machado-pereira\\novo doc (2286).pdf"
+  },
+  "dc449b63ebde51128cea5eca4d1c5067a65665c4f40b40d005129ac0aa75198b": {
+   "tipo": "car_demonstrativo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\manoel-rocha\\arquivo9366.pdf"
+  },
+  "9a05b63a49e05efb913a43bb9d2ab184d2bc1d8a2ed7ed82bc156f08e71f0f9a": {
+   "tipo": "nota_fiscal_produtor",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\manoel-rocha\\Digitalizar0826.pdf"
+  },
+  "393991abd281c87f59b86139d5edc2b9ee5e98140362cac79a80ebf1aa7ab88d": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\manoel-rocha\\IMG_1643.pdf"
+  },
+  "207d1b259cc76be1d1bbc6bd673f50421f8d4634de3bc0644f7835998ba04e13": {
+   "tipo": "car_recibo",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\manoel-rocha\\novo doc (8440).pdf"
+  },
+  "779da6c31c68b81244d6f697a66a0766590b3e42c15278838c7a3933673c16cb": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\manoel-rocha\\planilha final v2.xlsx"
+  },
+  "b98d5382feb0967258d1bbd5bf1fb34f2ec6faae95febb5173b417e5258b3f95": {
    "tipo": "cnd_estadual",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\PDF-892.pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\202604717_112233.pdf"
   },
-  "328d80aadc5af43a6bf45a9ed1d063ff20053c22b219956812e959e7a4be94e1": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\planilha final v6838.xlsx"
-  },
-  "1925d9cbc60caed7cb869ee808901659d0f4a0b6af88b9e69d5f80108c3a4256": {
+  "b88b14d28b9f46cddc64121b696978fd4cc6d3aa663e43d88a118c92ab532ec5": {
    "tipo": "car_demonstrativo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\Sem titulo 8439.pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\arquivo2004.pdf"
   },
-  "2c98c56827ba7f0ad539655d7c0d6c41ab2e80a19e916a246390945bfac7e9f5": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-barbosa\\SKM_C224e2608162.pdf"
-  },
-  "3ac3b6306c9bb2e895e47a9bfe17fab30bd28c10dfff6784c5c778836c77fdf6": {
-   "tipo": "car_demonstrativo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-rocha\\arquivo1665.pdf"
-  },
-  "0b75f754e24b24ec366b5bf2e0fd67da87d853c0f341104d1f672a693bdeeb1e": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-rocha\\Digitalizar05202.pdf"
-  },
-  "6260013242884287cdaff4639615653d0d8fa9dfe550680984e9f3da663f0cb5": {
-   "tipo": "declaracao_posse",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-rocha\\doc scan (9940).pdf"
-  },
-  "4e1cf7e978f180faa13f256dbb9cee8c5cd44a57819add4724dcba647f05661c": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-rocha\\documento sem titulo.pdf"
-  },
-  "daca78c2171fe1346227c39d3b6f048ad95fb869ba78d0642fef388160dd458e": {
+  "10c23ca54a62237cbc0422d8162a4f3e37fed66aa192ccf557f2b219fd6ebfef": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-rocha\\IMG_1035.pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\digitalizado (7483).pdf"
   },
-  "cf601cce704e9c0ecd655aaa915ea48581a583ab4d1c5eda3c313a0977519cbd": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\manoel-rocha\\planilha final v3.xlsx"
-  },
-  "8425f2d16bdb567c151e7f6ebd5abc458cf8d28aeaf92acd1b33b69941879187": {
-   "tipo": "car_demonstrativo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-rocha\\Sem titulo 1227.pdf"
-  },
-  "fa0d88df6386a902bc4b691a5d7174a01f5f50166cbc3f30184e386f66e462b8": {
-   "tipo": "ccir",
+  "1e9d44737e0e2abf484dbc65f956a25dec3224cd1e5c8b99d24a7aaa1df86697": {
+   "tipo": "titulo_assentamento",
    "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-rocha\\SKM_C224e2605213.pdf"
-  },
-  "3726e9622c4bf6437cb33a4f0df7409f80e8d825af1070685804e89a72dd504b": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\doc scan (1755).pdf"
-  },
-  "3919d20b567ef4a06b86ea49f79f362e3154a61a4d3b26fc47a69976cdd509ae": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\IMG_7505.pdf"
-  },
-  "a92486aee6313ea8f5605cae319fbf99174add1cbb4d743d5d8f85d304d39b36": {
-   "tipo": "matricula_imovel",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\novo doc (256).pdf"
-  },
-  "efc9aeebacc9f54f823fc792eb02220b1a1e306014a5378126e84504d0418f3f": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\novo doc (5293).pdf"
-  },
-  "d8bd4eae62a199c9d296340854abdf7e66a4afe75b682985904fd2f066fd3c0f": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\PDF-4076.pdf"
-  },
-  "7be85a594ab4e3a20736bcafd04116505d474f80e89452d50a7e3bd12d8fd4e4": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\PDF-7336.pdf"
-  },
-  "8a0a0f77c33926d23734b3d9d0298fdd7467f398d476a54a8648122945850c87": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\Sem titulo 1164.pdf"
-  },
-  "26377413b1b93845f73d5f6e50f1cbbd6618339098b029b55ea53844e01b55af": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\SKM_C224e2603425.pdf"
-  },
-  "74b50b01ecf03329e6a06102141d606cbe52e0d21aec6bdcf08f8252a1b9795c": {
-   "tipo": "cndt",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\manoel-teixeira\\SKM_C224e2608589.pdf"
-  },
-  "4106889e2d6f96af1fd9a5fe33916efe394014bec1278445a175f448d0422852": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\arquivo2574.pdf"
-  },
-  "4764282c631702269e6f15970aa41ed041229291e953d0527d7a22cf779142c0": {
-   "tipo": "matricula_imovel",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\digitalizado (4717).pdf"
-  },
-  "99720c1d0274ee0af280f5223f80834401cab2420ea84a4245c552f7c315244a": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\digitalizado (5037).pdf"
-  },
-  "8460f8858183272139d0d0f5776a53a02bd5442b7abf0d95533ed33c3f6b43db": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-alves\\documento sem titulo.pdf"
-  },
-  "9b27b1d2f816f2be87c816333506937ac6530a30ea04f2d2d900554f079cf249": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
    "arquivo": "dados\\entrada\\maria-alves\\foto 119.pdf"
   },
-  "a74f7443bb0845f64a5dd2178e1d961175deb35c09254a3e172357cf92f0d234": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\IMG_4097.pdf"
-  },
-  "4d6985614422d25b30554e5a219badeab756821cee99fbf9baba6fe74a428e0f": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\PDF-4776.pdf"
-  },
-  "b962d4060ad25129b51e9a0fa38175064c01d2480f2b6d034205f4bfbf6d6a91": {
-   "tipo": "declaracao_posse",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-alves\\SKM_C224e260247.pdf"
-  },
-  "8601f7cf030133fb6ba7e1faae407b702df6b2b67b1f06c21186b2fb99592f88": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\202608037_112233.pdf"
-  },
-  "104efde80e68f21896d7a18d45f03a9a9e77ec6c63e708bfc57af15e41eaea9b": {
-   "tipo": "declaracao_posse",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-lima\\Copia de doc5414.pdf"
-  },
-  "7c6af0afc53ae98587bc89895f0327bf7bc76a56c3824fe04052af424fa0bd49": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-lima\\digitalizado (3987).pdf"
-  },
-  "eec7465e8488e956f720f239b73359f68841c5c55ae693bd4e631f4481203f31": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\documento sem titulo.pdf"
-  },
-  "1ff292ff6b8c228efdf0eaab6db0cb8d71976a59d5dff71261c5dfaa8b6fa76f": {
+  "bc743280855a6055da21022b38b0a58b33ea90e6ac9a6ad437bc108614085283": {
    "tipo": "cnd_estadual",
    "status": "ok",
-   "arquivo": "dados\\entrada\\maria-lima\\foto 27.pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\IMG_0546.pdf"
   },
-  "3ad16addd2a899d89a0c225eb3d076729d8f2b66421631369097fe588248521a": {
-   "tipo": "car_demonstrativo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\foto 529.pdf"
-  },
-  "433506524bd80866f58bd9032669726dead6f5550a30f752f09792c06faedb97": {
-   "tipo": "itr",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\maria-lima\\PDF-4506.pdf"
-  },
-  "74859279266946d20de87cad44bfc511fad2bf5e7e0359890263a172bfc3d9d2": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\Sem titulo 3672.pdf"
-  },
-  "74e1e8ff9d5c117e3d19acb951c70dd8e6c79dec3c16fb51cf1e0f62c2f96329": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\WhatsApp Image 2026-07-1516 at 09.13.22.pdf"
-  },
-  "475cbdd04ec145b31baaaa48013768351c682991b67869740ffb0ba618188ac3": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\maria-lima\\WhatsApp Image 2026-07-19620 at 09.13.22.pdf"
-  },
-  "b730b8aa074a872eddfe81debca009ef32743fdbd788feda65500bd67a88c9b0": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\Copia de doc784.pdf"
-  },
-  "75f065b4b82deb2b0b9156d62783e67d31a6fc73072ff75736dec42db57a2b40": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\Copia de doc799.pdf"
-  },
-  "e3f976d1d48d6337d0daafdaacfeb25519f5eed2918eb8bb2ba8ca7ee89ca655": {
+  "8f731df60a10618ab00ca0bf8889efb19d4e044683c1a4eac8a5e41383ed6bf4": {
    "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\digitalizado (1567).pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\IMG_6380.pdf"
   },
-  "9ac544e511bc1d069b75be01e32e48878fa6546958ce6eac41088f0aa527d3a1": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\foto 4566.pdf"
-  },
-  "cb0fe45926956dc771937807ca7ecfc3c86589c29b8d333a05f6907cb9703bcd": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\foto 7984.pdf"
-  },
-  "a3849ba069fd7cbf8cc4572d7e49c55ecf06f560de327022361082b67a28d122": {
-   "tipo": "cnd_federal",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\novo doc (4085).pdf"
-  },
-  "c9488608930a75b66dfc9dddd701c7edcaf26ceb9b1b407684084ebd8c4f5fd1": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\novo doc (5815).pdf"
-  },
-  "f0050a997cdf845ee75d364fc5f3e3194139b915d6e286979afc667251138518": {
+  "1d533ec416059b09494dfcca1964a82e9b7f529b6215e43769bdaae87d5cf4d6": {
    "tipo": "desconhecido",
    "status": "ilegivel",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\planilha final v1.xlsx"
+   "arquivo": "dados\\entrada\\maria-alves\\planilha final v1.xlsx"
   },
-  "e73fd1952192499f0b5fb0a38edf01b731d8ddd6df32a43a987c964dd9ffb160": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\WhatsApp Image 2026-07-12204 at 09.13.22.pdf"
+  "a915951430e2990a0bc963e4265226595a5b856107e280fd7d6e32d7b989ad85": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\maria-alves\\planilha final v7376.xlsx"
   },
-  "3ab418389b6df4da5d36234a07404657448e96ce797bbeca1b9814de8abbf4ab": {
-   "tipo": "cnd_estadual",
+  "cf460f3548e0e4810330e842d05fe1fb08e4cf5beace70a6072e543fa9d244d6": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\maria-alves\\planilha final v9804.xlsx"
+  },
+  "b911d2e7e322708d1652a6aaca6f818c05ffabce67560bb7b81636d96bd9b908": {
+   "tipo": "ccir",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\marinalva-pereira\\WhatsApp Image 2026-07-17432 at 09.13.22.pdf"
+   "arquivo": "dados\\entrada\\maria-alves\\Sem titulo 8961.pdf"
   },
-  "e219b7665f21202766c62d8add0b46a82c3589b6727a7d9e45bf52ff3aa5b2ae": {
-   "tipo": "car_demonstrativo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\202608162_112233.pdf"
-  },
-  "8355c0f7108a405f1f723ed3d204d7b562977dd9cab808a248e0414f6364f778": {
-   "tipo": "car_recibo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\Sem titulo 153.pdf"
-  },
-  "8ad2817e20ef4c5999e951a43ce898c8d1f0291712879e1762c3fdc032d32e1d": {
+  "0a4d4fd8b57861f69d145d4f54cb7e709e54f1ed0b74b7f740b7c3d3314217c8": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\digitalizado (1446).pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\arquivo1750.pdf"
   },
-  "e2cac7b78166b461ef88d4e92567611d2ad748fbe71745fb276785d59cb60732": {
-   "tipo": "itr",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\digitalizado (2169).pdf"
-  },
-  "da1e56b2578ab23bad7e30182a688e8cb4701a09b88e3eb885fb753d7ec89d3e": {
-   "tipo": "contrato_arrendamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\digitalizado (7808).pdf"
-  },
-  "70e51488b771f2e6e4d443deed51194d3f0885687f5785e0cd97dac8d38c9992": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\Digitalizar0199.pdf"
-  },
-  "ab6d575c99314825e5b70249e6f82783ced0352b924453f262a6967b328d02b5": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\Digitalizar04213.pdf"
-  },
-  "a00e53fac2f55c414c713a3211932ac13c4c9f9695957d4f0148bf6a2479e140": {
-   "tipo": "cnd_estadual",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\Digitalizar0422.pdf"
-  },
-  "0d803d8ae91fecf0e36cec4d1d5d890e8c25c63e6b7393cbb6025d8374658d17": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\IMG_3167.pdf"
-  },
-  "f650e150df8aec9a502117136dc87eec155d4621d79ca0c99ff2fde4d022b174": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\marlene-cardoso\\planilha final v7703.xlsx"
-  },
-  "4037c898ec3c012e5b9617f0e5e9698a54aa556a272c2e194c67856a8eb710cd": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\202603051_112233.pdf"
-  },
-  "ac50088fc87eb9d08b18d71aeede713d7a2a95edbc0c60fe0740617e1af3f16b": {
-   "tipo": "cnd_estadual",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\digitalizado (7962).pdf"
-  },
-  "33fadfd53afbbb4118a8a9dd27240126c0f5c982159b31a76a74c546ecc2e328": {
+  "d5e1b7a531a9a37027164072dc02a0d00b0423d15cd9a4c8746dd9cfbb05f695": {
    "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\foto 2959.pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\Digitalizar06169.pdf"
   },
-  "48cfdd30ca96ff333f0961f6e5da9cdb2b3400adf24384105b8a6a1600838ab8": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\IMG_6956.pdf"
-  },
-  "ce16571a3c3c25abbc93ecdc8594cd8b8aec606fac044976d3921e4b623560b2": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\planilha final v3346.xlsx"
-  },
-  "6bcb5301100b5ad986172838359a2824c6f85a9616ab712a0feedda8da76b4d0": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\planilha final v3403.xlsx"
-  },
-  "b4fdbb2df693c686798692a715c7921906e4e93c6bd2baa67646b71cbeefa391": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\marlene-monteiro\\planilha final v7506.xlsx"
-  },
-  "6769567a1181ffdd4dda0c69f578f075b71a41b1d00852cd1a58f7e38d3f2a8c": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\neide-freitas\\arquivo9336.pdf"
-  },
-  "ed5ffc36a747c5326a793861a7c9be2d29f34d7d8b28e2c4025bece96c72af95": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\neide-freitas\\Copia de doc8200.pdf"
-  },
-  "17e47d198afba588f3c45bdb5a29d3afac4ae407fc58fb35db537f3582533e33": {
-   "tipo": "contrato_arrendamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\neide-freitas\\digitalizado (104).pdf"
-  },
-  "bd1cfa6c324b0e36c32e9012675d5dac40d8668bedfb37c61304ffe2bf6d5820": {
-   "tipo": "contrato_arrendamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\neide-freitas\\digitalizado (2104).pdf"
-  },
-  "02efa757b3ebd75a9769b0ad8a6ccc537d0532d890b5e76d09894c7c6276d144": {
-   "tipo": "cnd_federal",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\neide-freitas\\digitalizado (2363).pdf"
-  },
-  "169a2060a56b38fad786f0466d2d086033daf07f456c855746b3e9bff2957b27": {
+  "94b900ee375463e337ab1175fef5ece122cfe6868cec8d297238c144b34b4f85": {
    "tipo": "matricula_imovel",
    "status": "ok",
-   "arquivo": "dados\\entrada\\neide-freitas\\digitalizado (4392).pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\IMG_1792.pdf"
   },
-  "94f43da2331f1d8bc9f523920a952e348224373267e73a515622f91000307ab2": {
-   "tipo": "cnd_estadual",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\neide-freitas\\digitalizado (8601).pdf"
-  },
-  "9d0406868f123807a3610057714a9f87d841b7b126af6bfc8267899f10ca93eb": {
-   "tipo": "car_demonstrativo",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\neide-freitas\\doc scan (6465).pdf"
-  },
-  "ded35826ca2947cc8ba9a7bf885b532ddbfed36d4226309d662f0a3b4055e0e9": {
+  "9d74ff7cba060db8eb5c003d8fe4b2bc3004e0b82e888e1526e4dce460ed7869": {
    "tipo": "nota_fiscal_produtor",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\neide-freitas\\IMG_8522.pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\IMG_6248.pdf"
   },
-  "f45d66f53734a24031555d13c5fcb37aa30b1e1490c18880da720ad1e83cc9fb": {
-   "tipo": "nota_fiscal_produtor",
+  "a1af60155294e7d54fe01f934a105f93268b623c679426a7322d2d84b6164a7b": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\maria-lima\\IMG_8678.pdf"
+  },
+  "8750a8fbc435c1e78e0900f1c8f493848598d898734dbbb10a5e94a2710e6dbf": {
+   "tipo": "matricula_imovel",
    "status": "ok",
-   "arquivo": "dados\\entrada\\neide-freitas\\PDF-5731.pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\PDF-3033.pdf"
   },
-  "174a87b5270cf9dcfa1fec9fcc84f61a9cce30f97656c5b7ae9a9c2bf4a79b53": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\neide-freitas\\planilha final v3.xlsx"
-  },
-  "d035d95e28d4d980151e9730530348566c994418cae59c45779c77a7cc760fef": {
+  "bf9a3ac4844008852ecfd12b27923d5fbf938006e103fe2f0a7b3d5aea1aadf9": {
    "tipo": "cndt",
    "status": "vencido",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\202603520_112233.pdf"
+   "arquivo": "dados\\entrada\\maria-lima\\SKM_C224e2607749.pdf"
   },
-  "57d6f8ea5c6941f0c74a13d8e9990fc3e6428ea6f4aeaebebb72f4bdde6e1a30": {
-   "tipo": "matricula_imovel",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\arquivo1703.pdf"
-  },
-  "79c8b562bb99c011ba9714cf52e0d0935931e24a024669b28bca7d18f781767b": {
-   "tipo": "car_recibo",
+  "ecae4a9fc7a9ac8ce966df95c4dbdec7f2dfb13d60cbf4af9def97abb8c1436f": {
+   "tipo": "car_demonstrativo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\Digitalizar03842.pdf"
+   "arquivo": "dados\\entrada\\maria-ribeiro-cardoso\\Copia de doc3770.pdf"
   },
-  "b0088f8aea596989af43f6f925811f81011abd302dfd41ad6ed9ac0bb20d41fa": {
+  "9dd4f90fcdbb58b333e0881cd5e9ef40f204a2d5fb08424fb68463d94283a875": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\maria-ribeiro-cardoso\\Copia de doc9246.pdf"
+  },
+  "2613a0937c3ae2a0f1bbad49a8953f4f9645764badeb51b79b3dc58aebebdc6f": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\maria-ribeiro-cardoso\\Copia de doc943.pdf"
+  },
+  "1f0bae9f3f9d927a804bdf36457eacd24df049e1bf985bc50171509e9c31829f": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\Digitalizar04191.pdf"
+   "arquivo": "dados\\entrada\\maria-ribeiro-cardoso\\digitalizado (949).pdf"
   },
-  "a863ea9a7e5cd86b4d20a4f758027388bc07c484fd7443b2e1f5b8289e58d5c6": {
+  "f17df0ebb033385c6e19cd191144a572fbd4e5e4f8f79a32020573ec4e014711": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\maria-ribeiro-cardoso\\PDF-9059.pdf"
+  },
+  "c44bbc1fbc75ec6cecd8f4cb3e601feca17183a093b0310ea4909adceea7a61e": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\marlene-souza\\digitalizado (2558).pdf"
+  },
+  "b3e8454114899fb264c078abed993aa4537da029b4da309f2da89595c94b3785": {
    "tipo": "cndt",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\foto 3799.pdf"
-  },
-  "350bca1fb4981281ae9a884dbd09e06ea07b7682c182ffacb0a0b3193416cf57": {
-   "tipo": "licenca_ambiental",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\IMG_8835.pdf"
+   "arquivo": "dados\\entrada\\marlene-souza\\doc scan (7398).pdf"
   },
-  "c88d032a27297834ddd8785e73c58ff2b7d0c56ea114f612292355a96b39764a": {
-   "tipo": "contrato_arrendamento",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\Sem titulo 3046.pdf"
-  },
-  "e6efb2cc81b45dde813f623c2c375cae6ad0825d173fa7635acfbd8f1cc9626e": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\Sem titulo 7978.pdf"
-  },
-  "ea6fbe17c230560c90d7667b00018989abc26cd7ee7d06263fd448011ef99706": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\SKM_C224e2605631.pdf"
-  },
-  "69bbd26b32315ad3d9b9884511449f1917395e4c7efdbabd31b2b06c58e53730": {
-   "tipo": "car_demonstrativo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\doc scan (8945).pdf"
-  },
-  "f013969e0a10e0fe54d7acfb24b26c5917a853ae6cb6413941077f6c4b2bfc23": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\documento sem titulo.pdf"
-  },
-  "88a215554e30913c180b1aa3227c25587415d38abe4dea0b8e072d753265fe1a": {
+  "186329e17e114769195387dbe6aa7f50a7f6bf824ebf349659a8556fc509f9a4": {
    "tipo": "car_recibo",
-   "status": "divergente",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\IMG_3168.pdf"
+   "status": "ok",
+   "arquivo": "dados\\entrada\\marlene-souza\\foto 6854.pdf"
   },
-  "d9f77247e3c8af58b0eb2d430d47c29112170a706502e02ad15864f4588259da": {
-   "tipo": "ccir",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\novo doc (8692).pdf"
-  },
-  "f52b7171ccc71bd07a34839f1659e42dd1639f6f0e9cd14060f12f0d9babf07b": {
+  "44f3df4693d5d649a723eb2807c7555a809dd684ea15f7eff86ae4190aaf622c": {
    "tipo": "desconhecido",
    "status": "ilegivel",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\planilha final v3.xlsx"
+   "arquivo": "dados\\entrada\\marlene-souza\\planilha final v3.xlsx"
   },
-  "533acb04456536b6499b0b4a2a3f0fd0d4133045ce51341a9dcaec8554802e6e": {
-   "tipo": "titulo_assentamento",
+  "ae223f637c88cec22073ee9b5fb0e822533e35f86980dbd3f1be82915617a3f3": {
+   "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ferreira\\SKM_C224e2603871.pdf"
+   "arquivo": "dados\\entrada\\marlene-souza\\Sem titulo 392.pdf"
   },
-  "89b849a6c603a865ce8e62bb768c5bf78803ecce2a7b61590b3cc4490878e909": {
+  "bc368748e5b1b77d4f57ca6294a314a0d9b9aca338045ea6ea6d6d53ea012474": {
    "tipo": "declaracao_posse",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\202602396_112233.pdf"
+   "arquivo": "dados\\entrada\\marlene-souza\\SKM_C224e2602570.pdf"
   },
-  "1a0bcfda51a0b9f770a00031e0bd51644e89545d692ccb005afca423f6a61eb5": {
+  "45b58aec4f8231181ab175a69934983fc921d866968a208cde135abccc089212": {
    "tipo": "car_demonstrativo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\Copia de doc3325.pdf"
+   "arquivo": "dados\\entrada\\marlene-souza\\WhatsApp Image 2026-07-13431 at 09.13.22.pdf"
   },
-  "1049b092aa4e52725f132ddd6f76a1c46b8bb396d1bf6a6830771a5faf520f81": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\digitalizado (9530).pdf"
-  },
-  "26cfdbabf9e9ed6b47bfbaf789ed126c3ea14c100f56bb18fddf17f8aa782dfe": {
-   "tipo": "titulo_assentamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\IMG_9723.pdf"
-  },
-  "7b67a1ce1c25b197cebe97ebb8c92d537fdd8db09d54e3ab21917d6dbcd0f1cc": {
-   "tipo": "cnd_federal",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\novo doc (5781).pdf"
-  },
-  "d388ee91ae670982da9232bf83c78a148b73a9e8c257e8aa7a45262dd4919728": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\planilha final v3.xlsx"
-  },
-  "5b7442244e20894f67e229fe187e4ea2ca26798b78f5690343415c943dcee9f9": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\Sem titulo 1287.pdf"
-  },
-  "3dad75c6d20c21e47feb3cb91ed91a5eb15687b22b868b968d9c90398ac439f7": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\SKM_C224e2605340.pdf"
-  },
-  "768adef9205508bb3d746d4da6ccf94739a3d38b5d79c455188119e14830f9b7": {
-   "tipo": "contrato_arrendamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\pedro-ribeiro\\WhatsApp Image 2026-07-12169 at 09.13.22.pdf"
-  },
-  "def7216274dd3d7d6790bbaa35fb705b4ea8536867ae9dd64dcf1b7a581039b6": {
-   "tipo": "matricula_imovel",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\Copia de doc2546.pdf"
-  },
-  "5da88d6e6dcd28b5a6ed76fcd7350c5477adfa35b589e5d0d2c8cfbd6a17c457": {
-   "tipo": "ccir",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\doc scan (5107).pdf"
-  },
-  "7e5f8a3244beca765e957f0f51001fb237521e7cda8d5179591b9da5874107b1": {
-   "tipo": "declaracao_posse",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\doc scan (801).pdf"
-  },
-  "35fa5117de334db70e8afe857c559f6067fe276b0a1f763c9ec37a7f1e540464": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\foto 2970.pdf"
-  },
-  "8c4cadf923290896e69eec2b811fb1a67642b8508de4e058af337e33256ab347": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\IMG_6873.pdf"
-  },
-  "9933c61fed2f7b94239ce10a6940f6b0ec547c7e9041601853707cf374619137": {
+  "8edba78cc4bc443afc8df1b952acadc8f7d8525b849269821c4e8c4ab1c3227e": {
    "tipo": "car_demonstrativo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\PDF-2749.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\20260420_112233.pdf"
   },
-  "f7dc496f53515ccbefc7b4e52151368d86723b8a79e5d4047ba4689d3198e2bd": {
-   "tipo": "licenca_ambiental",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\PDF-4246.pdf"
-  },
-  "8038e74b5fc01f12b705eaefa7193b2c4c58da9019258e98049f9074ecbed2ad": {
+  "3388b17579714b90686afe96be603c8c1a27713603dc2a66e8441db0f98a6afb": {
    "tipo": "car_recibo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\PDF-6095.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\Digitalizar07774.pdf"
   },
-  "ae1ef202f893c6588be7efba3bc44b939aa396da996a85f578948624ad6d9fd5": {
-   "tipo": "desconhecido",
-   "status": "ilegivel",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\planilha final v3.xlsx"
-  },
-  "98c8e0e65e7f80ffad739618fe69b50259ff9bae210353d21d96e244dd65e9dd": {
-   "tipo": "decl_trabalho_infantil",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\Sem titulo 1799.pdf"
-  },
-  "07b872b863c81f3e0d62933d460839499c6c8131f2f4be061f737b9afc5c4cce": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sebastiao-cardoso\\WhatsApp Image 2026-07-18496 at 09.13.22.pdf"
-  },
-  "1b5c6d6168f9a9c5d8fcf8c015475e83bc50452e866f4dcbdccaa6ebe94ac100": {
+  "32634bc5028bf67920189349832b70e5d3dd1b0b2c6c43ab8e6ba2e184d78749": {
    "tipo": "car_recibo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\sueli-batista\\arquivo5606.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\IMG_4763.pdf"
   },
-  "394fdf1fb122fac4708a7e014a05b70fcda66a5a18b08e3bdd5d632f75c41580": {
+  "10c5180408ca93bbf810c10ff0aea8c9ca7c633089d561399cc4f61fea0d2f38": {
    "tipo": "matricula_imovel",
    "status": "ok",
-   "arquivo": "dados\\entrada\\sueli-batista\\Digitalizar08170.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\IMG_6253.pdf"
   },
-  "5f42baf035a00da6b4f95eb37ccd65048ab0eef0d9fade12e09dae53fb2552fa": {
-   "tipo": "declaracao_posse",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\sueli-batista\\documento sem titulo (9).pdf"
-  },
-  "c42d3c1df707571a397cad43cc90ef2eb30305f4856df89d6ab1d75297314aa5": {
-   "tipo": "car_recibo",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sueli-batista\\documento sem titulo.pdf"
-  },
-  "9019dd4fd758f5892e5ec3afd1c730307aa0d5a1d5e2e8769f49038aca619d5c": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\sueli-batista\\foto 4030.pdf"
-  },
-  "36f193d3cf2157545ce99a9d9a18e2907d55ce4856b237e898d38d5af8efcd04": {
+  "156826f5fbe75198e449661164d7e374b1d49cd48a04417f73095b2152477cdf": {
    "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\sueli-batista\\WhatsApp Image 2026-07-16664 at 09.13.22.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\novo doc (8638).pdf"
   },
-  "e71e2daa6f7ab6d013ec91b2ff84bff96a0088c9eb6b020ba31251b4579dbcb5": {
-   "tipo": "titulo_assentamento",
-   "status": "ok",
-   "arquivo": "dados\\entrada\\sueli-batista\\WhatsApp Image 2026-07-17297 at 09.13.22.pdf"
+  "9aa9270db291f45433f83a593f833b03c573a50083e6ade05bc5a02260142df4": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\planilha final v3.xlsx"
   },
-  "79dbc6bd71a0d0394c018ac39b77ebc311bc7b02a3d8d373b16f60b7279efc6e": {
+  "406e11fd31b218ddb56ceb014367d9fbdc7336eb8f631dee8c318a6339972d2d": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\arquivo9533.pdf"
+   "arquivo": "dados\\entrada\\pedro-batista-rodrigues\\SKM_C224e2606177.pdf"
   },
-  "58dfb29c9cab92ac7f773c0a9afad41c1c198463c7003f7a7598a5ddfecb2b78": {
+  "0ae4d087a195a80987d94c462a00f05dae92d3d56a454d620b9fffa507d01012": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\digitalizado (5959).pdf"
+  },
+  "e3991b3533debad4584fabdb8dbbbae4c062b7f60808d8b8878ea1ec109e93bd": {
+   "tipo": "declaracao_posse",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\documento sem titulo.pdf"
+  },
+  "1b03b74197f7251765b5f603760ef510fd2eb8bb1823545d4355eb26822791f0": {
+   "tipo": "ccir",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\novo doc (1936).pdf"
+  },
+  "94be8235c71c3792360793470b3a505907866784c241489f94eaf72341f6a7b7": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\PDF-5904.pdf"
+  },
+  "78ff8cab6c9191b19584c76becceed9a5582c6b4947873cdc5b882436d1afc35": {
+   "tipo": "desconhecido",
+   "status": "ilegivel",
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\planilha final v2.xlsx"
+  },
+  "81da2729be63e11a1393dfe0c64004296e41f6541fde7356fb8881c600cbedcc": {
    "tipo": "car_demonstrativo",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\Digitalizar01197.pdf"
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\SKM_C224e2604590.pdf"
   },
-  "5bc7da675e7b7c1077f0314efea5d492d75b03eeb9d6dfb21b277845954d765d": {
-   "tipo": "nota_fiscal_produtor",
-   "status": "vencido",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\Digitalizar06209.pdf"
-  },
-  "0bd06b26872861614db7c10a6a0a0e9689697b1ddb9427694f2a57f589bbe622": {
+  "d3154e7056d8be3a21215b5f7d27c0625183171182c6fcd65d0f4c4e265d7674": {
    "tipo": "cnd_estadual",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\Digitalizar08071.pdf"
+   "arquivo": "dados\\entrada\\sebastiao-cardoso\\WhatsApp Image 2026-07-18394 at 09.13.22.pdf"
   },
-  "bd4122b8a270fe144bb0f13f4416391b804f3fc146f569795e1066ae03189013": {
+  "90828f7b770e2ad3bb221efbb4879093c114d186ba1aa7d4547b4836af5e0285": {
+   "tipo": "declaracao_posse",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\202604191_112233.pdf"
+  },
+  "a775934f183c72daf68ae458070bf5f45a728879d3fb9b5f95cbb42fae13e3cb": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\arquivo6252.pdf"
+  },
+  "c5efada1785c581d247298cf73f016a910e546d079bd656410dec632b5ef31f1": {
    "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\documento sem titulo.pdf"
+   "arquivo": "dados\\entrada\\sueli-carvalho\\Copia de doc7388.pdf"
   },
-  "d2c18994f0b8cff52059dbdaabb806b0a1b5be3f004c826a140b7c83de0e79df": {
+  "eabbdeacc686ad5b4adf56a87ac91c2c553db121a53a138a20d81b0fc793c331": {
    "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\foto 3144.pdf"
+   "arquivo": "dados\\entrada\\sueli-carvalho\\doc scan (1788).pdf"
   },
-  "30280f8bb1dc5cdc3338dbf3461bf24b15decba3ca32e8c1fc0e285e3140c292": {
+  "29294c07ce63ba119dc5989634a99a252a69ba5503698d5c7ead1dabb5676854": {
+   "tipo": "decl_trabalho_infantil",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\doc scan (3650).pdf"
+  },
+  "e32295a584ec7e30c2e46e873d5341296d63091a7b8836551f6306ea97ce4203": {
+   "tipo": "contrato_arrendamento",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\doc scan (639).pdf"
+  },
+  "fe4d56cfbabdbe709e0e6399aa50e2c1486569fc9aef1d9f6ac482bc8d24fef0": {
    "tipo": "titulo_assentamento",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\IMG_0345.pdf"
+   "arquivo": "dados\\entrada\\sueli-carvalho\\doc scan (9421).pdf"
   },
-  "11bb7ae19f1f0786f9cf835c29099a6d0c31ec64cd6e001c0587a42c3ee8262e": {
-   "tipo": "ccir",
+  "c81c35062314a8de912cbe36bf75bdc045fd8ae9e0e4c410486e584af839edb9": {
+   "tipo": "cndt",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\PDF-368.pdf"
+  },
+  "bd5152248c894061a22ffb4c8bfe4b91bf359cac4091a538c15466d63ad7696c": {
+   "tipo": "car_demonstrativo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\sueli-carvalho\\WhatsApp Image 2026-07-16281 at 09.13.22.pdf"
+  },
+  "9ec5e5cc26ce5aeb21b7cb7d0fc46800e71ff2b53c8f4cec85aa550fb95d5813": {
+   "tipo": "nota_fiscal_produtor",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\IMG_2319.pdf"
+   "arquivo": "dados\\entrada\\zilda-lima\\202607684_112233.pdf"
   },
-  "1e1546ab7b16a039bf1f46a99a4d6e3c1fa47671d5947c91ee4868aed2d18af7": {
+  "63a7f1e5fbef69c28a506fec3af8684529126c928acf8b1be954855e71bf2482": {
+   "tipo": "titulo_assentamento",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\zilda-lima\\arquivo3343.pdf"
+  },
+  "d81133d24bd3edcf694b27b22b5037289161f09c6e80043d9d6b3d89d216d24b": {
+   "tipo": "car_recibo",
+   "status": "vencido",
+   "arquivo": "dados\\entrada\\zilda-lima\\digitalizado (9351).pdf"
+  },
+  "4a51f11914429ae342e652e8e7b92c372285717a73d63262da4d15e0fe0af90a": {
+   "tipo": "matricula_imovel",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\zilda-lima\\documento sem titulo.pdf"
+  },
+  "b8dddec5c58480027b954490ff2fefa552883b323c7fb0a6a1c036b7f9916152": {
    "tipo": "desconhecido",
    "status": "ilegivel",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\planilha final v8121.xlsx"
+   "arquivo": "dados\\entrada\\zilda-lima\\planilha final v1207.xlsx"
   },
-  "e429de9221e462fd2f09c5f5505c11454909271a861cc1aa894b614e491676e7": {
-   "tipo": "car_demonstrativo",
+  "8e0684cae5045d7f0d1eeb7ad52ba65045b1a14b64814449db0e426f3ee6ae11": {
+   "tipo": "ccir",
    "status": "ok",
-   "arquivo": "dados\\entrada\\valdir-dos-santos\\SKM_C224e26092.pdf"
+   "arquivo": "dados\\entrada\\zilda-lima\\Sem titulo 3203.pdf"
+  },
+  "51e2664e941b296e523a18c438866d532bb1e8f066b443bf1d3774449d920842": {
+   "tipo": "licenca_ambiental",
+   "status": "ok",
+   "arquivo": "dados\\entrada\\zilda-lima\\Sem titulo 9535.pdf"
   }
  },
  "excecoes_abertas": [
-  "00ed9fe11c88",
-  "0254b6162110",
-  "069eaa4b803a",
-  "0847d1977b1b",
-  "087059cbca36",
-  "0991ac507e1f",
-  "0b49ad358d23",
-  "0b8f831e1f1a",
-  "0b9d373b7960",
-  "0ea6bdb51056",
-  "0f8b6ec345f6",
-  "12086d3b21db",
-  "12aca1f04fb1",
-  "15fcaeb577d0",
-  "1b1fcd4dcb2e",
-  "1e67622bc827",
-  "1f555b0ba703",
-  "2088c3dc72cd",
-  "21170d161841",
-  "24920f7caaf0",
-  "27f61b5fe93c",
-  "294f320aa194",
-  "2ec4500e4c37",
-  "2f277a327f1c",
-  "2fbe95d11e1c",
-  "300bcf963ea7",
-  "3962360e7794",
-  "39cf2128acab",
-  "3af980b98fd2",
-  "3b10425f5cbe",
-  "3caf30c72fd3",
-  "427698221d0d",
-  "4425876327e6",
-  "46d5cb516dc4",
-  "4d1127b3d30b",
-  "4d998c099d41",
-  "4e16c72ddf1b",
-  "4f9617ce2d17",
-  "4ff202c38968",
-  "5148741e1b04",
-  "514ae48c5f74",
-  "5a70dc586d44",
-  "5a84722cf191",
-  "5af1ae9d6a15",
-  "5b972961538e",
-  "5d41b1144658",
-  "5fe2ffe12bc5",
-  "62ccc4c066f6",
-  "6b3a2fc6d54d",
-  "6bae843bfbb1",
-  "6c102a6ea40f",
-  "6f8069629f8a",
-  "706db1931e95",
-  "7112f5a226ed",
-  "74a181f59969",
-  "799b0fd38d76",
-  "7a3ab99bbd4c",
-  "8027bb7d53e3",
-  "80837a6993f7",
-  "8096833a87b5",
-  "81f902df36ee",
-  "8240a05042e7",
-  "841616c2271a",
-  "842d7a24ba99",
-  "842e48394c92",
-  "849198ea21cf",
-  "87871cee640d",
-  "878d551fe899",
-  "8828afd01490",
-  "88a954bc1e11",
-  "8986fea55ec7",
-  "8a3fbb7f5f27",
-  "8ca799d6139e",
-  "901beabf5d04",
-  "90e2c8985b7f",
-  "953975d56901",
-  "9876dbed56b2",
-  "9b6ad892c950",
-  "9d64b963b4b7",
-  "9d9b4d801c0b",
-  "9ec5f35f0365",
-  "9ef3f944872b",
-  "9f3fc2e9bf03",
-  "a37f2149c4b3",
-  "a40ef91a8d4e",
-  "a66e431b29aa",
-  "a82522bbf0be",
-  "a8395ad1e898",
-  "aa1b1b4414ce",
-  "abed6035b95b",
-  "af62d62b8842",
-  "b09a175886aa",
-  "b11ac739276c",
-  "b15fdaea0728",
-  "b33bfd1dc050",
-  "b47c910fb114",
-  "b4d01b262606",
-  "b6387d23d5e4",
-  "b8c12e59269e",
-  "bb6bdb607b49",
-  "bc620aaf003d",
-  "c0bb62fd9518",
-  "c29515fe4c67",
-  "c2e81bf9dcf1",
-  "c2f733b3a2d8",
-  "c5650ec07827",
-  "c6a5d3449e76",
-  "c6e37841ce61",
-  "cac9534501f8",
-  "cbed227f7342",
-  "d25525b39ece",
-  "d3059f1da6c8",
-  "d3baca7b54b7",
-  "d3de188a9c57",
-  "d9e75c35aa99",
-  "dc3b7eeae1be",
-  "dc9672b5e499",
-  "df3c3172baaa",
-  "e0079dff7562",
-  "e1c63325f93b",
-  "e2988f027c8d",
-  "e3feb782e54a",
-  "e4dab040df47",
-  "e5a92079cd58",
-  "e74c733e9824",
-  "e77517de5851",
-  "e8c3f19d607a",
-  "e934a5dddacc",
-  "eb9ad0443951",
-  "ec0484d7ecc8",
-  "ee108f7ab686",
-  "ee23b63b1ffd",
-  "f22647fc35c9",
-  "f239515943ee",
-  "fa2d8e4c75d4",
-  "fb0472c60b24",
-  "fb701cf04add",
-  "fcb503abea37",
-  "fe81c86b21d1"
+  "03385de0522a",
+  "07773bb39646",
+  "07b6f3abe41f",
+  "08474a4ec760",
+  "0d7da508ddd2",
+  "0ee9de43bc7f",
+  "103776115452",
+  "14163732aad5",
+  "14761aae15e0",
+  "17fe43b1c334",
+  "1eb7c2ed0ac3",
+  "228c82f09403",
+  "2b7b3033801d",
+  "2cf9705df753",
+  "2d8300cc78b5",
+  "2de8536c2757",
+  "2f5020bdfef3",
+  "333cb435ca7f",
+  "383bb447b4a3",
+  "3d07a059947f",
+  "3e280720f0df",
+  "430a036f1543",
+  "43c83dc42f7e",
+  "491ae910f3b3",
+  "494a5319c2e7",
+  "504193d9e62a",
+  "59207cb6d522",
+  "5cbb419c566c",
+  "5e4c5d67d12d",
+  "66a9015648b4",
+  "691df4d1df3d",
+  "6f4aa5c6b56a",
+  "722e7487bdd7",
+  "730d523e47a2",
+  "785dc3fdb62b",
+  "78f44c97b44a",
+  "79a5c7eb1822",
+  "79e7a19e6bb4",
+  "7a9b6dc4d5fa",
+  "7ac73f4d4b9a",
+  "7b0ab5aca2c3",
+  "7e515073cdc3",
+  "8093b2a86b1a",
+  "85334b009b91",
+  "892e547805eb",
+  "8bbb09d7e77a",
+  "8e28e57f55f8",
+  "8ee9875ffd19",
+  "90587908b421",
+  "92361264f6c7",
+  "93a36a2efc29",
+  "93cd550d7189",
+  "94cca2571672",
+  "9d53dd9e979d",
+  "a19759f220d8",
+  "a5f37f509864",
+  "a5f86642f1f8",
+  "a6325079cd0d",
+  "a915b78f2de2",
+  "a9c624d2d11c",
+  "ad20fa31b1c7",
+  "af28e1ae73df",
+  "b1406d6a0c64",
+  "b29a4ef603fb",
+  "b37e577cec6a",
+  "b7310c4ba098",
+  "b838ebd438df",
+  "b945f1660d74",
+  "bb916ca465e6",
+  "bcb3a96dd9aa",
+  "c16bc7aec713",
+  "c185c89cec1d",
+  "c3cba8fe4db9",
+  "c9c4a40a2c3f",
+  "cd0e9733defd",
+  "d5a69dc67776",
+  "d666821e207c",
+  "d8f71b4b75f7",
+  "d929cd3bcf3a",
+  "dd27a51aa9b2",
+  "de2a3bb1793e",
+  "e0c81c209178",
+  "e705f4345e0c",
+  "e8da8413c92d",
+  "e9b367566a4c",
+  "ec1c24d243f7",
+  "eceaca2b599f",
+  "ee2f8baee00b",
+  "f2b332f5e04d",
+  "f4e6e84d6308",
+  "f84a65fb04f3"
  ]
 }

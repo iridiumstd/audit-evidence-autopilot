@@ -21,6 +21,7 @@ Este README explica só uma coisa: **quem escreve onde**.
 | **C · Dossiê** | `dossie.py` | `dossie`, `saida/dossies/` | tudo |
 | **D · Vigilância** | `vigilancia.py` | `lote.status`; reabre dossiê chamando a Trilha C | tudo |
 | **Interface** | `app.py` | nada além de resolver exceção | tudo |
+| **Interface** | `app.py` | `excecao.status` e `excecao.resolvido_*`, via `db.py` — ator humano resolvendo exceção na Tela 2, decisão prevista pela spec da tela | tudo |
 
 Três regras que não se negociam:
 
